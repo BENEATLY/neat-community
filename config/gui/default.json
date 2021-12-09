@@ -1,5 +1,5 @@
 {
-    "apiRootUrl": "http://localhost:8001/api/",
+    "apiRootUrl": "http://localhost:6010/api/",
     "definitions": {
         "Object": {
             "ActiveSession": {

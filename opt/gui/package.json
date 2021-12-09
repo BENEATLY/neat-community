@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "nx",
     "start": "ng serve",
-    "neatly-serve": "node --max_old_space_size=8192 /usr/bin/npx ng serve --port 7001 --prod=true --progress=true --sourceMap=false --host 0.0.0.0 --disable-host-check --poll 2000",
+    "neatly-serve": "node --max_old_space_size=8192 /usr/bin/npx ng serve --port 6001 --prod=true --progress=true --sourceMap=false --host 0.0.0.0 --disable-host-check --poll 2000",
     "build": "ng build --prod",
     "neatly-build": "node --max_old_space_size=8192 /usr/bin/ng build --prod=true --progress=true",
     "test": "ng test",

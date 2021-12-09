@@ -1,7 +1,7 @@
 {
     "basePath": "/api/",
     "debug": false,
-    "port": 8001,
+    "port": 6010,
     "protocol": "http",
     "session": {
         "expiration": 14,
