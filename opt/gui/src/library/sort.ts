@@ -1,6 +1,6 @@
 //  Author:     Thomas D'haenens
 //  License:    GPL-3.0
-//  Link:       https://github.com/BENEATLY/neat-start-orig/
+//  Link:       https://github.com/BENEATLY/neat-community/
 //  Contact:    https://neatly.be/
 
 
