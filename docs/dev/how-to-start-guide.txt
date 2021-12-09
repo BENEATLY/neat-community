@@ -23,7 +23,7 @@
 	The HTTP Production Web Server is reachable at:         http://localhost:6002/
 	The HTTPS Production Web Server is reachable at:        https://localhost:6003/
 	The API Server is reachable at:                         http://localhost:6010/api/
-	The PostgreSQL Database is reachable at:                http://localhost:6020
+	The PostgreSQL Database is reachable at:                localhost:6020
 
 
 Additional information:
