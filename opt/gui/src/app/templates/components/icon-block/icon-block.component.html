@@ -1,0 +1,35 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Block -->
+  <div class="col-xxxl-{{xxxlColWidth}} col-xxl-{{xxlColWidth}} col-xl-{{xlColWidth}} col-lg-{{lgColWidth}} col-md-{{mdColWidth}} col-sm-{{smColWidth}} col-{{xsColWidth}} block">
+    <div [ngStyle]="{'background': background}" class="row nomargin">
+
+      <!-- Block Icon -->
+      <div class="block-icon">
+        <img [src]="icon">
+      </div>
+
+      <!-- Block Info -->
+      <div class="block-info">
+
+        <!-- Block Title -->
+        <div class="block-title">{{ title | translate: titleParams }}</div>
+
+        <!-- Block Content -->
+        <div class="block-content">{{ content }}</div>
+
+      </div>
+
+    </div>
+  </div>
+
+</ng-template>

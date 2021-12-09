@@ -1,0 +1,42 @@
+{
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableIvy": false
+  },
+  "compileOnSave": false,
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "module": "esnext",
+    "baseUrl": "./",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@app/*": ["app/*"],
+      "@focus/*": ["focus/*"],
+      "@modal/*": ["modal/*"],
+      "@environments/*": ["environments/*"],
+      "@focuses/*": ["app/focuses/*"],
+      "@modals/*": ["app/modals/*"],
+      "@templates/*": ["app/templates/*"],
+      "@library/*": ["library/*"],
+      "@plugin-library/*": ["library/plugin/*"]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}

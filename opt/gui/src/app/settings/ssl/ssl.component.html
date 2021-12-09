@@ -1,0 +1,201 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Custom Template: Active API Protocol -->
+<ng-template #activeAPIProtocolTemplate>
+
+  <!-- Value -->
+  <p class="line-property-value">
+
+    <!-- Icon -->
+    <img *ngIf="sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTP'" class="line-property-icon-shift-2 no-shift" src="/assets/svgs/triangle-yellow.svg">
+    <img *ngIf="sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTPS'" class="line-property-icon-shift-3 no-shift" src="/assets/svgs/lock-green.svg">
+
+    <!-- Text -->
+    <span>{{ sslLib.getActiveAPIProtocol(appConfig.config) }}</span>
+
+  </p>
+
+</ng-template>
+
+<!-- Custom Template: Active GUI Protocol -->
+<ng-template #activeGUIProtocolTemplate>
+
+  <!-- Value -->
+  <p class="line-property-value">
+
+    <!-- Icon -->
+    <img *ngIf="sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTP'" class="line-property-icon-shift-2 no-shift" src="/assets/svgs/triangle-yellow.svg">
+    <img *ngIf="sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTPS'" class="line-property-icon-shift-3 no-shift" src="/assets/svgs/lock-green.svg">
+
+    <!-- Text -->
+    <span>{{ sslLib.getActiveGUIProtocol(appConfig.config) }}</span>
+
+  </p>
+
+</ng-template>
+
+<!-- Custom Template: Has SSL -->
+<ng-template #hasSSLTemplate let-sslInfo="item">
+
+  <!-- SSL -->
+  <img *ngIf="sslLib.hasValidSSL(sslInfo)" [src]="'/assets/svgs/check-green.svg'">
+
+  <!-- No SSL -->
+  <img *ngIf="(!sslLib.hasValidSSL(sslInfo))" class="line-property-icon-shift-1" [src]="'/assets/svgs/cross-red.svg'">
+
+</ng-template>
+
+<!-- Custom Template: SSL Certificate -->
+<ng-template #sslCertificateTemplate let-sslInfo="item">
+
+  <!-- Present -->
+  <p *ngIf="((sslInfo != null) && objLib.lookUpKey(sslInfo, 'certificate') && sslInfo['certificate'])" class="line-property-value">{{ sslInfo.certificate }}</p>
+
+  <!-- Not Present -->
+  <p *ngIf="((sslInfo == null) || (!objLib.lookUpKey(sslInfo, 'certificate')) || (!sslInfo['certificate']))" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: SSL Key -->
+<ng-template #sslKeyTemplate let-sslInfo="item">
+
+  <!-- Present -->
+  <p *ngIf="((sslInfo != null) && objLib.lookUpKey(sslInfo, 'key') && sslInfo['key'])" class="line-property-value">{{ sslInfo.key }}</p>
+
+  <!-- Not Present -->
+  <p *ngIf="((sslInfo == null) || (!objLib.lookUpKey(sslInfo, 'key')) || (!sslInfo['key']))" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: SSL Issuer Organisation -->
+<ng-template #sslIssuerOrganisationTemplate let-sslInfo="item">
+
+  <!-- Present -->
+  <p *ngIf="(sslInfo != null) && objLib.lookUpKey(sslInfo, 'issuer') && objLib.lookUpKey(sslInfo.issuer, 'organisation') && sslInfo['issuer']['organisation']" class="line-property-value">{{ sslInfo.issuer.organisation }}</p>
+
+  <!-- Not Present -->
+  <p *ngIf="((sslInfo == null) || (!objLib.lookUpKey(sslInfo, 'issuer')) || (!objLib.lookUpKey(sslInfo.issuer, 'organisation')) || (!sslInfo['issuer']['organisation']))" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: SSL Issuer Location -->
+<ng-template #sslIssuerLocationTemplate let-sslInfo="item">
+
+  <!-- Present -->
+  <p *ngIf="(sslInfo != null) && objLib.lookUpKey(sslInfo, 'issuer') && objLib.lookUpKey(sslInfo.issuer, 'location') && sslInfo['issuer']['location']" class="line-property-value">{{ sslInfo.issuer.location }}</p>
+
+  <!-- Not Present -->
+  <p *ngIf="((sslInfo == null) || (!objLib.lookUpKey(sslInfo, 'issuer')) || (!objLib.lookUpKey(sslInfo.issuer, 'location')) || (!sslInfo['issuer']['location']))" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: SSL Expiry Date -->
+<ng-template #sslExpiryDateTemplate let-sslInfo="item">
+
+  <!-- Present -->
+  <p *ngIf="((sslInfo != null) && objLib.lookUpKey(sslInfo, 'expiryDate') && sslInfo['expiryDate'])" class="line-property-value" [ngClass]="{'expire': timeLib.closeToTarget(sslInfo.expiryDate, 14, true)}">
+    {{ timeLib.convertTimeDependentToString(sslInfo.expiryDate, valLib.fakeDateTimeProperty(), timezone) }}
+  </p>
+
+  <!-- Not Present -->
+  <p *ngIf="((sslInfo == null) || (!objLib.lookUpKey(sslInfo, 'expiryDate')) || (!sslInfo['expiryDate']))" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+
+<!-- Determine if Route is Allowed -->
+<div *ngIf="routeAllowed()" class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header>
+
+  <!-- Upload New Certificate -->
+  <app-template-navigation-button [type]="'file'" [context]="context" [title]="'settings.ssl.upload-cert'" [reference]="'import-cert-field-top'" [icon]="'/assets/svgs/cloud-upload-colored.svg'" [accept]="'.crt'" [action]="uploadCertificate"></app-template-navigation-button>
+
+  <!-- Upload New Key -->
+  <app-template-navigation-button [type]="'file'" [context]="context" [title]="'settings.ssl.upload-key'" [reference]="'import-key-field-top'" [icon]="'/assets/svgs/cloud-upload-colored.svg'" [accept]="'.key'" [action]="uploadKey"></app-template-navigation-button>
+
+  <!-- Secure API -->
+  <ng-container *ngIf="sslLib.hasValidSSL(sslInfo) && (sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTP') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTP')">
+    <app-template-navigation-button [context]="context" [title]="'common.ssl.secure.api'" [icon]="'/assets/svgs/switch-crossing-arrows-colored.svg'" [action]="switchAPIProtocol"></app-template-navigation-button>
+  </ng-container>
+
+  <!-- Secure GUI -->
+  <ng-container *ngIf="sslLib.hasValidSSL(sslInfo) && (sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTP') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTPS')">
+    <app-template-navigation-button [context]="context" [title]="'common.ssl.secure.gui'" [icon]="'/assets/svgs/switch-crossing-arrows-colored.svg'" [action]="switchGUIProtocol"></app-template-navigation-button>
+  </ng-container>
+
+</app-template-navigation-header>
+
+<!-- Results -->
+<div *ngIf="(sslInfo == null) || (!objLib.isEmptyObject(sslInfo))" class="results center">
+
+  <!-- Greeting -->
+  <app-template-greeting-title [type]="'ssl'" [item]="sslInfo"></app-template-greeting-title>
+
+  <!-- Boxes -->
+  <div class="row nomargin justify">
+
+    <!-- Show Security Info -->
+    <app-template-item-breakdown-box [context]="context" [title]="'settings.ssl.security'" [infoRef]="'common.ssl.info.security'" [item]="sslInfo" [definitions]="[{title: {text: 'common.ssl.activeprotocol.api', textParams: {}}, template: activeAPIProtocolTemplate}, {title: {text: 'common.ssl.activeprotocol.gui', textParams: {}}, template: activeGUIProtocolTemplate}, {}, {title: {text: 'common.ssl.hasssl', textParams: {}}, template: hasSSLTemplate}, {title: {text: 'common.ssl.certificate', textParams: {}}, template: sslCertificateTemplate}, {title: {text: 'common.ssl.key', textParams: {}}, template: sslKeyTemplate}]"></app-template-item-breakdown-box>
+
+    <!-- Show Certificate Info -->
+    <ng-container *ngIf="(sslLib.hasValidSSL(sslInfo) && objLib.lookUpKey(sslInfo, 'expiryDate') && sslInfo['expiryDate'])">
+      <app-template-item-breakdown-box [context]="context" [title]="'settings.ssl.certificate'" [infoRef]="'common.ssl.info.certificate'" [item]="sslInfo" [definitions]="[{title: {text: 'common.ssl.issuer.organisation', textParams: {}}, template: sslIssuerOrganisationTemplate}, {title: {text: 'common.ssl.issuer.location', textParams: {}}, template: sslIssuerLocationTemplate}, {title: {text: 'common.ssl.expirydate', textParams: {}}, template: sslExpiryDateTemplate}]"></app-template-item-breakdown-box>
+    </ng-container>
+
+    <!-- Cert/Key Upload -->
+    <app-template-row [xxxlColWidth]="4">
+
+      <!-- Upload Certificate -->
+      <app-template-action-box [size]="6" [type]="'file'" [context]="context" [title]="'common.ssl.upload.certificate'" [infoRef]="'common.ssl.info.upload.certificate'" [reference]="'import-cert-field'" [buttonIcon]="'/assets/svgs/cloud-upload.svg'" [buttonText]="'settings.ssl.upload-cert'" [accept]="'.crt'" [buttonAction]="uploadCertificate"></app-template-action-box>
+
+      <!-- Upload Key -->
+      <app-template-action-box [size]="6" [type]="'file'" [context]="context" [title]="'common.ssl.upload.key'" [infoRef]="'common.ssl.info.upload.key'" [reference]="'import-key-field'" [buttonIcon]="'/assets/svgs/cloud-upload.svg'" [buttonText]="'settings.ssl.upload-key'" [accept]="'.key'" [buttonAction]="uploadKey"></app-template-action-box>
+
+    </app-template-row>
+
+    <!-- Switch Protocol and Questions -->
+    <app-template-row [xxxlColWidth]="4">
+
+      <!-- Switch API Protocol -->
+      <ng-container *ngIf="sslLib.hasValidSSL(sslInfo) && (!((sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTPS') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTPS')))">
+        <app-template-action-box [size]="6" [context]="context" [title]="'common.ssl.switchprotocol.api'" [infoRef]="'common.ssl.info.switchprotocol.api'" [buttonIcon]="'/assets/svgs/switch-crossing-arrows.svg'" [buttonText]="'common.ssl.switchprotocol.to'" [buttonTextParams]="{'protocol': sslLib.getAvailableAPIProtocol(appConfig.config)}" [buttonAction]="switchAPIProtocol"></app-template-action-box>
+      </ng-container>
+
+      <!-- Switch GUI Protocol -->
+      <ng-container *ngIf="sslLib.hasValidSSL(sslInfo) && (!((sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTP') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTP')))">
+        <app-template-action-box [size]="6" [context]="context" [title]="'common.ssl.switchprotocol.gui'" [infoRef]="'common.ssl.info.switchprotocol.gui'" [buttonIcon]="'/assets/svgs/switch-crossing-arrows.svg'" [buttonText]="'common.ssl.switchprotocol.to'" [buttonTextParams]="{'protocol': sslLib.getAvailableGUIProtocol(appConfig.config)}" [buttonAction]="switchGUIProtocol"></app-template-action-box>
+      </ng-container>
+
+      <!-- Questions -->
+      <ng-container *ngIf="(!(sslLib.hasValidSSL(sslInfo) && ((!((sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTP') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTP'))) && (!((sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTPS') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTPS'))))))">
+        <app-template-action-box [size]="6" [context]="context" [type]="'link'" [title]="'settings.ssl.questions'" [buttonIcon]="'/assets/svgs/contact.svg'" [buttonText]="'settings.ssl.contact-us'" [target]="presentLib.getContactLink(appConfig, pluginConfig)"></app-template-action-box>
+      </ng-container>
+
+    </app-template-row>
+
+    <!-- Potentially Just Questions -->
+    <ng-container *ngIf="(sslLib.hasValidSSL(sslInfo) && ((!((sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTP') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTP'))) && (!((sslLib.getActiveGUIProtocol(appConfig.config) == 'HTTPS') && (sslLib.getActiveAPIProtocol(appConfig.config) == 'HTTPS')))))">
+      <app-template-row [xxxlColWidth]="4">
+
+          <!-- Questions -->
+          <app-template-action-box [size]="6" [context]="context" [type]="'link'" [title]="'settings.ssl.questions'" [buttonIcon]="'/assets/svgs/contact.svg'" [buttonText]="'settings.ssl.contact-us'" [target]="presentLib.getContactLink(appConfig, pluginConfig)"></app-template-action-box>
+
+      </app-template-row>
+    </ng-container>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

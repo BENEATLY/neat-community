@@ -1,0 +1,32 @@
+[
+    {
+        "name": "database",
+        "plugin": null,
+        "service": "postgresql-12",
+        "description": "service.default.database"
+    },
+    {
+        "name": "web server",
+        "plugin": null,
+        "service": "nginx",
+        "description": "service.default.webserver"
+    },
+    {
+        "name": "neatly",
+        "plugin": null,
+        "service": "neatly-base",
+        "description": "service.default.neatly"
+    },
+    {
+        "name": "zookeeper",
+        "plugin": null,
+        "service": "kafka-zookeeper",
+        "description": "service.default.zookeeper"
+    },
+    {
+        "name": "kafka",
+        "plugin": null,
+        "service": "kafka",
+        "description": "service.default.kafka"
+    }
+]

@@ -1,0 +1,29 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Determine if Route is Allowed -->
+<div *ngIf="routeAllowed()" class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header [context]="context" [defaultObjectView]="true"></app-template-navigation-header>
+
+<!-- Results -->
+<div class="results">
+
+  <!-- Filter Palette -->
+  <app-template-filter-palette [context]="context"></app-template-filter-palette>
+
+  <!-- Display Result Table -->
+  <app-template-result-table [context]="context"></app-template-result-table>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

@@ -1,0 +1,30 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Modal -->
+<modal-dialog>
+
+  <!-- Modal Title -->
+  <h4 class="modal-title modaltitle" modal-header>{{ meta.title }}</h4>
+
+  <!-- Form -->
+  <div modal-body class="form-group nomargin">
+    <div class="modal-body-normalize">
+      <textarea class="config-textarea modalfield textarea-only" [(ngModel)]="value" [disabled]="true"></textarea>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div modal-footer>
+
+    <!-- Cancel -->
+    <button class="btn btn-neatly-modal" (click)="modalService.cancel()" [translate]="'common.button.close'"></button>
+
+  </div>
+
+</modal-dialog>

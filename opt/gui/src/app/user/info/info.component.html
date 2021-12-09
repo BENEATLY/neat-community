@@ -1,0 +1,61 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Result Div -->
+<div *ngIf="routeAllowed()" class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header></app-template-navigation-header>
+
+<!-- Results -->
+<div *ngIf="!objLib.isEmptyObject(data.userData.info)" class="results center">
+
+  <!-- Greeting -->
+  <app-template-greeting-title [level]="'polite'"></app-template-greeting-title>
+
+  <!-- Boxes -->
+  <div class="row nomargin justify">
+
+    <!-- Show Personal Info -->
+    <app-template-item-box [context]="context" [title]="'user.info.personal-details'" [infoRef]="'user.info.help.personal-details'" [item]="data.userData.info" [objectDefinition]="objectDefinition" [accessLevel]="'own'"></app-template-item-box>
+
+    <!-- Timezone -->
+    <app-template-map-box [context]="context" [title]="'user.info.timezone'" [infoRef]="'user.info.help.timezone'" [cornerAction]="navigateToTimezone" [cornerIcon]="'/assets/svgs/external-link-gradient.svg'" [mapConfig]="mapConfig"></app-template-map-box>
+
+    <!-- Others -->
+    <app-template-row [xxxlColWidth]="4">
+
+      <!-- Language -->
+      <app-template-action-box [size]="4" [type]="'content'" [context]="context" [title]="'user.info.language'" [infoRef]="'user.info.help.language'" [infoRefParams]="{language: translation.translation.language}" [cornerAction]="navigateToLanguage" [cornerIcon]="'/assets/svgs/edit-gradient.svg'">
+
+        <!-- Content -->
+        <div>
+          <span class="flag-icon flag-icon-{{translation.translation.flag}} white-box-flag"></span>
+          <p class="white-box-flag-text">{{ translation.translation.language }}</p>
+        </div>
+
+      </app-template-action-box>
+
+      <!-- Active Sessions -->
+      <ng-container *ngIf="license.validLicense && resultInfo.activesession">
+        <app-template-action-box [size]="4" [type]="'text'" [context]="context" [title]="'user.info.session'" [infoRef]="'user.info.help.session'" [cornerAction]="navigateToSession" [cornerIcon]="'/assets/svgs/external-link-gradient.svg'" [descriptiveText]="'user.info.session-message'" [descriptiveTextParams]="{'amount': resultInfo.activesession.length}"></app-template-action-box>
+      </ng-container>
+
+      <!-- Log Out -->
+      <app-template-action-box [size]="4" [context]="context" [title]="'user.info.logout'" [buttonIcon]="'/assets/svgs/logout.svg'" [buttonText]="'user.info.logout'" [buttonAction]="logOut"></app-template-action-box>
+
+    </app-template-row>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

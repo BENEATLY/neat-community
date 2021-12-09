@@ -1,0 +1,16 @@
+{
+    "engine": {
+        "echo": false,
+        "encoding": "utf-8",
+        "max_overflow": 10,
+        "pool_pre_ping": true,
+        "pool_size": 10,
+        "pool_recycle": 300,
+        "pool_timeout": 30
+    },
+    "session": {
+        "autocommit": false,
+        "autoflush": true,
+        "expire_on_commit": true
+    }
+}

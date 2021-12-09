@@ -1,0 +1,31 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "baseUrl": "./",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@app/*": ["app/*"],
+      "@focus/*": ["focus/*"],
+      "@modal/*": ["modal/*"],
+      "@environments/*": ["environments/*"],
+      "@focuses/*": ["app/focuses/*"],
+      "@modals/*": ["app/modals/*"],
+      "@templates/*": ["app/templates/*"],
+      "@library/*": ["library/*"],
+      "@plugin-library/*": ["library/plugin/*"]
+    },
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "files": [
+    "test.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+}

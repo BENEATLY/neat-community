@@ -1,0 +1,200 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Display Result Table -->
+  <div *ngIf="(context.resultInfo.model != null) && definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition)" class="result-table">
+
+    <!-- Table -->
+    <table class="table" cellspacing="0">
+
+      <!-- Table Head -->
+      <thead>
+        <tr class="rowtitle">
+
+          <!-- Determine Visible Properties -->
+          <ng-container *ngFor="let property of definitionsLib.getDefinitionsForPage(appConfig.config, data.userData.right, context.objectDefinition, context.objectDefinition, 'Get', 'model', context.displayOptions)">
+            <ng-container *ngIf="valLib.isVisible(property) && (!valLib.isImplicit(property)) && context.columns.model[property.property]">
+              <th *ngIf="valLib.isSortable(property)" (click)="sortLib.sortJob(context.sortingArray, 'model', property.property); context.update();" [ngClass]="{'active': (context.sortingArray.model.attr == property.property)}">
+                <span>{{ translateLib.constructPropertyName(context.objectDefinition, property) | translate }}</span>
+                <span *ngIf="valLib.hasUnitPresentation(property.value, property)" class="table-header-unit">({{property.accepted.unit}}) </span>
+                <span *ngIf="context.sortingArray.model.attr == property.property">
+                  <img *ngIf="!context.sortingArray.model.order" class="sort-up" [src]="'/assets/svgs/angle-double-colored.svg'">
+                  <img *ngIf="context.sortingArray.model.order" class="sort-down" [src]="'/assets/svgs/angle-double-colored.svg'">
+                </span>
+              </th>
+              <th *ngIf="!valLib.isSortable(property)" class="unsortable-table-header">
+                <span>{{ translateLib.constructPropertyName(context.objectDefinition, property) | translate }}</span>
+                <span *ngIf="valLib.hasUnitPresentation(property.value, property)" class="table-header-unit">({{property.accepted.unit}}) </span>
+              </th>
+            </ng-container>
+          </ng-container>
+
+          <!-- Info Modal -->
+          <th class="fixed-table-header" style="width: 60px;" [translate]="'common.table.info'"></th>
+
+          <!-- Action Modal -->
+          <ng-container *ngIf="rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Edit', context.accessLevel.selected) || rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Delete', context.accessLevel.selected)">
+            <th class="fixed-table-header" style="width: 60px;" [translate]="'common.table.actions'"></th>
+          </ng-container>
+
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+
+        <!-- Sort Results -->
+        <ng-container *ngFor="let item of context.resultInfo.model">
+          <tr>
+
+            <!-- Properties -->
+            <ng-container *ngFor="let property of definitionsLib.getDefinitionsForPage(appConfig.config, data.userData.right, context.objectDefinition, context.objectDefinition, 'Get', 'model', context.displayOptions)">
+
+              <!-- Determine Value -->
+              <ng-container *ngVar="presentLib.getModelValue(item, property); let modelValue">
+
+                <!-- Presentable (N/A) -->
+                <ng-container *ngIf="valLib.hasPresentableValue(modelValue, property)">
+
+                  <!-- Value Presentation -->
+                  <td [ngClass]="{'table-icon': presentLib.compressContent(property), 'html-present': (!presentLib.compressContent(property))}" *ngIf="context.columns.model[property.property] && valLib.hasValuePresentation(modelValue, property)">
+                    <div *ngIf="(!presentLib.compressContent(property))" class="value-present" [ngClass]="presentLib.getVisualisationClass(property, item, translation)" (click)="presentLib.getVisualisationFunction(property, item, appConfig.config, context.objectDefinition, snackBar, modalService, timezone, translation, route, context.jquery('#update-required'), context.accessLevel.selected)" [innerHtml]="presentLib.applyVisualision(modelValue, property, item, timezone, translation, {'unit': false}) | safe: 'html'"></div>
+                    <img *ngIf="presentLib.compressContent(property) && (!((modelValue == null) || (valLib.isJson(property) && (modelValue.length < 3)) || ((!valLib.isJson(property)) && (modelValue.length == 0))))" [src]="'/assets/svgs/eye-gradient.svg'" (click)="modalLib.longContentModal(modalService, {'value': modelValue, 'property': property, 'title': translate.instant(translateLib.constructPropertyName(context.objectDefinition, property))})">
+                  </td>
+
+                  <!-- Custom Presentation -->
+                  <td class="html-present" *ngIf="context.columns.model[property.property] && valLib.hasCustomPresentation(modelValue, property)" [ngClass]="{'table-icon': valLib.isDownloadAbleFile(property)}">
+                    <img *ngIf="valLib.isImageFile(property)" (click)="focusLib.imageFocus(focusService, {'property': property, 'object': {'name': context.objectDefinition, 'val': modelValue}})" [src]="'/assets/svgs/image-gradient.svg'">
+                    <img *ngIf="valLib.isDownloadAbleFile(property)" (click)="fileLib.downloadFile(property, modelValue, cookieService, http, snackBar)" [src]="'/assets/svgs/download-gradient.svg'">
+                    <ng-container *ngIf="(!valLib.isIconOnly(property))">
+                      <span *ngIf="(!valLib.isLinked(property))" class="nomargin">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, modelValue, property) }}</span>
+                      <span *ngIf="valLib.isLinked(property)" class="nomargin linked" (click)="navigationLib.subNav(router, route.snapshot.url, context.objectDefinition, item, property, modelValue)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, modelValue, property) }}</span>
+                    </ng-container>
+                  </td>
+
+                  <!-- List Presentation -->
+                  <td *ngIf="context.columns.model[property.property] && valLib.hasListPresentation(modelValue, property)" [ngClass]="{'table-icon': (valLib.isCompressed(property) && (modelValue.length > 1))}">
+                    <ng-container *ngIf="!valLib.isCompressed(property) || (modelValue.length <= 1)">
+                      <div class="html-present" *ngFor="let val of modelValue">
+                        <span *ngIf="(!valLib.isLinked(property))" class="nomargin">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                        <span *ngIf="valLib.isLinked(property)" class="nomargin linked" (click)="navigationLib.subNav(router, route.snapshot.url, context.objectDefinition, item, property, val)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                        <br>
+                      </div>
+                    </ng-container>
+                    <img *ngIf="valLib.isCompressed(property) && (modelValue.length > 1)" (click)="navigationLib.subNav(router, route.snapshot.url, context.objectDefinition, item, property, null)" [src]="'/assets/svgs/list-gradient.svg'">
+                  </td>
+
+                  <!-- 'Any' Presentation -->
+                  <td *ngIf="context.columns.model[property.property] && valLib.hasAnyPresentation(modelValue, property)">*<br></td>
+
+                  <!-- Boolean Presentation -->
+                  <td *ngIf="context.columns.model[property.property] && valLib.hasBooleanPresentation(modelValue, property)">
+                    <input *ngIf="!valLib.hasVisualisation(property)" class="table-checkbox" type="checkbox" [ngModel]="modelValue" [disabled]="(!modelValue)">
+                    <div *ngIf="valLib.hasVisualisation(property)" [ngClass]="presentLib.getVisualisationClass(property, item, translation)" (click)="presentLib.getVisualisationFunction(property, item, appConfig.config, context.objectDefinition, snackBar, modalService, timezone, translation, route, context.jquery('#update-required'), context.accessLevel.selected)" [innerHtml]="presentLib.applyVisualision(modelValue, property, item, timezone, translation, {'unit': false}) | safe: 'html'"></div>
+                  </td>
+
+                </ng-container>
+
+                <!-- Not Presentable (N/A) -->
+                <ng-container *ngIf="!valLib.hasPresentableValue(modelValue, property) && context.columns.model[property.property]">
+                  <td *ngIf="valLib.hasNAPresentation(modelValue, property)" [translate]="'common.table.notavailable'"></td>
+                  <td *ngIf="(!valLib.hasNAPresentation(modelValue, property))"></td>
+                </ng-container>
+
+              </ng-container>
+
+            </ng-container>
+
+            <!-- Info Modal -->
+            <td style="width: 50px;" class="table-icon">
+              <img (click)="modalLib.infoModal(modalService, formatLib.formatInfo(appConfig.config, context.objectDefinition, item, (pageLib.determineFixedLevel('model', context.displayOptions) || definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition))), {'object': {'name': context.objectDefinition, 'val': item}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(context.objectDefinition, 'info'), {item: item}), 'accessLevel': context.accessLevel.selected})" [src]="'/assets/svgs/info-gradient.svg'">
+            </td>
+
+            <!-- Action Modal -->
+            <ng-container *ngIf="rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Edit', context.accessLevel.selected) || rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Delete', context.accessLevel.selected)">
+
+              <!-- Default Actions -->
+              <td *ngIf="!actionTemplate" class="table-icon">
+
+                <!-- Edit Modal -->
+                <img *ngIf="rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Edit', context.accessLevel.selected)" (click)="modalLib.propertyModal(modalService, formatLib.formatInfo(appConfig.config, context.objectDefinition, item, (pageLib.determineFixedLevel('model', context.displayOptions) || definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Edit', context.objectDefinition))), {'object': {'name': context.objectDefinition, 'val': item}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(context.objectDefinition, 'edit'), {item: item}), 'type': 'Edit', 'accessLevel': context.accessLevel.selected}, context.jquery('#update-required'))" [src]="'/assets/svgs/edit-gradient.svg'">
+
+                <!-- Delete Modal -->
+                <img *ngIf="rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Delete', context.accessLevel.selected) && valLib.isDeletable(appConfig.config, context.objectDefinition, item, context.accessLevel.selected, context.pageInfo.model['exist'], context.filterArray.model)" (click)="modalLib.propertyModal(modalService, formatLib.formatInfo(appConfig.config, context.objectDefinition, item, (pageLib.determineFixedLevel('model', context.displayOptions) || definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Delete', context.objectDefinition))), {'object': {'name': context.objectDefinition, 'val': item}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(context.objectDefinition, 'delete'), {item: item}), 'type': 'Delete', 'accessLevel': context.accessLevel.selected}, context.jquery('#update-required'))" [src]="'/assets/svgs/delete-gradient.svg'">
+
+              </td>
+
+              <!-- Custom Actions -->
+              <ng-container *ngIf="actionTemplate">
+                <ng-container [ngTemplateOutlet]="actionTemplate" [ngTemplateOutletContext]="{ item: item }"></ng-container>
+              </ng-container>
+
+            </ng-container>
+
+          </tr>
+        </ng-container>
+
+      </tbody>
+
+    </table>
+
+    <!-- No Entries -->
+    <p *ngIf="context.resultInfo.model.length == 0" class="not-found">
+      {{ 'common.table.notfound' | translate: {'objectName': translate.instant(translateLib.constructSP(context.objectDefinition, 1))} }}
+    </p>
+
+    <!-- Bottom Nav -->
+    <div *ngIf="(context.resultInfo.model != null) && definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition)" class="bottom-nav">
+
+      <!-- Page Navigation -->
+      <ng-container *ngIf="pageNav">
+        <div class="page-nav-button" [ngClass]="{'disabled': (context.pageInfo.model.page == 1)}">
+          <a *ngIf="(context.pageInfo.model.page != 1)" (click)="context.pageInfo.model.page = 1; context.update();"><img [src]="'/assets/svgs/angle-double-colored.svg'"></a>
+          <a *ngIf="(context.pageInfo.model.page == 1)"><img [src]="'/assets/svgs/angle-double-colored.svg'"></a>
+        </div>
+        <div class="page-nav-button" [ngClass]="{'disabled': (context.pageInfo.model.page == 1)}">
+          <a *ngIf="(context.pageInfo.model.page != 1)" (click)="context.pageInfo.model.page = context.pageInfo.model.page - 1; context.update();"><img [src]="'/assets/svgs/angle-single-colored.svg'"></a>
+          <a *ngIf="(context.pageInfo.model.page == 1)"><img [src]="'/assets/svgs/angle-single-colored.svg'"></a>
+        </div>
+        <ng-container *ngFor="let pageNr of pageLib.determinePagerNumbers(context.pageInfo, 'model')">
+          <div class="page-nr-button active" *ngIf="context.pageInfo.model.page == pageNr"><a>{{ pageNr }}</a></div>
+          <div class="page-nr-button" *ngIf="context.pageInfo.model.page != pageNr" (click)="context.pageInfo.model.page = pageNr; context.update();"><a>{{ pageNr }}</a></div>
+        </ng-container>
+        <div class="page-nav-button" [ngClass]="{'disabled': (context.pageInfo.model.page == context.pageInfo.model.maxPage)}">
+          <a *ngIf="(context.pageInfo.model.page != context.pageInfo.model.maxPage)" (click)="context.pageInfo.model.page = context.pageInfo.model.page + 1; context.update();"><img [src]="'/assets/svgs/angle-single-colored.svg'"></a>
+          <a *ngIf="(context.pageInfo.model.page == context.pageInfo.model.maxPage)"><img [src]="'/assets/svgs/angle-single-colored.svg'"></a>
+        </div>
+        <div class="page-nav-button" [ngClass]="{'disabled': (context.pageInfo.model.page == context.pageInfo.model.maxPage)}">
+          <a *ngIf="(context.pageInfo.model.page != context.pageInfo.model.maxPage)" (click)="context.pageInfo.model.page = context.pageInfo.model.maxPage; context.update();"><img [src]="'/assets/svgs/angle-double-colored.svg'"></a>
+          <a *ngIf="(context.pageInfo.model.page == context.pageInfo.model.maxPage)"><img [src]="'/assets/svgs/angle-double-colored.svg'"></a>
+        </div>
+      </ng-container>
+
+      <!-- Results -->
+      <p *ngIf="(context.pageInfo.model['total'] != null)" class="result-numbers">
+        {{ 'common.button.result-segment' | translate: pageLib.resultSegment(context.pageInfo) }}
+      </p>
+
+      <!-- Results / Page -->
+      <div *ngIf="pageNav" class="dropdown dropup view-dropdown nr-of-results">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownViewButton" data-toggle="dropdown">{{context.pageInfo.model['perPage']}}</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownViewButton">
+          <ng-container *ngFor="let option of pageLib.getResultsPerPageList()">
+            <a class="dropdown-item" (click)="context.pageInfo.model['perPage'] = option; context.pageInfo.model.page = 1; context.update();">{{option}}</a>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

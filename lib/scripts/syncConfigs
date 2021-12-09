@@ -1,0 +1,41 @@
+################################################################################
+# Author:     Thomas D'haenens
+# License:    GPL-3.0
+# Link:       https://github.com/BENEATLY/neat-start-orig/
+# Contact:    https://neatly.be/
+################################################################################
+
+
+#!/usr/local/bin/python
+
+# IMPORT: Standard Modules
+import sys                                                                                      # System Lib
+import ujson                                                                                    # UJSON Lib
+
+
+# FUNCTION: Read JSON File (No Logging)
+def readJSONFile(file):
+    with open(file, encoding='utf-8') as content:
+        return ujson.load(content)
+
+
+# CONFIGURATION: Determine Installation Location
+locationConfig = readJSONFile('/etc/neatly/base/location.json')
+
+# CONFIGURATION: Add Current Path to Default Python Paths
+sys.path.append(locationConfig['lib'])
+
+
+# IMPORT: Custom Modules
+import actions                                                                                  # Actions Lib
+
+
+# SYNC: All Configurations
+actions.syncAllConfigurations()
+
+# SYNC: Table Configuration
+actions.syncTableConfiguration()
+
+
+# End Message
+print('Config is synced')

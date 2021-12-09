@@ -1,0 +1,20 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Left Nav Bar -->
+<div *ngIf="navigation" id="left-nav-bar" class="left-nav-bar" [ngClass]="{'left-nav-bar-full': leftNavigation, 'left-nav-bar-small': (!leftNavigation)}">
+
+  <!-- Iterate over Navigation Items -->
+  <ng-container *ngFor="let item of navigation; let i = index;">
+
+    <!-- Left Navigation Item (Level 1) -->
+    <app-template-left-nav-level-1 [item]="navigation[i]" [leftNavigation]="leftNavigation" [fullPath]="fullPath" (collapse)="collapseChain($event)"></app-template-left-nav-level-1>
+
+  </ng-container>
+
+</div>

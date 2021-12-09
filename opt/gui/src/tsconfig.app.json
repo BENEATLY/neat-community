@@ -1,0 +1,24 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@app/*": ["app/*"],
+      "@focus/*": ["focus/*"],
+      "@modal/*": ["modal/*"],
+      "@environments/*": ["environments/*"],
+      "@focuses/*": ["app/focuses/*"],
+      "@modals/*": ["app/modals/*"],
+      "@templates/*": ["app/templates/*"],
+      "@library/*": ["library/*"],
+      "@plugin-library/*": ["library/plugin/*"]
+    },
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

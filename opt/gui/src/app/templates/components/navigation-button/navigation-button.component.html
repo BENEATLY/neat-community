@@ -1,0 +1,41 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Regular Navigation Button -->
+  <div *ngIf="type == 'regular'" class="action-button split">
+    <button class="create-button no-text-transform" (click)="action?action(context):null">
+      <!-- Icon -->
+      <div><img [src]="icon"></div>
+      <!-- Action -->
+      <p>{{ title | translate: titleParams }}</p>
+    </button>
+  </div>
+
+  <!-- File Navigation Button -->
+  <div *ngIf="type == 'file'" class="action-button split">
+    <label for="{{reference}}" class="create-button no-text-transform">
+      <!-- Icon -->
+      <div><img [src]="icon"></div>
+      <!-- Action -->
+      <p>{{ title | translate: titleParams }}</p>
+    </label>
+    <input *ngIf="accept" accept="{{accept}}" class="invisible" id="{{reference}}" name="{{reference}}" type="file" (change)="action(context, $event)">
+    <input *ngIf="!accept" class="invisible" id="{{reference}}" name="{{reference}}" type="file" (change)="action(context, $event)">
+  </div>
+
+  <!-- Right Minimal Navigation Button -->
+  <div *ngIf="type == 'right'" class="icon-button right">
+    <button class="minimal-button" (click)="action(context)">
+      <img [src]="icon">
+    </button>
+  </div>
+
+</ng-template>

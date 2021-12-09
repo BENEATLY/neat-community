@@ -1,0 +1,65 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Custom Template: Licensed -->
+<ng-template #licensedTemplate let-license="item">
+
+  <!-- Valid License -->
+  <img *ngIf="license.validLicense" [src]="'/assets/svgs/check-green.svg'">
+
+  <!-- No License -->
+  <img *ngIf="!license.validLicense" class="line-property-icon-shift-1" [src]="'/assets/svgs/cross-red.svg'">
+
+</ng-template>
+
+<!-- Custom Template: License Type -->
+<ng-template #licenseTypeTemplate let-license="item">
+
+  <!-- Valid License -->
+  <p *ngIf="license.license != null" class="line-property-value">{{ 'common.legal.' + license.license['type'] | translate | uppercase }}</p>
+
+  <!-- No License -->
+  <p *ngIf="license.license == null" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+
+<!-- Determine if Route is Allowed -->
+<div *ngIf="routeAllowed()" class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header></app-template-navigation-header>
+
+<!-- Results -->
+<div class="results center">
+
+  <!-- Greeting -->
+  <app-template-greeting-title [type]="'legal'"></app-template-greeting-title>
+
+  <!-- Boxes -->
+  <div class="row nomargin justify">
+
+    <!-- Show License Info -->
+    <app-template-item-breakdown-box [context]="context" [title]="'settings.legal.license'" [infoRef]="'common.legal.info.license'" [item]="license" [definitions]="[{title: {text: 'common.legal.licensed', textParams: {}}, template: licensedTemplate}, {title: {text: 'common.legal.type', textParams: {}}, template: licenseTypeTemplate}]"></app-template-item-breakdown-box>
+
+    <!-- Questions-->
+    <app-template-row [xxxlColWidth]="4">
+
+      <!-- Questions -->
+      <app-template-action-box [size]="12" [context]="context" [type]="'link'" [title]="'settings.legal.questions'" [buttonIcon]="'/assets/svgs/contact.svg'" [buttonText]="'settings.legal.contact-us'" [target]="presentLib.getContactLink(appConfig, pluginConfig)"></app-template-action-box>
+
+    </app-template-row>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

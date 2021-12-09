@@ -1,0 +1,20 @@
+################################################################################
+# Author:     Thomas D'haenens
+# License:    GPL-3.0
+# Link:       https://github.com/BENEATLY/neat-start-orig/
+# Contact:    https://neatly.be/
+################################################################################
+
+
+[Unit]
+Description=Neatly Base
+Documentation=https://neatly.be/
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/usr/local/bin/
+ExecStart=/usr/local/bin/neatly-base
+
+[Install]
+WantedBy=multi-user.target

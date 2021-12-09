@@ -1,0 +1,62 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Custom Navigation Content -->
+<ng-template #customAction let-item="item">
+
+  <td>
+
+    <!-- Activate -->
+    <button *ngIf="item.installed && !item.activated" class="table-button stacked" [disabled]="!pluginLib.pluginActionPossible(resultInfo.model) || (!pluginLib.pluginTransitionPermitted(resultInfo.model, item, true))" (click)="pluginLib.asyncPluginActivate(appConfig.config, item, translate, cookieService, http, snackBarPosition); syncLib.syncWait(waitTime); reloadConfig();">
+      <p [translate]="'common.plugin.activate'"></p>
+    </button>
+
+    <!-- Deactivate -->
+    <button *ngIf="item.installed && item.activated" class="table-button stacked" [disabled]="!pluginLib.pluginActionPossible(resultInfo.model) || (!pluginLib.pluginTransitionPermitted(resultInfo.model, item, false))" (click)="pluginLib.asyncPluginDeactivate(appConfig.config, item, translate, cookieService, http, snackBarPosition); syncLib.syncWait(waitTime); reloadConfig();">
+      <p [translate]="'common.plugin.deactivate'"></p>
+    </button>
+
+    <!-- Install -->
+    <button *ngIf="!item.installed" class="table-button stacked" [disabled]="!pluginLib.pluginActionPossible(resultInfo.model) || (!pluginLib.pluginTransitionPermitted(resultInfo.model, item, true))" (click)="pluginLib.asyncPluginInstall(appConfig.config, item, translate, cookieService, http, snackBarPosition); syncLib.syncWait(waitTime); update();">
+      <p [translate]="'common.plugin.install'"></p>
+    </button>
+
+    <!-- Uninstall -->
+    <button *ngIf="item.installed && !item.activated" class="table-button stacked" [disabled]="!pluginLib.pluginActionPossible(resultInfo.model) || (!pluginLib.pluginTransitionPermitted(resultInfo.model, item, false))" (click)="pluginLib.asyncPluginUninstall(appConfig.config, item, translate, cookieService, http, snackBarPosition); syncLib.syncWait(waitTime); update();">
+      <p [translate]="'common.plugin.uninstall'"></p>
+    </button>
+
+  </td>
+
+</ng-template>
+
+<!-- Determine if Route is Allowed -->
+<div *ngIf="routeAllowed()" class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header>
+
+  <!-- Help Button -->
+  <ng-container *ngIf="(resultInfo.model != null) && rightLib.sufficientRights(data.userData.right, objectDefinition, 'Get', 'own')">
+    <app-template-navigation-button [type]="'right'" [context]="context" [icon]="'/assets/svgs/help-gradient.svg'" [action]="openHelp"></app-template-navigation-button>
+  </ng-container>
+
+</app-template-navigation-header>
+
+<!-- Results -->
+<div class="results">
+
+  <!-- Display Result Table -->
+  <app-template-result-table [context]="context" [pageNav]="false" [actionTemplate]="customAction"></app-template-result-table>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

@@ -1,0 +1,158 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Filter Palette -->
+  <div *ngIf="(context.resultInfo.model != null) && definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition)" class="filterpalette" [ngStyle]="{'display': (context.filterPanel.model?'block':'none')}">
+
+    <div class="nomargin row">
+
+      <!-- Filter Header -->
+      <div class="col-12 filter-header">
+
+        <!-- Filter Icon -->
+        <div class="filter-icon">
+          <img src="/assets/svgs/filter-gradient.svg">
+        </div>
+
+        <!-- Filter Title -->
+        <p [translate]="'common.button.filter'"></p>
+
+        <!-- Filter Action Buttons -->
+        <div class="filter-button">
+
+          <!-- Applied -->
+          <button *ngIf="filterLib.isCurrentAppliedFilter(context.filterState, context.filterArray)" class="gradient">
+            <div>
+              <img src="/assets/svgs/double-check-gradient.svg">
+            </div>
+            <p [translate]="'common.filter.filter-applied'"></p>
+          </button>
+
+          <!-- Apply -->
+          <button *ngIf="((!filterLib.isCurrentAppliedFilter(context.filterState, context.filterArray)) && filterLib.filterAllowed(context.filterArray.model))" class="green" (click)="context.pageInfo.model.page = 1; context.update();">
+            <div>
+              <img src="/assets/svgs/angle-double.svg">
+            </div>
+            <p [translate]="'common.filter.filter-apply'"></p>
+          </button>
+
+          <!-- Incomplete -->
+          <button *ngIf="((!filterLib.isCurrentAppliedFilter(context.filterState, context.filterArray)) && (!filterLib.filterAllowed(context.filterArray.model)))" class="red">
+            <div>
+              <img src="/assets/svgs/cross-gradient.svg">
+            </div>
+            <p [translate]="'common.filter.filter-invalid'"></p>
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Scroll Filters -->
+      <div class="filter-lines">
+
+        <!-- Iterate over Filter Lines -->
+        <ng-container *ngFor="let filterLine of context.filterArray.model; let line = index; let count = count;">
+
+          <!-- Filter Area -->
+          <div class="filter-area">
+
+            <!-- Filter Number Box -->
+            <div class="filter-box">
+              <p class="filter-number">
+                {{ line+1 }}
+              </p>
+            </div>
+
+            <!-- Iterate over Filter Line Property -->
+            <ng-container *ngFor="let filterProperty of filterLine.property; let i = index;">
+
+              <!-- Subproperty Arrow -->
+              <div *ngIf="(i != 0)" class="filter-arrow">
+                <img src="/assets/svgs/angle-double.svg">
+              </div>
+
+              <div class="dropdown view-dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownViewButton" data-toggle="dropdown" [disabled]="filterLine.fixed">
+                  <ng-container *ngIf="(!filterLine.property[i])">{{ 'common.filter.select-property' | translate }}</ng-container>
+                  <ng-container *ngIf="filterLine.property[i]">{{ translateLib.constructPropertyName(filterLine['object'][i], {'property': filterLine.property[i]}) | translate }}</ng-container>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownViewButton">
+                  <a class="dropdown-item" (click)="filterLine.property[i] = null; filterLib.selectFilter(filterLine, appConfig.config, i);">&nbsp;</a>
+                  <ng-container *ngFor="let j of filterLib.filterableProperties(definitionsLib.getDefinitionsForPage(appConfig.config, data.userData.right, context.objectDefinition, filterLine['object'][i], 'Get', 'model', context.displayOptions))">
+                    <a class="dropdown-item" (click)="filterLine.property[i] = j.property; filterLib.selectFilter(filterLine, appConfig.config, i);">{{ translateLib.constructPropertyName(filterLine['object'][i], j) | translate }}</a>
+                  </ng-container>
+                </div>
+              </div>
+
+            </ng-container>
+
+            <!-- Compare Arrow -->
+            <div *ngIf="((filterLine.property[filterLine.property.length - 1] != null) || ((filterLine.lastProperty != null) && valLib.isNullable(filterLine.lastProperty)))" class="filter-compare-arrow">
+              <img src="/assets/svgs/arrow-right-gradient.svg">
+            </div>
+
+            <!-- Select Comparator -->
+            <div *ngIf="((filterLine.property[filterLine.property.length - 1] != null) || ((filterLine.lastProperty != null) && valLib.isNullable(filterLine.lastProperty)))" class="dropdown view-dropdown comparator-dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownViewButton" data-toggle="dropdown" [disabled]="filterLine.fixed">
+                <ng-container *ngIf="(!filterLine.comparator)">{{ 'common.filter.select-comparator' | translate | titlecase }}</ng-container>
+                <ng-container *ngIf="filterLine.comparator">{{ translateLib.constructComparatorName({'comparator': filterLine.comparator}) | translate | lowercase }}</ng-container>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownViewButton">
+                <a class="dropdown-item" (click)="filterLine.comparator = null; filterLib.onComparatorSelect(context.filterArray.model, filterLine, line, timezone, translation, null);">&nbsp;</a>
+                <ng-container *ngFor="let j of filterLib.determineComparators(filterLine)">
+                  <a class="dropdown-item" (click)="filterLine.comparator = j.comparator; filterLib.onComparatorSelect(context.filterArray.model, filterLine, line, timezone, translation, null);">{{ translateLib.constructComparatorName(j) | translate }}</a>
+                </ng-container>
+              </div>
+            </div>
+
+            <!-- Filter Search Box (String) -->
+            <div *ngIf="((filterLine.property[filterLine.property.length - 1] != null) || ((filterLine.lastProperty != null) && valLib.isNullable(filterLine.lastProperty))) && (filterLine.comparator != null) && (filterLine.ref != null) && valLib.isDefinedString(filterLine.lastProperty)" class="btn-group button-group">
+              <input class="form-control filter-searchbox" type="text" [(ngModel)]="filterLine.ref" [disabled]="filterLine.fixed">
+            </div>
+
+            <!-- Filter Search Box (Number) -->
+            <div *ngIf="((filterLine.property[filterLine.property.length - 1] != null) || ((filterLine.lastProperty != null) && valLib.isNullable(filterLine.lastProperty))) && (filterLine.comparator != null) && (filterLine.ref != null) && valLib.isDefinedNumber(filterLine.lastProperty)" class="btn-group button-group">
+              <input class="form-control filter-searchbox" type="number" [(ngModel)]="filterLine.ref" [disabled]="filterLine.fixed" (input)="formLib.evaluateStrictNumber($event, filterLine)">
+            </div>
+
+            <!-- Filter Search Box (Time/DateTime/Date) -->
+            <div class="filter-datetime">
+              <div *ngIf="((filterLine.property[filterLine.property.length - 1] != null) || ((filterLine.lastProperty != null) && valLib.isNullable(filterLine.lastProperty))) && (filterLine.comparator != null) && (filterLine.ref != null) && valLib.isTimeDependent(filterLine.lastProperty)" class="input-group date" id="filter-{{ line+1 }}-datetimepicker" [ngStyle]="{'width': (valLib.isDefinedDateTime(filterLine.lastProperty)?'195px':'130px')}">
+                <input [(ngModel)]="filterLine.ref" type="text" id="filter-{{ line+1 }}-input" class="form-control modalfield datemodalfield unclickable" [disabled]="filterLine.fixed"/>
+                <span class="input-group-addon">
+                  <img [src]="'/assets/svgs/calendar-gradient.svg'">
+                </span>
+              </div>
+            </div>
+
+            <!-- Delete Filter -->
+            <div *ngIf="(!filterLine.fixed) && ((line != 0) || (context.filterArray.model.length > 1)) && (line != context.filterArray.model.length) && ((line+1) != context.filterArray.model.length)" (click)="filterLib.deleteFilter(context.filterArray.model, line)" class="delete-filter">
+              <img src="/assets/svgs/cross-gradient.svg">
+            </div>
+
+            <!-- Incomplete Filter -->
+            <div *ngIf="!filterLib.singleFilterAllowed(filterLine, line, count)" class="incomplete-filter" [translate]="'common.filter.filter-incomplete'"></div>
+
+            <!-- Fixed Filter -->
+            <div *ngIf="filterLine.fixed" class="fixed-filter" [translate]="'common.filter.filter-fixed'"></div>
+
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

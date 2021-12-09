@@ -1,0 +1,15 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Important Message -->
+  <div *ngIf="shortPath && ((!objLib.isEmptyObject(importantMessage)) && importantMessage['active']) && ((!importantMessage['inAppOnly']) || (!publicPages.includes(shortPath)))" class="important-message" [innerHtml]="importantMessage['message']" [ngStyle]="{'background': importantMessage['backgroundColor']}"></div>
+
+</ng-template>

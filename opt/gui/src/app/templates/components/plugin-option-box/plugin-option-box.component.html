@@ -1,0 +1,120 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Show Group -->
+  <div *ngIf="!objLib.isEmptyObject(options) && formatLib.formatPluginOptionInfo(appConfig.config, context.plugin, options, group).length" class="col-xxxl-{{xxxlColWidth}} col-xxl-{{xxlColWidth}} col-xl-{{xlColWidth}} col-lg-{{lgColWidth}} col-md-{{mdColWidth}} col-sm-{{smColWidth}} col-{{xsColWidth}} nopadding flex-column">
+    <div class="white-box">
+
+      <!-- Header -->
+      <div class="header">
+        {{ translateLib.constructPluginGroupName(context.plugin, group) | translate }}
+        <img *ngIf="cornerAction" (click)="cornerAction?cornerAction(context):null" [src]="cornerIcon">
+        <img (click)="modalLib.pluginOptionHelpModal(modalService, {plugin: context.plugin, group: group, options: options})" [src]="'/assets/svgs/info-gradient.svg'">
+      </div>
+
+      <!-- Table -->
+      <table class="info-table">
+        <tbody>
+
+          <!-- Format User Info -->
+          <ng-container *ngFor="let property of formatLib.formatPluginOptionInfo(appConfig.config, context.plugin, options, group)">
+
+            <!-- Property Info -->
+            <tr>
+
+              <!-- Property Name -->
+              <td [ngStyle]="{'width': maxWidth}">
+                <p class="line-property-name" [translate]="translateLib.constructPluginOptionName(context.plugin, group, property)"></p>
+              </td>
+
+              <!-- Property Value -->
+              <td class="left-text">
+
+                <!-- Determine Value -->
+                <ng-container *ngVar="presentLib.typeConversion(property.value, property); let modelValue">
+
+                  <!-- Presentable (N/A) -->
+                  <ng-container *ngIf="valLib.hasPresentableValue(modelValue, property)">
+
+                    <!-- Value Presentation -->
+                    <p *ngIf="valLib.hasValuePresentation(modelValue, property)" [ngClass]="{'table-icon': presentLib.compressContent(property), 'html-present': (!presentLib.compressContent(property))}" class="line-property-value">
+                      <span *ngIf="(!presentLib.compressContent(property))" class="value-present" [innerHtml]="presentLib.applyVisualision(modelValue, property, data.userData.info, timezone, translation, {'info': true}) | safe: 'html'"></span>
+                      <img *ngIf="presentLib.compressContent(property) && (!((modelValue == null) || (valLib.isJson(property) && (modelValue.length < 3)) || ((!valLib.isJson(property)) && (modelValue.length == 0))))" [src]="'/assets/svgs/eye-gradient.svg'" (click)="modalLib.longContentModal(modalService, {'value': modelValue, 'property': property, 'title': translate.instant(translateLib.constructPluginOptionName(context.plugin, group, property))})">
+                    </p>
+
+                    <!-- Custom Presentation -->
+                    <p *ngIf="valLib.hasCustomPresentation(modelValue, property)" class="line-property-value html-present" [ngClass]="{'table-icon': valLib.isDownloadAbleFile(property)}">
+                      <img *ngIf="valLib.isImageFile(property)" (click)="focusLib.imageFocus(focusService, {'property': property, 'object': {'name': translate.instant(translateLib.constructPluginOptionName(context.plugin, group, property)), 'val': modelValue}})" [src]="'/assets/svgs/image-gradient.svg'">
+                      <img *ngIf="valLib.isDownloadAbleFile(property)" (click)="fileLib.downloadFile(property, modelValue, cookieService, http, snackBar)" [src]="'/assets/svgs/download-gradient.svg'">
+                      <ng-container *ngIf="(!valLib.isIconOnly(property))">
+                        <span class="value-present">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, modelValue, property) }}</span>
+                      </ng-container>
+                    </p>
+
+                    <!-- List Presentation -->
+                    <p *ngIf="valLib.hasListPresentation(modelValue, property)" class="line-property-value html-present">
+                      <span class="value-present">
+                        <ng-container *ngFor="let val of modelValue; let index = index; let count = count;">
+                          <span class="text">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                          <span *ngIf="(index < (count-2))" class="text comma">,</span>
+                          <span *ngIf="(index == (count-2))" class="text ampersand">&</span>
+                        </ng-container>
+                      </span>
+                    </p>
+
+                    <!-- 'Any' Presentation -->
+                    <p *ngIf="valLib.hasAnyPresentation(modelValue, property)" class="line-property-value">
+                      <span class="value-present">*</span>
+                    </p>
+
+                    <!-- Boolean Presentation -->
+                   <p *ngIf="valLib.hasBooleanPresentation(modelValue, property)" class="line-property-value info-checkbox">
+                     <input class="table-checkbox" type="checkbox" [checked]="modelValue" [disabled]="(!modelValue)">
+                   </p>
+
+                   <!-- Invisible Presentation -->
+                   <p *ngIf="valLib.hasInvisiblePresentation(modelValue, property)" class="line-property-value html-present table-icon disabled grey">
+                     <img [src]="'/assets/svgs/lock.svg'">
+                   </p>
+
+                  </ng-container>
+
+                  <!-- Not Presentable (N/A) -->
+                  <ng-container *ngIf="!valLib.hasPresentableValue(modelValue, property)">
+                    <p *ngIf="valLib.hasNAPresentation(modelValue, property)" class="line-property-value">
+                      <span class="value-present" [translate]="'common.table.notavailable'"></span>
+                    </p>
+                    <p *ngIf="!valLib.hasNAPresentation(modelValue, property)" class="line-property-value"></p>
+                  </ng-container>
+
+                </ng-container>
+
+              </td>
+
+              <!-- Action -->
+              <td class="info-table-icon">
+
+                <!-- Edit Modal -->
+                <img *ngIf="valLib.isEditable(property) && rightLib.sufficientPluginOptionRights(data.userData.pluginOptionRight, context.plugin['id'], 'Edit', group, property.property)" (click)="modalLib.pluginOptionModal(modalService, [property], {'plugin': context.plugin, 'group': group, 'config': appConfig.config, 'route': route}, context.jquery('#update-required'))" [src]="'/assets/svgs/edit-gradient.svg'">
+
+              </td>
+
+            </tr>
+
+          </ng-container>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</ng-template>

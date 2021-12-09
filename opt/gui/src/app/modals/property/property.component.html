@@ -1,0 +1,278 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Modal -->
+<modal-dialog>
+
+  <!-- Modal Title -->
+  <h4 class="modal-title modaltitle" modal-header>{{ meta.title }}</h4>
+
+  <!-- No Body Margin if Delete Type -->
+  <div *ngIf="meta.type == 'Delete'" modal-body class="form-group noheight nopadding nomargin"></div>
+
+  <!-- Content -->
+  <div *ngIf="meta.type != 'Delete'" modal-body class="form-group">
+    <div class="row nomargin property-content">
+
+      <!-- Info Field -->
+      <ng-container *ngIf="infoProperty">
+
+        <div class="col-12 popupinput">
+
+          <!-- Info Title -->
+          <label class="modallabel help-label">{{ 'common.label.help' | translate: {'propertyName': translate.instant(translateLib.constructPropertyName(meta.object.name, infoProperty))} }}</label>
+
+          <!-- Info Content -->
+          <span class="help-content" [innerHtml]="translate.instant(translateLib.constructPropertyHelpMessage(meta.object.name, infoProperty), {'right': meta.accessLevel}) | safe: 'html'"></span>
+
+        </div>
+
+      </ng-container>
+
+      <!-- Maximized Field -->
+      <ng-container *ngIf="(maximizedProperty && (!infoProperty))">
+
+        <div class="col-12 popupinput">
+
+          <!-- Property Name (Not Censored) -->
+          <label class="modallabel" *ngIf="(!valLib.isCensored(maximizedProperty))" [translate]="translateLib.constructPropertyName(meta.object.name, maximizedProperty)"></label>
+          <img *ngIf="translateLib.hasTranslation(translate, translateLib.constructPropertyHelpMessage(meta.object.name, maximizedProperty), {'right': meta.accessLevel})" (click)="setWindowProperty('info', maximizedProperty);" src="/assets/svgs/info-gradient.svg">
+          <img (click)="setWindowProperty('maximized', null);" src="/assets/svgs/resize-gradient.svg">
+
+          <!-- Text Area Presentation -->
+          <textarea *ngIf="valLib.hasMaxConstraint(maximizedProperty)" class="form-control modalfield config-textarea" id="{{ maximizedProperty.property.toLowerCase() }}-input" [(ngModel)]="maximizedProperty.value" maxlength="{{ maximizedProperty.accepted.max }}" [disabled]="formLib.disabledProperty(meta, maximizedProperty) || objLib.lookUpKey(fixedList, maximizedProperty.property) || ((meta.type == 'Edit') && (!valLib.isEditable(maximizedProperty)))"></textarea>
+          <textarea *ngIf="(!valLib.hasMaxConstraint(maximizedProperty))" class="form-control modalfield config-textarea" id="{{ maximizedProperty.property.toLowerCase() }}-input" [(ngModel)]="maximizedProperty.value" [disabled]="formLib.disabledProperty(meta, maximizedProperty) || objLib.lookUpKey(fixedList, maximizedProperty.property) || ((meta.type == 'Edit') && (!valLib.isEditable(maximizedProperty)))"></textarea>
+
+        </div>
+
+      </ng-container>
+
+      <!-- Not Maximized -->
+      <ng-container *ngIf="((!maximizedProperty) && (!infoProperty))">
+
+        <!-- Iterate over Ordered Properties -->
+        <ng-container *ngFor="let property of sortLib.visuallyOrderProperties(properties)">
+
+          <!-- Filter Properties -->
+          <ng-container *ngIf="(!valLib.isImplicit(property)) && (!valLib.isExternal(property))">
+
+            <!-- Optional Property -->
+            <ng-container *ngIf="valLib.isOptional(property) && (properties.length > 1)">
+
+              <!-- Margin -->
+              <div *ngIf="valLib.needsDoubleInput(property)" class="col-12 popupinput" style="width: 100%; height: 10px; margin: 0;"></div>
+
+              <!-- Optional Property Name & Check Box -->
+              <div class="col-12 popupinput checkbox">
+                <input type="checkbox" class="checkbox-modal modalfield" [(ngModel)]="optionalList[property.property]" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((!valLib.isNullable(property)) && (meta.type == 'Create')) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                <label class="modallabel">{{ 'common.label.set' | translate: {'propertyName': translate.instant(translateLib.constructPropertyName(meta.object.name, property))} }}</label>
+              </div>
+
+            </ng-container>
+
+            <!-- Non-Optional Property -->
+            <ng-container *ngIf="(!valLib.isOptional(property)) || (valLib.isOptional(property) && optionalList[property.property])">
+
+              <!-- Property Value -->
+              <div class="col-12 popupinput" [ngClass]="{'col-md-6': (!valLib.hasBooleanPresentation(property.value, property)), 'col-md-12': valLib.hasBooleanPresentation(property.value, property), 'nomargin': valLib.hasBooleanPresentation(property.value, property)}">
+
+                <!-- Boolean Presentation-->
+                <input *ngIf="valLib.hasBooleanPresentation(property.value, property)" type="checkbox" class="checkbox-modal modalfield" [(ngModel)]="property.value" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+
+                <!-- Property Name (Not Censored) -->
+                <ng-container *ngIf="(!valLib.isCensored(property))">
+                  <label class="modallabel" [translate]="translateLib.constructPropertyName(meta.object.name, property)"></label>
+                  <img *ngIf="translateLib.hasTranslation(translate, translateLib.constructPropertyHelpMessage(meta.object.name, property), {'right': meta.accessLevel})" (click)="setWindowProperty('info', property);" src="/assets/svgs/info-gradient.svg">
+                  <img *ngIf="valLib.isDefinedString(property) && ((valLib.hasMaxConstraint(property) && (property.accepted.max > 100)) || (!valLib.hasMaxConstraint(property)))" (click)="setWindowProperty('maximized', property);" src="/assets/svgs/resize-gradient.svg">
+                </ng-container>
+
+                <!-- Property Name (Censored) -->
+                <label class="modallabel" *ngIf="valLib.isCensored(property)" [translate]="translateLib.constructPropertyName(meta.object.name, property)"></label>
+
+                <!-- Number Presentation -->
+                <div *ngIf="valLib.isDefinedNumber(property)" class="input-group" [ngClass]="{'with-addon': valLib.hasUnitPresentation(property.value, property)}">
+                  <input type="number" [step]="property.accepted.step" class="form-control modalfield" [ngClass]="{'unitmodalfield': valLib.hasUnitPresentation(property.value, property)}" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                  <span *ngIf="valLib.hasUnitPresentation(property.value, property)" class="input-group-addon unit-addon">{{ property.accepted.unit }}</span>
+                </div>
+
+                <!-- String Presentation -->
+                <input *ngIf="valLib.isDefinedString(property) && (!valLib.isCensored(property)) && valLib.hasMaxConstraint(property) && (property.accepted.max <= 100)" type="text" class="form-control modalfield" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" maxlength="{{ property.accepted.max }}" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+
+                <!-- File Presentation -->
+                <div *ngIf="valLib.isDefinedFile(property)" class="input-group with-addon">
+
+                  <!-- Existing File -->
+                  <ng-container *ngIf="((!valLib.isDefinedRawFile(property)) && valLib.isObject(property.value))">
+                    <input *ngIf="valLib.hasMaxConstraint(property)" type="text" class="form-control modalfield addonmodalfield unclickable" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value.name" maxlength="{{ property.accepted.max }}" [disabled]="true">
+                    <input *ngIf="!valLib.hasMaxConstraint(property)" type="text" class="form-control modalfield addonmodalfield unclickable" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value.name" [disabled]="true">
+                    <span class="input-group-addon" [ngClass]="{'disabled': (((meta.type == 'Edit') && (!valLib.isEditable(property))) || (!rightLib.sufficientRights(data.userData.right, 'File', 'Create', 'own')))}">
+                      <label for="import-file-field">
+                        <img [src]="'/assets/svgs/cloud-upload-gradient.svg'">
+                      </label>
+                      <input [accept]="formLib.generateFormatList(property)" class="invisible" id="import-file-field" name="import-file-field" type="file" (change)="fileLib.uploadFile(properties, property, $event.target.files, fileData)" [disabled]="(((meta.type == 'Edit') && (!valLib.isEditable(property))) || (!rightLib.sufficientRights(data.userData.right, 'File', 'Create', 'own')))">
+                    </span>
+                  </ng-container>
+
+                  <!-- Unexisting File or Raw File -->
+                  <ng-container *ngIf="(valLib.isDefinedRawFile(property) || (!valLib.isObject(property.value)))">
+                    <input *ngIf="valLib.hasMaxConstraint(property)" type="text" class="form-control modalfield addonmodalfield unclickable" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" maxlength="{{ property.accepted.max }}" [disabled]="true">
+                    <input *ngIf="!valLib.hasMaxConstraint(property)" type="text" class="form-control modalfield addonmodalfield unclickable" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" [disabled]="true">
+                    <span class="input-group-addon" [ngClass]="{'disabled': (((meta.type == 'Edit') && (!valLib.isEditable(property))) || (!rightLib.sufficientRights(data.userData.right, 'File', 'Create', 'own')))}">
+                      <label for="import-file-field">
+                        <img [src]="'/assets/svgs/cloud-upload-gradient.svg'">
+                      </label>
+                      <input [accept]="formLib.generateFormatList(property)" class="invisible" id="import-file-field" name="import-file-field" type="file" (change)="fileLib.uploadFile(properties, property, $event.target.files, fileData)" [disabled]="(((meta.type == 'Edit') && (!valLib.isEditable(property))) || (!rightLib.sufficientRights(data.userData.right, 'File', 'Create', 'own')))">
+                    </span>
+                  </ng-container>
+
+                </div>
+
+                <!-- Text Area Presentation -->
+                <ng-container *ngIf="valLib.isDefinedString(property) && (!valLib.isCensored(property))">
+                  <textarea *ngIf="valLib.hasMaxConstraint(property) && (property.accepted.max > 100)" class="form-control modalfield modal-textarea" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" maxlength="{{ property.accepted.max }}" [disabled]="(meta.type == 'Edit') && (!valLib.isEditable(property))"></textarea>
+                  <textarea *ngIf="(!valLib.hasMaxConstraint(property))" class="form-control modalfield modal-textarea" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" [disabled]="(meta.type == 'Edit') && (!valLib.isEditable(property))"></textarea>
+                </ng-container>
+
+                <!-- Censored Presentation -->
+                <ng-container *ngIf="valLib.isCensored(property)">
+                  <input *ngIf="valLib.hasMaxConstraint(property)" type="password" class="form-control modalfield" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" maxlength="{{ property.accepted.max }}" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                  <input *ngIf="(!valLib.hasMaxConstraint(property))" type="password" class="form-control modalfield" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                </ng-container>
+
+                <!-- Select Presentation -->
+                <select *ngIf="valLib.isDefinedId(property)" class="form-control modalfield" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" id="select" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                  <ng-container *ngFor="let j of acceptedList[property.property]">
+                    <option [value]="j.id">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, j, property) }}</option>
+                  </ng-container>
+                </select>
+
+                <!-- List Presentation -->
+                <table *ngIf="valLib.isDefinedList(property)" class="table property-table nomargin" id="{{ property.property.toLowerCase() }}-input" cellspacing="0">
+
+                  <!-- Table Header -->
+                  <thead>
+                    <tr>
+
+                      <!-- Header -->
+                      <th colspan="2">
+
+                        <!-- List Name -->
+                        <p *ngIf="property.value && (property.value.length > 0)" [translate]="'common.table.list'"></p>
+                        <p *ngIf="(!property.value) || (property.value.length == 0)" [translate]="'common.table.empty-list'"></p>
+
+                        <!-- Addition Button -->
+                        <button *ngIf="(!((meta.type == 'Edit') && (!valLib.isEditable(property))))" class="list-add-button no-text-transform" (click)="additionList[property.property] = true;">
+                          <img src="/assets/svgs/plus-gradient.svg">
+                          <p [translate]="'common.table.add-item'"></p>
+                        </button>
+
+                      </th>
+
+                    </tr>
+                  </thead>
+
+                  <!-- Table Body -->
+                  <tbody>
+
+                    <!-- Iterate over Property Values -->
+                    <ng-container *ngFor="let k of property.value">
+                      <tr>
+
+                        <!-- Custom Presentation -->
+                        <td>{{ presentLib.customPresentation(appConfig.config, data.userData, translate, k, property) }}</td>
+
+                        <!-- Remove Button -->
+                        <td>
+                          <img *ngIf="(!((meta.type == 'Edit') && (!valLib.isEditable(property))))" (click)="listLib.removeFromList(properties, property.property, k)" src="/assets/svgs/delete-gradient.svg">
+                        </td>
+
+                      </tr>
+                    </ng-container>
+
+                    <!-- In Progress Item -->
+                    <tr *ngIf="additionList[property.property] != null">
+
+                      <!-- Name Presentation -->
+                      <td class="addition">
+                        <select class="form-control modalfield" [(ngModel)]="additionList[property.property]" id="select" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)">
+                          <option *ngFor="let j of searchLib.filterNotSelected(acceptedList[property.property], property.value)" [value]="j.id">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, j, property) }}</option>
+                        </select>
+                      </td>
+
+                      <!-- Add Button -->
+                      <td>
+                        <img (click)="listLib.addToList(properties, property.property, acceptedList, additionList)" src="/assets/svgs/plus-square-gradient.svg">
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+                <!-- DateTime Presentation -->
+                <div *ngIf="valLib.isTimeDependent(property)" class="input-group with-addon" id="{{ property.property.toLowerCase() }}-datetimepicker">
+                  <input [(ngModel)]="property.value" type="text" id="{{ property.property.toLowerCase() }}-input" class="form-control modalfield addonmodalfield unclickable" [disabled]="(meta.type == 'Edit') && (!valLib.isEditable(property))">
+                  <span class="input-group-addon" [ngClass]="{'disabled': (meta.type == 'Edit') && (!valLib.isEditable(property))}">
+                    <img [src]="'/assets/svgs/calendar-gradient.svg'">
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- Double Confirmation -->
+              <div *ngIf="valLib.needsDoubleInput(property)" class="col-12 col-md-6 popupinput">
+                <label class="modallabel">{{ 'common.label.reenter' | translate: {'propertyName': translate.instant(translateLib.constructPropertyName(meta.object.name, property))} }}</label>
+
+                <!-- Censored Input -->
+                <ng-container *ngIf="valLib.isCensored(property)">
+                  <input *ngIf="valLib.hasMaxConstraint(property)" type="password" class="form-control modalfield" name="comparedValue" id="{{ property.property.toLowerCase() }}-compared-input" [(ngModel)]="property.comparedValue" maxlength="{{ property.accepted.max }}" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                  <input *ngIf="!valLib.hasMaxConstraint(property)" type="password" class="form-control modalfield" name="comparedValue" id="{{ property.property.toLowerCase() }}-compared-input" [(ngModel)]="property.comparedValue" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                </ng-container>
+
+                <!-- Uncensored Input -->
+                <ng-container *ngIf="!valLib.isCensored(property)">
+                  <input *ngIf="valLib.hasMaxConstraint(property)" type="text" class="form-control modalfield" name="comparedValue" id="{{ property.property.toLowerCase() }}-compared-input" [(ngModel)]="property.comparedValue" maxlength="{{ property.accepted.max }}" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                  <input *ngIf="!valLib.hasMaxConstraint(property)" type="text" class="form-control modalfield" name="comparedValue" id="{{ property.property.toLowerCase() }}-compared-input" [(ngModel)]="property.comparedValue" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                </ng-container>
+
+              </div>
+
+            </ng-container>
+
+          </ng-container>
+
+        </ng-container>
+
+      </ng-container>
+
+    </div>
+
+    <!-- Margin -->
+    <div *ngIf="(!maximizedProperty) && (!infoProperty) && presentLib.needsBottomSpace(sortLib.visuallyOrderProperties(properties))" style="width: 100%; height: 10px;"></div>
+
+  </div>
+
+  <!-- Footer -->
+  <div modal-footer>
+
+    <!-- Submit -->
+    <button *ngIf="(!infoProperty) && (!maximizedProperty)" class="btn btn-neatly-modal" (click)="submit()" [disabled]="(!processed) || (!submitAllowed())" [translate]="(objLib.lookUpKey(meta, 'submit')?meta.submit:('common.button.' + meta.type.toLowerCase()))"></button>
+
+    <!-- Cancel -->
+    <button *ngIf="(!infoProperty) && (!maximizedProperty)" class="btn" (click)="modalService.cancel()" [translate]="'common.button.cancel'"></button>
+
+    <!-- Info Property -->
+    <button *ngIf="infoProperty" class="btn" (click)="setWindowProperty('info', null);" [translate]="'common.button.back'"></button>
+
+    <!-- Maximized Property -->
+    <button *ngIf="maximizedProperty && (!infoProperty)" class="btn" (click)="setWindowProperty('maximized', null);" [translate]="'common.button.back'"></button>
+
+  </div>
+
+</modal-dialog>

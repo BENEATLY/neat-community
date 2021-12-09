@@ -1,0 +1,46 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+<!-- Full Content -->
+<div id="content" [ngClass]="{'full-content': (shortPath != 'home')}">
+
+  <!-- Navigation Bar -->
+  <app-navbar></app-navbar>
+
+  <div class="app-wrapper">
+
+    <!-- Left Bar -->
+    <app-leftbar></app-leftbar>
+
+    <!-- Router Module -->
+    <div id="content-page" class="nopadding content-page" (scroll)="scrollContent($event)" [ngClass]="{'left-nav-bar-full-page': (navigation && leftNavigation), 'left-nav-bar-small-page': (navigation && (!leftNavigation)), 'nomargin': (!navigation), 'full-content-page': (noNavPages.includes(shortPath)), 'no-display': (navigation && leftNavigation && (innerWidth < 550))}">
+
+      <!-- Important Message -->
+      <app-template-important-message></app-template-important-message>
+
+      <!-- Scroll to Top Button -->
+      <button id="content-scroll" class="scrolltotopbutton" (click)="scrollToTop()" [ngClass]="{'inactive': (!contentScroll.active)}" [ngStyle]="{'bottom': ('calc(' + '16px' + ' + ' + contentScroll.offset.toString() + 'px)')}">
+        <img src="/assets/svgs/angle-double.svg">
+      </button>
+
+      <!-- Router Outlet -->
+      <router-outlet></router-outlet>
+
+    </div>
+
+    <!-- Modal Module -->
+    <modal-outlet></modal-outlet>
+
+    <!-- Focus Module -->
+    <focus-outlet></focus-outlet>
+
+    <!-- Update Hook -->
+    <div id="update-required" class="invisible"></div>
+
+  </div>
+
+</div>

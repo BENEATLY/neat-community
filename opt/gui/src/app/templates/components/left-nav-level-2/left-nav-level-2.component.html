@@ -1,0 +1,52 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Final Item -->
+  <div *ngIf="objLib.lookUpKey(item, 'routerLink')" [ngClass]="{'active': navigationLib.checkPath(item.routerLink, fullPath)}" routerLink="{{item.routerLink}}" [ngStyle]="{'padding-left': 'calc(35px - ' + (10 - depth*18 - (objLib.lookUpKey(item, 'leftOffset')?item.leftOffset:0)).toString() + 'px)'}">
+
+    <!-- Arrow -->
+    <img src="/assets/svgs/angle-double.svg">
+
+    <!-- Description -->
+    <span [translate]="item.name"></span>
+
+  </div>
+
+  <!-- Sub Level Item -->
+  <ng-container *ngIf="!objLib.lookUpKey(item, 'routerLink') && objLib.lookUpKey(item, 'subItems') && item.subItems.length">
+
+    <!-- Sub Level Parent -->
+    <div [ngClass]="{'active': (navigationLib.checkSubItemPath(item, fullPath) && item.collapse)}" [ngStyle]="{'padding-left': 'calc(35px - ' + (10 - depth*18 - (objLib.lookUpKey(item, 'leftOffset')?item.leftOffset:0)).toString() + 'px)'}" (click)="collapseItem()">
+
+      <!-- Arrow -->
+      <img src="/assets/svgs/angle-double.svg" [ngClass]="{'down': (!item.collapse)}">
+
+      <!-- Description -->
+      <span [translate]="item.name"></span>
+
+    </div>
+
+    <!-- Sub Items -->
+    <ng-container *ngIf="!item.collapse">
+
+      <!-- Iterate Sub Items -->
+      <ng-container *ngFor="let subItem of item.subItems; let i = index;">
+
+        <!-- Left Navigation Item (Level 2) -->
+        <app-template-left-nav-level-2 [item]="item.subItems[i]" [fullPath]="fullPath" [depth]="depth+1" (collapse)="collapseChain($event)"></app-template-left-nav-level-2>
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-container>
+
+</ng-template>

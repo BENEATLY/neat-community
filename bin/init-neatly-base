@@ -1,0 +1,182 @@
+#!/usr/local/bin/python
+
+################################################################################
+# Author:     Thomas D'haenens
+# License:    GPL-3.0
+# Link:       https://github.com/BENEATLY/neat-start-orig/
+# Contact:    https://neatly.be/
+################################################################################
+
+
+# IMPORT: Standard Modules
+import json                                                                                 # JSON Lib
+import os                                                                                   # OS Lib
+import psycopg2                                                                             # PostgreSQL Client
+import sys                                                                                  # System Lib
+import subprocess                                                                           # Subprocess Lib
+
+
+# FUNCTION: Read JSON File (No Logging)
+def readJSONFile(file):
+    with open(file) as content:
+        return json.load(content)
+
+# FUNCTION: Write JSON File (No Logging)
+def writeJSONFile(file, info):
+    with open(file, 'w+') as content:
+        json.dump(info, content, indent=4, sort_keys=True)
+
+
+# CONFIGURATION: Location Configuration
+locationConfig = readJSONFile('/etc/neatly/base/location.json')
+
+
+# Generic Welcome Message
+print('\nHello! This is the installer for Neatly Base.')
+print('We\'ll go through a couple of steps to complete the Neatly Base Installation.\n')
+
+
+# Check if Installation was Already Performed
+if os.path.isfile('/etc/neatly/base/db.json'):
+    print('It seems like the installation was already performed.')
+    reconfigured = input('Are you sure you want to reconfigure Neatly Base? (yes/no): ')
+    if ((reconfigured == 'yes') or (reconfigured == 'y')):
+        print('We\'ll go through a couple of steps to reconfigure Neatly Base.\n')
+    else:
+        print('\nWe\'ll leave the installation as it is for now.')
+        print('For more information, visit https://neatly.be/.\n')
+        sys.exit()
+
+
+# DATABASE INSTALLATION
+print('STEP 1) DATABASE INSTALLATION\n')
+
+# Database Type
+setup = False
+while (not setup):
+    dbType = input('Which database type are you using? (PostgreSQL): ')
+    if (dbType.lower() == 'postgresql'):
+        dbType, setup = dbType.lower(), True
+    else: print('This is an invalid option, let\'s try again.')
+print()
+
+# Database IP Address
+setup = False
+while (not setup):
+    dbIp = input('What\'s the IP address or host name of the database? (localhost,..): ')
+    if (os.system('ping -c 1 ' + dbIp + ' &> /dev/null') == 0): setup = True
+    else: print(dbIp + ' is not reachable. Please enter a reachable endpoint.')
+print()
+
+# Database Port
+setup = False
+while (not setup):
+    dbPort = input('What\'s the port used by the database? (default: 5432): ')
+    if dbPort.isdigit(): setup = True
+    else: print(dbPort + ' is not a valid port. Please enter a valid port.')
+print()
+
+# Database UserName, Pass and Name
+setup = False
+while (not setup):
+    dbUserName = input('What\'s the username used for authenticating to the database?: ')
+    dbPass = input('What\'s the password of this user name?: ')
+    dbName = input('What\'s the name of the database which will be used?: ')
+    if (len(dbName) == 0): print('The name of the database must be specified, let\'s try again.')
+    else:
+        try:
+            connection = psycopg2.connect(host=dbIp, user=dbUserName, password=dbPass, database=dbName, port=int(dbPort))
+            setup = True
+        except: print('Was not able to authenticate to this database, let\'s try again.')
+print()
+
+# Save Database Configuration
+writeJSONFile('/etc/neatly/base/db.json', {'connection': {'type': dbType, 'userName': dbUserName, 'password': dbPass, 'ip': dbIp, 'db': dbName, 'port': int(dbPort), 'charSet': 'utf8'}})
+
+# Create Database Tables
+print('We\'re creating the tables in database ' + dbName + '.')
+(statusCode, output) = subprocess.getstatusoutput(locationConfig['lib'].replace(' ', '\ ') + 'createTables')
+if (statusCode == 0):
+    print('We have successfully created the tables in database ' + dbName + '.')
+else:
+    print('Failed to create the tables in database ' + dbName + '.')
+    sys.exit()
+
+# Add Default Resources
+print('We\'re populating the tables of database ' + dbName + ' with default resources.')
+(statusCode, output) = subprocess.getstatusoutput(locationConfig['lib'].replace(' ', '\ ') + 'addDefaultResources')
+if (statusCode == 0):
+    print('We have populated the database ' + dbName + ' with the default resources.')
+else:
+    print('Failed to populate the database ' + dbName + ' with the default resources.')
+    sys.exit()
+
+# Group Separation
+print()
+
+# API INSTALLATION
+print('STEP 2) API INSTALLATION\n')
+
+# API Port
+setup = False
+while (not setup):
+    apiPort = input('Which port should the API use? (use a non-privileged port > 1023): ')
+    if ((apiPort.isdigit()) and (int(apiPort) > 1023) and (int(apiPort) < 20001)):
+        apiPort, setup = int(apiPort), True
+    else: print('This is an invalid port number, let\'s try again.')
+print()
+
+# API Protocol
+setup = False
+while (not setup):
+    apiProtocol = input('Which protocol should the API use? (http or https): ')
+    if (apiProtocol in ['http', 'https']): setup = True
+    else: print('This is an invalid protocol, let\'s try again.')
+print()
+
+# API Certificate/Key for HTTPS
+if (apiProtocol == 'https'):
+    setup = False
+    while (not setup):
+        print('Please copy the SSL certificate and key in the /var/lib/neatly/base folder.')
+        apiSSLCertificate = input('Which certificate will be used? (full path to file): ')
+        apiSSLKey = input('Which key will be used? (full path to file): ')
+        if os.path.isfile(apiSSLCertificate):
+            if os.path.isfile(apiSSLKey):
+                if (apiSSLCertificate.startswith('/')):
+                    if (apiSSLKey.startswith('/')): setup = True
+                    else: print('The key file is not defined by its full path, let\'s try again.')
+                else: print('The certificate file is not defined by its full path, let\'s try again.')
+            else: print('The key file does not exist, let\'s try again.')
+        else: print('The certificate file does not exist, let\'s try again.')
+    print()
+
+# Save API Configuration
+apiConfig = readJSONFile('/etc/neatly/base/api/default.json')
+apiConfig['port'] = apiPort
+apiConfig['protocol'] = apiProtocol
+if (apiProtocol == 'https'): apiConfig['ssl'] = {'certificate': apiSSLCertificate, 'key': apiSSLKey}
+writeJSONFile('/etc/neatly/base/api/default.json', apiConfig)
+print()
+
+# GUI INSTALLATION
+print('STEP 3) GUI INSTALLATION\n')
+
+# API Url
+setup = False
+while (not setup):
+    apiUrl = input('On which URL is the API reachable from other endpoints? (Root URL, e.g. https://neatly.be/api/): ')
+    if ((('http://' in apiUrl) or ('https://' in apiUrl)) and (apiUrl.count('/') > 2)): setup = True
+    else: print('This is an invalid API URL, let\'s try again.')
+print()
+
+# Save GUI Configuration
+guiConfig = readJSONFile('/etc/neatly/base/gui/default.json')
+guiConfig['apiRootUrl'] = apiUrl
+writeJSONFile('/etc/neatly/base/gui/default.json', guiConfig)
+print()
+
+
+# Generic End Message
+print('\nThanks for completing the installation of Neatly Base.')
+print('For more information, visit https://neatly.be/.\n')

@@ -1,0 +1,65 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Navigation Item (No Sub) -->
+  <a *ngIf="!objLib.lookUpKey(item, 'subItems')" class="left-nav-item" [ngClass]="{'active': navigationLib.checkPath(item.routerLink, fullPath)}" routerLink="{{item.routerLink}}">
+
+    <!-- Top Line -->
+    <div [ngStyle]="{'padding': '10px 0 12px calc(35px - ' + (10 - (objLib.lookUpKey(item, 'leftOffset')?item.leftOffset:0)).toString() + 'px)'}">
+
+      <!-- Icon -->
+      <img [ngStyle]="{'margin-top': (objLib.lookUpKey(item, 'topOffset')?item.topOffset:0).toString() + 'px'}" [src]="'/assets/' + item.image">
+
+      <!-- Description -->
+      <span *ngIf="leftNavigation" [ngStyle]="{'padding-left': 'calc(4px - (' + (objLib.lookUpKey(item, 'leftOffset')?item.leftOffset:0).toString() + 'px))'}" [translate]="item.name"></span>
+
+    </div>
+
+  </a>
+
+  <!-- Navigation Item (Sub) -->
+  <a *ngIf="objLib.lookUpKey(item, 'subItems') && item.subItems.length" class="left-nav-item" [ngClass]="{'active': navigationLib.checkSubItemPath(item, fullPath)}">
+
+    <!-- Top Line -->
+    <div [ngStyle]="{'padding': '10px 0 0 calc(35px - ' + (10 - (objLib.lookUpKey(item, 'leftOffset')?item.leftOffset:0)).toString() + 'px)'}" (click)="collapseItem();">
+
+      <!-- Icon -->
+      <img [ngStyle]="{'margin-top': (objLib.lookUpKey(item, 'topOffset')?item.topOffset:0).toString() + 'px'}" [src]="'/assets/' + item.image">
+
+      <!-- Description -->
+      <span *ngIf="leftNavigation" [ngStyle]="{'padding-left': 'calc(4px - (' + (objLib.lookUpKey(item, 'leftOffset')?item.leftOffset:0).toString() + 'px))'}" [translate]="item.name"></span>
+
+      <!-- Collapse -->
+      <div *ngIf="leftNavigation">
+        <img src="/assets/svgs/angle-double.svg" [ngClass]="{'up': (!item.collapse), 'down': item.collapse}">
+      </div>
+
+    </div>
+
+    <!-- Sub Items -->
+    <ng-container *ngIf="leftNavigation && (!item.collapse)">
+
+      <!-- Iterate Sub Items -->
+      <ng-container *ngFor="let subItem of item.subItems; let i = index;">
+
+        <!-- Left Navigation Item (Level 2) -->
+        <app-template-left-nav-level-2 [item]="item.subItems[i]" [fullPath]="fullPath" (collapse)="collapseChain($event)"></app-template-left-nav-level-2>
+
+      </ng-container>
+
+    </ng-container>
+
+    <!-- Margin -->
+    <div class="nav-bottom-margin" (click)="collapseItem();"></div>
+
+  </a>
+
+</ng-template>

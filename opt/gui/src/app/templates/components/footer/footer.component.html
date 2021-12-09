@@ -1,0 +1,29 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <div class="credit-footer">
+
+    <!-- Logo -->
+    <a *ngIf="presentLib.getFooterLogo(appConfig.config)" [attr.href]="presentLib.getFooterLogoLink(appConfig.config)" target="_blank">
+      <img [src]="presentLib.getFooterLogo(appConfig.config)" class="logo">
+    </a>
+
+    <!-- Copyright -->
+    <p *ngIf="presentLib.getFooterCopyright(appConfig.config)" class="copyright">Copyright © {{ timeLib.getCurrentYear() }}</p>
+
+    <!-- Contact -->
+    <a *ngIf="presentLib.getContactLink(appConfig, pluginConfig)" [attr.href]="presentLib.getContactLink(appConfig, pluginConfig)" target="_blank">
+      <p class="contact" [translate]="'common.button.contact'"></p>
+    </a>
+
+  </div>
+
+</ng-template>

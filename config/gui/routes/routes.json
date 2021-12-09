@@ -1,0 +1,151 @@
+{
+    "routes": [
+        {
+            "path": "dashboard",
+            "component": "DashboardComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "home",
+            "component": "HomeComponent",
+            "type": "fixed",
+            "public": true
+        },
+        {
+            "path": "login",
+            "component": "LogInComponent",
+            "type": "fixed",
+            "public": true,
+            "noNav": true
+        },
+        {
+            "path": "languages",
+            "component": "LanguageComponent",
+            "type": "fixed",
+            "public": true
+        },
+        {
+            "path": "settings/version",
+            "component": "SettingsVersionComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "settings/legal",
+            "component": "SettingsLegalAdminComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "settings/plugin/overview",
+            "component": "SettingsPluginOverviewComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "settings/right",
+            "component": "SettingsRightComponent",
+            "type": "item"
+        },
+        {
+            "path": "right",
+            "component": "SettingsRightComponent",
+            "type": "item"
+        },
+        {
+            "path": "settings/pluginactionright",
+            "component": "SettingsPluginActionRightComponent",
+            "type": "item"
+        },
+        {
+            "path": "pluginactionright",
+            "component": "SettingsPluginActionRightComponent",
+            "type": "item"
+        },
+        {
+            "path": "settings/pluginoptionright",
+            "component": "SettingsPluginOptionRightComponent",
+            "type": "item"
+        },
+        {
+            "path": "pluginoptionright",
+            "component": "SettingsPluginOptionRightComponent",
+            "type": "item"
+        },
+        {
+            "path": "settings/user",
+            "component": "SettingsUserComponent",
+            "type": "item"
+        },
+        {
+            "path": "user",
+            "component": "SettingsUserComponent",
+            "type": "item"
+        },
+        {
+            "path": "settings/team",
+            "component": "SettingsTeamComponent",
+            "type": "item"
+        },
+        {
+            "path": "team",
+            "component": "SettingsTeamComponent",
+            "type": "item"
+        },
+        {
+            "path": "settings/function",
+            "component": "SettingsFunctionComponent",
+            "type": "item"
+        },
+        {
+            "path": "function",
+            "component": "SettingsFunctionComponent",
+            "type": "item"
+        },
+        {
+            "path": "settings/ssl",
+            "component": "SettingsSSLComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "settings/language",
+            "component": "SettingsLanguageComponent",
+            "type": "item"
+        },
+        {
+            "path": "user/info",
+            "component": "UserInfoComponent",
+            "type": "fixed-ref"
+        },
+        {
+            "path": "user/language",
+            "component": "UserLanguageComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "user/session",
+            "component": "UserSessionComponent",
+            "type": "item"
+        },
+        {
+            "path": "user/timezone",
+            "component": "UserTimezoneComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "user/logout",
+            "component": "UserLogOutComponent",
+            "type": "fixed"
+        },
+        {
+            "path": "file",
+            "component": "FileComponent",
+            "type": "item"
+        }
+    ],
+    "linked": {},
+    "options": {
+        "redirects": {
+            "empty": "dashboard",
+            "unknown": "dashboard"
+        },
+        "maxSubNav": 12
+    }
+}

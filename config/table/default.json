@@ -1,0 +1,2475 @@
+{
+    "class": {
+        "Translation": {
+            "private": {
+                "__tablename__": "translation",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "language", "country", "translationFile", "locale", "enabled"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "language",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "language", "country", "translationFile", "locale", "enabled"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": [],
+                "unique": ["flag", "translationFile", "locale"],
+                "public": {
+                    "common": ["id", "language", "country", "flag", "translationFile", "locale", "enabled"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "translationFile", "locale"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "language": {
+                        "type": "String",
+                        "parameter": 20,
+                        "nullable": false,
+                        "doc": "Language"
+                    },
+                    "country": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "doc": "Country name"
+                    },
+                    "flag": {
+                        "type": "String",
+                        "parameter": 10,
+                        "nullable": false,
+                        "doc": "Flag name"
+                    },
+                    "translationFile": {
+                        "type": "String",
+                        "parameter": 10,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Name of the translation file"
+                    },
+                    "locale": {
+                        "type": "String",
+                        "parameter": 10,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Locale"
+                    },
+                    "enabled": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Enabled translation"
+                    }
+                },
+                "idReference": {},
+                "reference": {}
+            },
+            "trigger": []
+        },
+        "ActiveSession": {
+            "private": {
+                "__tablename__": "active_session",
+                "__versioned__": {
+                    "exclude": ["lastActive", "expired", "token"]
+                }
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "ip", "client", "creation", "lastActive", "expired"],
+                        "all": ["user", "static"],
+                        "isolated": ["user"],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [{"sub": "user", "attr": "id"}],
+                        "isolated": [{"sub": "user.team", "attr": "id"}]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "lastActive",
+                        "order": false
+                    },
+                    "sortable": {
+                        "common": ["id", "ip", "client", "creation", "lastActive", "expired"],
+                        "all": ["user", "static"],
+                        "isolated": ["user"],
+                        "own": []
+                    }
+                },
+                "joins": ["user", "user.team", "user.function", "user.image"],
+                "unique": ["token"],
+                "public": {
+                    "common": ["id", "ip", "client", "creation", "lastActive", "expired"],
+                    "all": ["user", "static"],
+                    "isolated": ["user"],
+                    "own": []
+                },
+                "finiteBreak": [["user", "file"], ["user", "image"]],
+                "notEditable": {
+                    "common": ["id", "token", "ip", "client", "creation", "lastActive", "user", "static", "expired"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "expired", "ip", "client", "creation", "lastActive"],
+                    "all": [],
+                    "isolated": ["user"],
+                    "own": ["user"]
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "token": {
+                        "type": "String",
+                        "parameter": 100,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Token"
+                    },
+                    "ip": {
+                        "type": "String",
+                        "parameter": 15,
+                        "nullable": true,
+                        "doc": "Remote IP"
+                    },
+                    "client": {
+                        "type": "String",
+                        "nullable": true,
+                        "doc": "Client type (browser)"
+                    },
+                    "creation": {
+                        "type": "DateTime",
+                        "default": {
+                            "module": "datetime",
+                            "function": "utcnow"
+                        },
+                        "doc": "Creation timestamp"
+                    },
+                    "lastActive": {
+                        "type": "DateTime",
+                        "default": {
+                            "module": "datetime",
+                            "function": "utcnow"
+                        },
+                        "doc": "Last active timestamp"
+                    },
+                    "static": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "default": false,
+                        "server_default": "0",
+                        "doc": "Static"
+                    },
+                    "expired": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "default": false,
+                        "server_default": "0",
+                        "doc": "Expired"
+                    }
+                },
+                "idReference": {
+                    "user_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Session User (ID reference)"
+                    }
+                },
+                "reference": {
+                    "user": {
+                        "relatedObject": "User",
+                        "foreignKey": {
+                            "column": {
+                                "object": "ActiveSession",
+                                "attribute": "user_id"
+                            }
+                        },
+                        "backPopulates": "activeSession",
+                        "doc": "Session User (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "User": {
+            "private": {
+                "__tablename__": "user",
+                "__versioned__": {
+                    "exclude": ["password"]
+                }
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "userName", "firstName", "lastName", "mail", "phone", "creation", "team", "function", "image"],
+                        "all": ["authenticationMethod"],
+                        "isolated": ["authenticationMethod"],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [{"sub": null, "attr": "id"}],
+                        "isolated": [{"sub": "team", "attr": "id"}]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "lastName",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "userName", "firstName", "lastName", "mail", "creation", "team", "function"],
+                        "all": ["authenticationMethod"],
+                        "isolated": ["authenticationMethod"],
+                        "own": []
+                    }
+                },
+                "joins": ["team", "function", "image", "authenticationMethod"],
+                "unique": ["userName"],
+                "public": {
+                    "common": ["id", "userName", "firstName", "lastName", "mail", "phone", "creation", "team", "function", "image"],
+                    "all": ["authenticationMethod"],
+                    "isolated": ["authenticationMethod"],
+                    "own": []
+                },
+                "finiteBreak": [["image", "uploader"]],
+                "notEditable": {
+                    "common": ["id", "creation"],
+                    "all": [],
+                    "isolated": ["userName", "mail", "team"],
+                    "own": ["userName", "mail", "team", "function"]
+                },
+                "notInitialisable": {
+                    "common": ["id", "creation"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "userName": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "User name"
+                    },
+                    "firstName": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "doc": "First name"
+                    },
+                    "lastName": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "doc": "Last name"
+                    },
+                    "mail": {
+                        "type": "String",
+                        "parameter": 50,
+                        "nullable": false,
+                        "doc": "Mail address"
+                    },
+                    "phone": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": true,
+                        "doc": "Phone number"
+                    },
+                    "password": {
+                        "type": "String",
+                        "parameter": 100,
+                        "nullable": true,
+                        "doc": "Password"
+                    },
+                    "creation": {
+                        "type": "DateTime",
+                        "default": {
+                            "module": "datetime",
+                            "function": "utcnow"
+                        },
+                        "doc": "Creation timestamp"
+                    }
+                },
+                "idReference": {
+                    "team_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Team",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Team (ID reference)"
+                    },
+                    "function_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Function",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Function (ID reference)"
+                    },
+                    "image_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "File",
+                                "attribute": "id"
+                            },
+                            "ondelete": "SET NULL",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": true,
+                        "doc": "Image (ID reference)"
+                    },
+                    "authenticationMethod_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "AuthenticationMethod",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "AuthenticationMethod (ID reference)"
+                    }
+                },
+                "reference": {
+                    "team": {
+                        "relatedObject": "Team",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "team_id"
+                            }
+                        },
+                        "backPopulates": "user",
+                        "doc": "Team (reference)"
+                    },
+                    "function": {
+                        "relatedObject": "Function",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "function_id"
+                            }
+                        },
+                        "backPopulates": "user",
+                        "doc": "Function (reference)"
+                    },
+                    "activeSession": {
+                        "relatedObject": "ActiveSession",
+                        "foreignKey": {
+                            "column": {
+                                "object": "ActiveSession",
+                                "attribute": "user_id"
+                            }
+                        },
+                        "backPopulates": "user",
+                        "doc": "ActiveSession (reference)"
+                    },
+                    "file": {
+                        "relatedObject": "File",
+                        "foreignKey": {
+                            "column": {
+                                "object": "File",
+                                "attribute": "uploader_id"
+                            }
+                        },
+                        "backPopulates": "uploader",
+                        "doc": "File (reference)"
+                    },
+                    "image": {
+                        "relatedObject": "File",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "image_id"
+                            }
+                        },
+                        "postUpdate": true,
+                        "backPopulates": "userImage",
+                        "doc": "Image (reference)"
+                    },
+                    "authenticationMethod": {
+                        "relatedObject": "AuthenticationMethod",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "authenticationMethod_id"
+                            }
+                        },
+                        "backPopulates": "user",
+                        "doc": "AuthenticationMethod (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "AuthenticationMethod": {
+            "private": {
+                "__tablename__": "authentication_method",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name", "plugin"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name", "plugin"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["plugin"],
+                "unique": ["name", "plugin"],
+                "public": {
+                    "common": ["id", "name", "plugin"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [["plugin", "required"]],
+                "notEditable": {
+                    "common": ["id", "plugin"],
+                    "all": [],
+                    "isolated": ["name"],
+                    "own": ["name"]
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Method name"
+                    }
+                },
+                "idReference": {
+                    "plugin_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": true,
+                        "doc": "Plugin (ID reference)"
+                    }
+                },
+                "reference": {
+                    "plugin": {
+                        "relatedObject": "Plugin",
+                        "foreignKey": {
+                            "column": {
+                                "object": "AuthenticationMethod",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "authenticationMethod",
+                        "doc": "Plugin (reference)"
+                    },
+                    "user": {
+                        "relatedObject": "User",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "authenticationMethod_id"
+                            }
+                        },
+                        "backPopulates": "authenticationMethod",
+                        "doc": "User (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "Team": {
+            "private": {
+                "__tablename__": "team",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [{"sub": "user", "attr": "id"}],
+                        "isolated": [{"sub": null, "attr": "id"}]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": [],
+                "unique": ["name"],
+                "public": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Name"
+                    }
+                },
+                "idReference": {},
+                "reference": {
+                    "user": {
+                        "relatedObject": "User",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "team_id"
+                            }
+                        },
+                        "backPopulates": "team",
+                        "doc": "User (reference)"
+                    },
+                    "right": {
+                        "relatedObject": "Right",
+                        "secondary": "TeamRightLink",
+                        "backPopulates": "team",
+                        "doc": "Right (reference)"
+                    },
+                    "pluginActionRight": {
+                        "relatedObject": "PluginActionRight",
+                        "secondary": "TeamPluginActionRightLink",
+                        "backPopulates": "team",
+                        "doc": "PluginActionRight (reference)"
+                    },
+                    "pluginOptionRight": {
+                        "relatedObject": "PluginOptionRight",
+                        "secondary": "TeamPluginOptionRightLink",
+                        "backPopulates": "team",
+                        "doc": "PluginOptionRight (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "Function": {
+            "private": {
+                "__tablename__": "function",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [{"sub": "user", "attr": "id"}],
+                        "isolated": [{"sub": "user.team", "attr": "id"}]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": [],
+                "unique": ["name"],
+                "public": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Name"
+                    }
+                },
+                "idReference": {},
+                "reference": {
+                    "user": {
+                        "relatedObject": "User",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "function_id"
+                            }
+                        },
+                        "backPopulates": "function",
+                        "doc": "User (reference)"
+                    },
+                    "right": {
+                        "relatedObject": "Right",
+                        "secondary": "FunctionRightLink",
+                        "backPopulates": "function",
+                        "doc": "Right (reference)"
+                    },
+                    "pluginActionRight": {
+                        "relatedObject": "PluginActionRight",
+                        "secondary": "FunctionPluginActionRightLink",
+                        "backPopulates": "function",
+                        "doc": "PluginActionRight (reference)"
+                    },
+                    "pluginOptionRight": {
+                        "relatedObject": "PluginOptionRight",
+                        "secondary": "FunctionPluginOptionRightLink",
+                        "backPopulates": "function",
+                        "doc": "PluginOptionRight (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "ApiObject": {
+            "private": {
+                "__tablename__": "api_object",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": [],
+                "unique": ["name"],
+                "public": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Name"
+                    }
+                },
+                "idReference": {},
+                "reference": {
+                    "right": {
+                        "relatedObject": "Right",
+                        "foreignKey": {
+                            "column": {
+                                "object": "Right",
+                                "attribute": "apiObject_id"
+                            }
+                        },
+                        "backPopulates": "apiObject",
+                        "doc": "Right (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "ApiAction": {
+            "private": {
+                "__tablename__": "api_action",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": [],
+                "unique": ["name"],
+                "public": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "name"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Name"
+                    }
+                },
+                "idReference": {},
+                "reference": {
+                    "right": {
+                        "relatedObject": "Right",
+                        "foreignKey": {
+                            "column": {
+                                "object": "Right",
+                                "attribute": "apiAction_id"
+                            }
+                        },
+                        "backPopulates": "apiAction",
+                        "doc": "Right (reference)"
+                    },
+                    "pluginOptionRight": {
+                        "relatedObject": "PluginOptionRight",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginOptionRight",
+                                "attribute": "apiAction_id"
+                            }
+                        },
+                        "backPopulates": "apiAction",
+                        "doc": "PluginOptionRight (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "Right": {
+            "private": {
+                "__tablename__": "right",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "apiObject", "apiAction", "function", "team", "isolated", "own", "all"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "type": "isolated"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "type": "isolated"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "isolated": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user.team", "attr": "id"},
+                                            {"sub": "team", "attr": "id"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user.team", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "apiObject",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "apiObject", "apiAction", "isolated", "own", "all"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["team", "function", "apiAction", "apiObject"],
+                "unique": [
+                    ["apiObject", "apiAction", "function", "team", "isolated", "own", "all"]
+                ],
+                "public": {
+                    "common": ["id", "apiObject", "apiAction", "function", "team", "isolated", "own", "all"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "apiAction", "apiObject"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "isolated": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Rights to perform actions on team objects"
+                    },
+                    "own": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Rights to perform actions on self objects"
+                    },
+                    "all": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Rights to perform actions on all objects"
+                    }
+                },
+                "idReference": {
+                    "apiObject_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "ApiObject",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "ApiObject (ID reference)"
+                    },
+                    "apiAction_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "ApiAction",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "ApiAction (ID reference)"
+                    }
+                },
+                "reference": {
+                    "apiObject": {
+                        "relatedObject": "ApiObject",
+                        "foreignKey": {
+                            "column": {
+                                "object": "Right",
+                                "attribute": "apiObject_id"
+                            }
+                        },
+                        "backPopulates": "right",
+                        "doc": "ApiObject (reference)"
+                    },
+                    "apiAction": {
+                        "relatedObject": "ApiAction",
+                        "foreignKey": {
+                            "column": {
+                                "object": "Right",
+                                "attribute": "apiAction_id"
+                            }
+                        },
+                        "backPopulates": "right",
+                        "doc": "ApiAction (reference)"
+                    },
+                    "function": {
+                        "relatedObject": "Function",
+                        "secondary": "FunctionRightLink",
+                        "backPopulates": "right",
+                        "doc": "Function (reference)"
+                    },
+                    "team": {
+                        "relatedObject": "Team",
+                        "secondary": "TeamRightLink",
+                        "backPopulates": "right",
+                        "doc": "Team (reference)"
+                    }
+                }
+            },
+            "trigger": [
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                }
+            ]
+        },
+        "File": {
+            "private": {
+                "__tablename__": "file",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name", "reference", "creation", "size"],
+                        "all": ["uploader"],
+                        "isolated": ["uploader"],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {"sub": "uploader", "attr": "id"},
+                                    {"sub": "userImage", "attr": "id"}
+                                ]
+                            }
+                        ],
+                        "isolated": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {"sub": "uploader.team", "attr": "id"},
+                                    {"sub": "userImage.team", "attr": "id"}
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name", "creation", "size"],
+                        "all": ["uploader"],
+                        "isolated": ["uploader"],
+                        "own": []
+                    }
+                },
+                "joins": ["uploader"],
+                "unique": ["reference"],
+                "public": {
+                    "common": ["id", "name", "reference", "creation", "size"],
+                    "all": ["uploader"],
+                    "isolated": ["uploader"],
+                    "own": []
+                },
+                "finiteBreak": [["uploader", "image"]],
+                "notEditable": {
+                    "common": ["id", "name", "reference", "uploader", "creation", "size"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "reference", "creation", "size"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 40,
+                        "nullable": false,
+                        "doc": "Name"
+                    },
+                    "reference": {
+                        "type": "String",
+                        "parameter": 100,
+                        "nullable": false,
+                        "doc": "Reference"
+                    },
+                    "creation": {
+                        "type": "DateTime",
+                        "default": {
+                            "module": "datetime",
+                            "function": "utcnow"
+                        },
+                        "doc": "Creation timestamp"
+                    },
+                    "size": {
+                        "type": "Integer",
+                        "nullable": false,
+                        "doc": "Size (in kB)"
+                    }
+                },
+                "idReference": {
+                    "uploader_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Uploader (ID reference)"
+                    }
+                },
+                "reference": {
+                    "uploader": {
+                        "relatedObject": "User",
+                        "foreignKey": {
+                            "column": {
+                                "object": "File",
+                                "attribute": "uploader_id"
+                            }
+                        },
+                        "backPopulates": "file",
+                        "doc": "User (reference)"
+                    },
+                    "userImage": {
+                        "relatedObject": "User",
+                        "foreignKey": {
+                            "column": {
+                                "object": "User",
+                                "attribute": "image_id"
+                            }
+                        },
+                        "postUpdate": true,
+                        "backPopulates": "image",
+                        "doc": "User Image (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "Plugin": {
+            "private": {
+                "__tablename__": "plugin",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "name", "shortName", "installed", "activated", "transition", "progress", "version", "default", "configPage", "required"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "name",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "name", "shortName", "installed", "activated", "transition", "progress", "version", "default"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["required"],
+                "unique": ["name", "shortName"],
+                "public": {
+                    "common": ["id", "name", "shortName", "installed", "activated", "transition", "progress", "version", "default", "configPage", "required"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [["required", "required"]],
+                "notEditable": {
+                    "common": ["id", "name", "shortName", "transition", "progress", "version", "default", "configPage", "required"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "name", "shortName", "installed", "activated", "transition", "progress", "version", "default", "configPage", "required"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "name": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Name"
+                    },
+                    "shortName": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "unique": true,
+                        "doc": "Short name (used in API)"
+                    },
+                    "installed": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "default": false,
+                        "server_default": "0",
+                        "doc": "Installed"
+                    },
+                    "activated": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "default": false,
+                        "server_default": "0",
+                        "doc": "Activated"
+                    },
+                    "transition": {
+                        "type": "Boolean",
+                        "nullable": true,
+                        "doc": "In transition"
+                    },
+                    "progress": {
+                        "type": "Integer",
+                        "nullable": true,
+                        "doc": "Progress"
+                    },
+                    "url": {
+                        "type": "String",
+                        "parameter": 150,
+                        "doc": "Download URL"
+                    },
+                    "version": {
+                        "type": "String",
+                        "parameter": 15,
+                        "nullable": false,
+                        "doc": "Version"
+                    },
+                    "default": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "default": false,
+                        "server_default": "0",
+                        "doc": "Default"
+                    },
+                    "configPage": {
+                        "type": "String",
+                        "nullable": true,
+                        "doc": "Config Page"
+                    }
+                },
+                "idReference": {},
+                "reference": {
+                    "required": {
+                        "relatedObject": "Plugin",
+                        "secondary": "PluginPluginLink",
+                        "primaryJoin": [
+                            {
+                                "object": "PluginPluginLink",
+                                "attribute": "plugin_required"
+                            },
+                            {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            }
+                        ],
+                        "secondaryJoin": [
+                            {
+                                "object": "PluginPluginLink",
+                                "attribute": "plugin_base"
+                            },
+                            {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            }
+                        ],
+                        "backRef": "children",
+                        "doc": "Required Plugins (reference)"
+                    },
+                    "pluginActionRight": {
+                        "relatedObject": "PluginActionRight",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginActionRight",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "plugin",
+                        "doc": "PluginActionRight (reference)"
+                    },
+                    "pluginOptionRight": {
+                        "relatedObject": "PluginOptionRight",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginOptionRight",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "plugin",
+                        "doc": "PluginOptionRight (reference)"
+                    },
+                    "pluginOption": {
+                        "relatedObject": "PluginOption",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginOption",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "plugin",
+                        "doc": "PluginOption (reference)"
+                    },
+                    "action": {
+                        "relatedObject": "Action",
+                        "foreignKey": {
+                            "column": {
+                                "object": "Action",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "plugin",
+                        "doc": "Action (reference)"
+                    },
+                    "authenticationMethod": {
+                        "relatedObject": "AuthenticationMethod",
+                        "foreignKey": {
+                            "column": {
+                                "object": "AuthenticationMethod",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "plugin",
+                        "doc": "AuthenticationMethod (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "Action": {
+            "private": {
+                "__tablename__": "action",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "action", "plugin", "meta"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "action",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "action", "plugin"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["plugin"],
+                "unique": [],
+                "public": {
+                    "common": ["id", "action", "plugin", "meta"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "action", "plugin", "meta"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "action", "plugin", "meta"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "action": {
+                        "type": "String",
+                        "parameter": 30,
+                        "nullable": false,
+                        "doc": "Plugin Action"
+                    },
+                    "meta": {
+                        "type": "NestedJSONB",
+                        "nullable": false,
+                        "doc": "Action Meta Data"
+                    }
+                },
+                "idReference": {
+                    "plugin_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": true,
+                        "doc": "Plugin (ID reference)"
+                    }
+                },
+                "reference": {
+                    "plugin": {
+                        "relatedObject": "Plugin",
+                        "foreignKey": {
+                            "column": {
+                                "object": "Action",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "action",
+                        "doc": "Plugin (reference)"
+                    }
+                }
+            },
+            "trigger": []
+        },
+        "PluginOption": {
+            "private": {
+                "__tablename__": "plugin_option",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "plugin", "group", "option", "nullable", "public"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [],
+                        "isolated": []
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "plugin",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "plugin", "group", "option", "nullable", "public"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["plugin"],
+                "unique": [
+                    ["plugin", "group", "option"]
+                ],
+                "public": {
+                    "common": ["id", "plugin", "group", "option", "nullable", "public", "value"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "plugin", "group", "option", "nullable", "public"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {
+                    "value": {
+                        "property": {
+                            "name": "pluginOptionValue",
+                            "plugin": null
+                        },
+                        "setter": {
+                            "name": "pluginOptionValueSetter",
+                            "plugin": null
+                        }
+                    }
+                },
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "group": {
+                        "type": "String",
+                        "parameter": 50,
+                        "nullable": false,
+                        "doc": "Group name"
+                    },
+                    "option": {
+                        "type": "String",
+                        "parameter": 50,
+                        "nullable": false,
+                        "doc": "Option name"
+                    },
+                    "nullable": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Is nullable"
+                    },
+                    "public": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Available in GUI Config"
+                    },
+                    "objectName": {
+                        "type": "String",
+                        "nullable": true,
+                        "doc": "Object name"
+                    },
+                    "rawValue": {
+                        "type": "PlainJSONB",
+                        "nullable": true,
+                        "doc": "Raw value"
+                    }
+                },
+                "idReference": {
+                    "plugin_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Plugin (ID reference)"
+                    }
+                },
+                "reference": {
+                    "plugin": {
+                        "relatedObject": "Plugin",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginOption",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "pluginOption",
+                        "doc": "Plugin (reference)"
+                    }
+                }
+            },
+            "trigger": [
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "reUpdateGUIConfig"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "reUpdateGUIConfig"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "reUpdateGUIConfig"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "triggerPluginOptionMessage"
+                    }
+                }
+            ]
+        },
+        "PluginOptionRight": {
+            "private": {
+                "__tablename__": "plugin_option_right",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "plugin", "apiAction", "option", "group"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "type": "isolated"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "type": "isolated"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "isolated": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user.team", "attr": "id"},
+                                            {"sub": "team", "attr": "id"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user.team", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "plugin",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "plugin", "apiAction", "option", "group"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["team", "function", "plugin", "apiAction"],
+                "unique": [
+                    ["plugin", "apiAction", "function", "team", "option", "group"]
+                ],
+                "public": {
+                    "common": ["id", "plugin", "apiAction", "function", "team", "option", "group"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "plugin", "apiAction", "option", "group"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "group": {
+                        "type": "String",
+                        "parameter": 50,
+                        "nullable": false,
+                        "doc": "Group name"
+                    },
+                    "option": {
+                        "type": "String",
+                        "parameter": 50,
+                        "nullable": false,
+                        "doc": "Option name"
+                    }
+                },
+                "idReference": {
+                    "plugin_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Plugin (ID reference)"
+                    },
+                    "apiAction_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "ApiAction",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "ApiAction (ID reference)"
+                    }
+                },
+                "reference": {
+                    "plugin": {
+                        "relatedObject": "Plugin",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginOptionRight",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "pluginOptionRight",
+                        "doc": "Plugin (reference)"
+                    },
+                    "apiAction": {
+                        "relatedObject": "ApiAction",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginOptionRight",
+                                "attribute": "apiAction_id"
+                            }
+                        },
+                        "backPopulates": "pluginOptionRight",
+                        "doc": "ApiAction (reference)"
+                    },
+                    "function": {
+                        "relatedObject": "Function",
+                        "secondary": "FunctionPluginOptionRightLink",
+                        "backPopulates": "pluginOptionRight",
+                        "doc": "Function (reference)"
+                    },
+                    "team": {
+                        "relatedObject": "Team",
+                        "secondary": "TeamPluginOptionRightLink",
+                        "backPopulates": "pluginOptionRight",
+                        "doc": "Team (reference)"
+                    }
+                }
+            },
+            "trigger": [
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                }
+            ]
+        },
+        "PluginActionRight": {
+            "private": {
+                "__tablename__": "plugin_action_right",
+                "__versioned__": {}
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "plugin", "action", "isolated", "own", "all"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "type": "isolated"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "type": "isolated"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "isolated": [
+                            {
+                                "operator": "OR",
+                                "statements": [
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user.team", "attr": "id"},
+                                            {"sub": "team", "attr": "id"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function.user.team", "attr": "id"},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id"}
+                                        ]
+                                    },
+                                    {
+                                        "operator": "AND",
+                                        "statements": [
+                                            {"sub": "function", "attr": "id", "value": null},
+                                            {"sub": "team", "attr": "id", "value": null}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "plugin",
+                        "order": true
+                    },
+                    "sortable": {
+                        "common": ["id", "plugin", "action", "isolated", "own", "all"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["team", "function", "plugin"],
+                "unique": [
+                    ["plugin", "action", "function", "team", "isolated", "own", "all"]
+                ],
+                "public": {
+                    "common": ["id", "plugin", "action", "function", "team", "isolated", "own", "all"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "plugin", "action"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {
+                    "id": {
+                        "type": "Integer",
+                        "primary_key": true,
+                        "doc": "UID"
+                    },
+                    "action": {
+                        "type": "String",
+                        "parameter": 50,
+                        "nullable": false,
+                        "doc": "Plugin action name"
+                    },
+                    "isolated": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Rights to perform plugin actions by team"
+                    },
+                    "own": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Rights to perform plugin actions by self"
+                    },
+                    "all": {
+                        "type": "Boolean",
+                        "nullable": false,
+                        "doc": "Rights to perform plugin actions by all"
+                    }
+                },
+                "idReference": {
+                    "plugin_id": {
+                        "foreignKey": {
+                            "column": {
+                                "object": "Plugin",
+                                "attribute": "id"
+                            },
+                            "ondelete": "CASCADE",
+                            "onupdate": "CASCADE"
+                        },
+                        "nullable": false,
+                        "doc": "Plugin (ID reference)"
+                    }
+                },
+                "reference": {
+                    "plugin": {
+                        "relatedObject": "Plugin",
+                        "foreignKey": {
+                            "column": {
+                                "object": "PluginActionRight",
+                                "attribute": "plugin_id"
+                            }
+                        },
+                        "backPopulates": "pluginActionRight",
+                        "doc": "Plugin (reference)"
+                    },
+                    "function": {
+                        "relatedObject": "Function",
+                        "secondary": "FunctionPluginActionRightLink",
+                        "backPopulates": "pluginActionRight",
+                        "doc": "Function (reference)"
+                    },
+                    "team": {
+                        "relatedObject": "Team",
+                        "secondary": "TeamPluginActionRightLink",
+                        "backPopulates": "pluginActionRight",
+                        "doc": "Team (reference)"
+                    }
+                }
+            },
+            "trigger": [
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "reCalculateConfigHashes"
+                    }
+                }
+            ]
+        }
+    },
+    "link": {
+        "FunctionRightLink": {
+            "function_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Function",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "right_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Right",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        },
+        "TeamRightLink": {
+            "team_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Team",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "right_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Right",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        },
+        "FunctionPluginActionRightLink": {
+            "function_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Function",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "pluginActionRight_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "PluginActionRight",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        },
+        "TeamPluginActionRightLink": {
+            "team_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Team",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "pluginActionRight_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "PluginActionRight",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        },
+        "FunctionPluginOptionRightLink": {
+            "function_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Function",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "pluginOptionRight_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "PluginOptionRight",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        },
+        "TeamPluginOptionRightLink": {
+            "team_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Team",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "pluginOptionRight_id": {
+                "foreignKey": {
+                    "column": {
+                        "object": "PluginOptionRight",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        },
+        "PluginPluginLink": {
+            "plugin_required": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Plugin",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            },
+            "plugin_base": {
+                "foreignKey": {
+                    "column": {
+                        "object": "Plugin",
+                        "attribute": "id"
+                    },
+                    "ondelete": "CASCADE"
+                }
+            }
+        }
+    }
+}

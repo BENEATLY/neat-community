@@ -1,0 +1,84 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Modal -->
+<modal-dialog>
+
+  <!-- Modal Title -->
+  <h4 class="modal-title modaltitle" modal-header>
+    {{ 'common.label.help' | translate: {propertyName: translate.instant(translateLib.constructPluginGroupName(meta.plugin, meta.group))} }}
+  </h4>
+
+  <!-- Modal Body -->
+  <div *ngIf="meta" modal-body class="form-group">
+    <div class="row nomargin modal-body-normalize">
+
+      <!-- Description -->
+      <div class="col-12 nomargin nopadding">
+        <p class="help-header" [translate]="'common.label.description'"></p>
+      </div>
+
+      <!-- Info Content -->
+      <span *ngIf="!translateLib.hasTranslation(translate, translateLib.constructPluginOptionHelpIntro(meta.plugin, meta.group))" class="col-12 help-content no-help-content nopadding" [translate]="'common.label.no-description'"></span>
+      <span *ngIf="translateLib.hasTranslation(translate, translateLib.constructPluginOptionHelpIntro(meta.plugin, meta.group))" class="col-12 help-content nopadding" [innerHtml]="translate.instant(translateLib.constructPluginOptionHelpIntro(meta.plugin, meta.group)) | safe: 'html'"></span>
+
+      <!-- Attributes -->
+      <div class="col-12 nomargin nopadding">
+        <p class="help-header" [translate]="'common.label.attributes'"></p>
+      </div>
+
+      <!-- Column List -->
+      <div class="panellist nomargin nopadding">
+        <ng-container *ngFor="let property of formatLib.formatPluginOptionInfo(appConfig.config, meta.plugin, meta.options, meta.group)">
+
+          <!-- Column -->
+          <div class="col-12 nomargin nopadding">
+
+            <!-- Panel -->
+            <div class="panel help-panel panel-default">
+
+              <!-- Panel Heading -->
+              <div class="panel-heading" (click)="presentLib.slidePanel($event)">
+                <img class="expand" src="/assets/svgs/angle-double-colored.svg">
+                {{ translateLib.constructPluginOptionName(meta.plugin, meta.group, property) | translate }}
+              </div>
+
+              <!-- Panel Content -->
+              <div class="panel-wrapper collapse">
+                <div class="panel-body">
+                  <div class="rows">
+                    <div class="col-12 nopadding">
+
+                      <!-- Info Content -->
+                      <span *ngIf="!translateLib.hasTranslation(translate, translateLib.constructPluginOptionHelpMessage(meta.plugin, meta.group, property))" class="col-12 help-content no-help-content" [translate]="'common.label.no-description'"></span>
+                      <span *ngIf="translateLib.hasTranslation(translate, translateLib.constructPluginOptionHelpMessage(meta.plugin, meta.group, property))" class="col-12 help-content" [innerHtml]="translate.instant(translateLib.constructPluginOptionHelpMessage(meta.plugin, meta.group, property)) | safe: 'html'"></span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div modal-footer>
+
+    <!-- Cancel -->
+    <button class="btn btn-neatly-modal" (click)="modalService.cancel()" [translate]="'common.button.close'"></button>
+
+  </div>
+
+</modal-dialog>

@@ -1,0 +1,58 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Page -->
+<div class="row nopadding">
+
+    <!-- Log In Image -->
+    <div class="col-md-7 col-12 login-image">
+
+      <!-- Content in Image -->
+      <div class="center-text">
+
+          <!-- Logo in Image -->
+          <img class="login-logo" src="{{ appLogo }}">
+
+      </div>
+
+    </div>
+
+    <!-- Log In Fields -->
+    <div class="col-md-5 col-12 white-bg">
+
+      <!-- Box -->
+      <div class="splitted-box">
+
+        <!-- Log In Form -->
+        <form class="login-form">
+
+          <!-- User Name -->
+          <div class="form-group">
+            <label for="login-username" [translate]="'common.login.username'"></label>
+            <input type="text" [(ngModel)]="userName" class="form-control" id="login-username" autocomplete="login-username" [ngModelOptions]="{standalone: true}" maxlength="{{ MaxUserNameLength }}">
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="login-password" [translate]="'common.login.password'"></label>
+            <input type="password" [(ngModel)]="password" class="form-control" id="login-password" autocomplete="login-password" [ngModelOptions]="{standalone: true}" maxlength="{{ MaxPasswordLength }}">
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-neatly-gradient" (click)="logInAttempt()" [disabled]="logInSubmitDisabled()">
+              <img class="btn-neatly-icon" src="/assets/svgs/login.svg">
+              <p class="btn-neatly-text" [translate]="'common.login.submit'"></p>
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+</div>

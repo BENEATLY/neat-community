@@ -1,0 +1,47 @@
+<!--
+    Link: https://github.com/angular-patterns/ng-bootstrap-modal
+    License: Open Source (Undefined)
+-->
+
+
+<!-- Animation -->
+<div @baseAnimation>
+
+  <!-- Modal -->
+  <div id="modal-focus-point" class="modal fade in show display-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg centermodal" role="document">
+      <div class="modal-content" style="max-height: calc(95vh - 50px);">
+
+        <!-- Header -->
+        <div class="modal-header modalheader">
+
+          <!-- Title -->
+          <ng-content select="[modal-header]"></ng-content>
+
+          <!-- Close Button -->
+          <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
+            <img src="/assets/svgs/cross-gradient.svg">
+          </button>
+
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body modal-body-wide" style="max-height: calc(70vh - 100px); overflow: auto;">
+            <ng-content select="[modal-body]"></ng-content>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer modalfooter">
+            <div #footer>
+                <ng-content select="[modal-footer]"></ng-content>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade in"></div>
+
+</div>

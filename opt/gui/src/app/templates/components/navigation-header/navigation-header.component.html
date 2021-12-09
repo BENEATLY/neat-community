@@ -1,0 +1,87 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Navigation Header -->
+  <div class="nav-header">
+
+    <!-- Navigation Breadcrumb -->
+    <nav>
+      <ol class="breadcrumb">
+        <ng-container *ngFor="let item of navigationLib.getNavItems(appConfig.config, routing.routes.routes, route.snapshot.url); let index = index; let count = count;">
+          <li *ngIf="objLib.lookUpKey(item, 'name')" class="breadcrumb-item" [ngClass]="{'active': (count == (index+1)), 'disabled': (!item.ref)}" (click)="(item.ref) && routeLib.navigate(router, item.ref)">
+            <span [translate]="item.name"></span>
+          </li>
+          <li *ngIf="objLib.lookUpKey(item, 'value')" class="breadcrumb-item" [ngClass]="{'active': (count == (index+1)), 'disabled': (!item.ref)}" (click)="(item.ref) && routeLib.navigate(router, item.ref)">
+            <span>{{item.value}}</span>
+          </li>
+        </ng-container>
+      </ol>
+    </nav>
+
+    <!-- Custom Input (Left) -->
+    <ng-content select="[left]"></ng-content>
+
+    <!-- Default Object View -->
+    <ng-container *ngIf="defaultObjectView && context.objectDefinition">
+
+      <!-- Access Level -->
+      <div *ngIf="(context.resultInfo.model != null) && definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition)" class="dropdown view-dropdown split">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownViewButton" data-toggle="dropdown" [disabled]="context.accessLevel.options.length <= 1">{{ ('common.view.' + context.accessLevel.selected) | translate | titlecase }}</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownViewButton">
+          <ng-container *ngFor="let option of context.accessLevel.options">
+            <a class="dropdown-item" (click)="context.accessLevel.selected = option; context.update();">{{ ('common.view.' + option) | translate | titlecase }}</a>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Display -->
+      <div *ngIf="(context.resultInfo.model != null) && definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition)" class="dropdown display-dropdown split">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDisplayButton" data-toggle="dropdown" [translate]="'common.button.display'"></button>
+        <div class="dropdown-menu" aria-labelledby="dropdownDisplayButton">
+          <ng-container *ngFor="let property of definitionsLib.getDefinitionsForPage(appConfig.config, data.userData.right, context.objectDefinition, context.objectDefinition, 'Get', 'model', context.displayOptions)">
+            <a *ngIf="objLib.lookUpKey(context.columns.model, property.property)" class="dropdown-item">
+              <input type="checkbox" [(ngModel)]="context.columns.model[property.property]">
+              <p [translate]="translateLib.constructPropertyName(context.objectDefinition, property)"></p>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div *ngIf="(context.resultInfo.model != null) && definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition)" class="dropdown filter-dropdown split" [ngClass]="{'dropup': context.filterPanel.model, 'active': (context.filterArray.model.length > 1)}">
+        <button class="btn btn-secondary dropdown-toggle" type="button" [translate]="'common.button.filter'" (click)="context.filterPanel.model = (!context.filterPanel.model)"></button>
+      </div>
+
+      <!-- Create Button -->
+      <div *ngIf="(context.resultInfo.model != null) && rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Create', 'own')" class="action-button split">
+        <button class="create-button" (click)="modalLib.propertyModal(modalService, formatLib.formatInfo(appConfig.config, context.objectDefinition, null, (pageLib.determineFixedLevel('model', context.displayOptions) || definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Create', context.objectDefinition))), {'object': {'name': context.objectDefinition, 'val': null}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(context.objectDefinition, 'create'), {item: null}), 'type': 'Create', 'options': context.crudOptions, 'accessLevel': context.accessLevel.selected}, context.jquery('#update-required'))">
+          <!-- Icon -->
+          <div><img [src]="'/assets/svgs/plus-blue.svg'"></div>
+          <!-- Action -->
+          <p [translate]="translateLib.constructModalTitleTranslation(context.objectDefinition, 'create')"></p>
+        </button>
+      </div>
+
+    </ng-container>
+
+    <!-- Custom Input -->
+    <ng-content></ng-content>
+
+    <!-- Help Button (Default Object View) -->
+    <div *ngIf="defaultObjectView && context.objectDefinition" class="icon-button right">
+      <button *ngIf="(context.resultInfo.model != null) && rightLib.sufficientRights(data.userData.right, context.objectDefinition, 'Get', 'own')" class="minimal-button" (click)="modalLib.helpModal(modalService, {'object': {'name': context.objectName, 'definition': context.objectDefinition, 'properties': objLib.getKeys(context.columns.model), 'right': definitionsLib.lookUpDefinitions(appConfig.config, data.userData.right, 'Get', context.objectDefinition), 'accessLevel': context.accessLevel.selected}})">
+        <img [src]="'/assets/svgs/help-gradient.svg'">
+      </button>
+    </div>
+
+  </div>
+
+</ng-template>

@@ -1,0 +1,130 @@
+{
+    "class": {
+        "Transaction": {
+            "private": {
+                "__tablename__": "transaction"
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [{"sub": "user", "attr": "id"}],
+                        "isolated": [{"sub": "user.team", "attr": "id"}]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "issuedAt",
+                        "order": false
+                    },
+                    "sortable": {
+                        "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["plugin", "user"],
+                "unique": [],
+                "public": {
+                    "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {},
+                "idReference": {},
+                "reference": {}
+            },
+            "trigger": []
+        },
+        "Activity": {
+            "private": {
+                "__tablename__": "activity"
+            },
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "common": ["id", "tableName", "issuedAt", "verb", "transaction"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    },
+                    "rights": {
+                        "own": [{"sub": "transaction.user", "attr": "id"}],
+                        "isolated": [{"sub": "transaction.user.team", "attr": "id"}]
+                    }
+                },
+                "sorts": {
+                    "default": {
+                        "property": "issuedAt",
+                        "order": false
+                    },
+                    "sortable": {
+                        "common": ["id", "tableName", "issuedAt", "verb", "transaction"],
+                        "all": [],
+                        "isolated": [],
+                        "own": []
+                    }
+                },
+                "joins": ["transaction"],
+                "unique": [],
+                "public": {
+                    "common": ["id", "tableName", "issuedAt", "verb", "originalData", "changedData", "transaction"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "finiteBreak": [],
+                "notEditable": {
+                    "common": ["id", "tableName", "issuedAt", "verb", "originalData", "changedData", "transaction"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "notInitialisable": {
+                    "common": ["id", "tableName", "issuedAt", "verb", "originalData", "changedData", "transaction"],
+                    "all": [],
+                    "isolated": [],
+                    "own": []
+                },
+                "timeSeries": false
+            },
+            "generated": {
+                "hybrid": {},
+                "column": {}
+            },
+            "table": {
+                "direct": {},
+                "idReference": {},
+                "reference": {}
+            },
+            "trigger": []
+        }
+    }
+}

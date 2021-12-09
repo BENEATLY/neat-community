@@ -1,0 +1,34 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Focus -->
+<focus-dialog>
+
+  <!-- Content -->
+  <ng-container focus-content>
+
+    <!-- Window Top -->
+    <div class="focus-window-top">
+      <div>
+        <img class="focus-close" (click)="focusService.cancel()" src="/assets/svgs/cross-gradient.svg">
+      </div>
+    </div>
+
+    <!-- Displayed Image -->
+    <img [src]="fileLib.genFilePath(meta.property, meta.object.val)">
+
+    <!-- Window Bottom -->
+    <div *ngIf="valLib.isDownloadAbleFile(meta.property)" class="focus-window-bottom">
+      <div>
+        <img class="download" (click)="fileLib.downloadFile(meta.property, meta.object.val, cookieService, http, snackBar)" src="/assets/svgs/download-gradient-2.svg">
+      </div>
+    </div>
+
+  </ng-container>
+
+</focus-dialog>

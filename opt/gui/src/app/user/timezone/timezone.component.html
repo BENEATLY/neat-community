@@ -1,0 +1,73 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Custom Template: Timezone Location -->
+<ng-template #timeZoneLocationTemplate let-timeZone="item">
+
+  <!-- Value Presentation -->
+  <p *ngIf="objLib.lookUpKey(timeZone, 'location') && (timeZone.location != null)" class="line-property-value">{{ cleanLocation(timeZone.location) }}</p>
+
+  <!-- Not Presentable (N/A) -->
+  <p *ngIf="!objLib.lookUpKey(timeZone, 'location') || (timeZone.location == null)" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: Timezone -->
+<ng-template #timeZoneTemplate let-timeZone="item">
+
+  <!-- Value Presentation -->
+  <p *ngIf="objLib.lookUpKey(timeZone, 'timeZone') && (timeZone.timeZone != null)" class="line-property-value">{{ timeZone.timeZone }}</p>
+
+  <!-- Not Presentable (N/A) -->
+  <p *ngIf="!objLib.lookUpKey(timeZone, 'timeZone') || (timeZone.timeZone == null)" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: Timezone Offset -->
+<ng-template #timeZoneOffsetTemplate let-timeZone="item">
+
+  <!-- Value Presentation -->
+  <p *ngIf="objLib.lookUpKey(timeZone, 'utcOffset') && (timeZone.utcOffset != null)" class="line-property-value">{{ 'UTC' + (timeZone.utcOffset>=0?'+':'') + (timeZone.utcOffset / 60).toString() }}</p>
+
+  <!-- Not Presentable (N/A) -->
+  <p *ngIf="!objLib.lookUpKey(timeZone, 'utcOffset') || (timeZone.utcOffset == null)" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+<!-- Custom Template: Timezone Locale -->
+<ng-template #timeZoneLocaleTemplate let-timeZone="item">
+
+  <!-- Value Presentation -->
+  <p *ngIf="objLib.lookUpKey(timeZone, 'locale') && (timeZone.locale != null)" class="line-property-value">{{ timeZone.locale }}</p>
+
+  <!-- Not Presentable (N/A) -->
+  <p *ngIf="!objLib.lookUpKey(timeZone, 'locale') || (timeZone.locale == null)" class="line-property-value" [translate]="'common.table.notavailable'"></p>
+
+</ng-template>
+
+
+<!-- Result Div -->
+<div class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header></app-template-navigation-header>
+
+<!-- Results -->
+<div class="row nomargin flex-overlay">
+
+  <!-- Map -->
+  <ng-container *ngIf="mapConfig">
+    <app-template-full-map [context]="context" [mapConfig]="mapConfig" [cards]="[{position: 'top-left', title: null, titleParams: {}, item: timezone, definitions: [{title: {text: 'user.timezone.location', textParams: {}}, template: timeZoneLocationTemplate}, {title: {text: 'user.timezone.timezone', textParams: {}}, template: timeZoneTemplate}, {title: {text: 'user.timezone.time', textParams: {}}, template: timeZoneOffsetTemplate}, {title: {text: 'user.timezone.locale', textParams: {}}, template: timeZoneLocaleTemplate}]}]"></app-template-full-map>
+  </ng-container>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

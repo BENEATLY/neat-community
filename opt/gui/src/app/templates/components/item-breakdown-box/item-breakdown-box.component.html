@@ -1,0 +1,59 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Show Group -->
+  <div class="col-xxxl-{{xxxlColWidth}} col-xxl-{{xxlColWidth}} col-xl-{{xlColWidth}} col-lg-{{lgColWidth}} col-md-{{mdColWidth}} col-sm-{{smColWidth}} col-{{xsColWidth}} nopadding flex-column">
+    <div class="white-box">
+
+      <!-- Header -->
+      <div *ngIf="title" class="header">
+        {{ title | translate: titleParams }}
+        <img *ngIf="cornerAction" (click)="cornerAction?cornerAction(context):null" [src]="cornerIcon">
+        <img *ngIf="infoRef" (click)="modalLib.boxHelpModal(modalService, {'title': translate.instant('common.label.help', {propertyName: translate.instant(title, titleParams)}), 'value': translate.instant(infoRef, infoRefParams)})" [src]="'/assets/svgs/info-gradient.svg'">
+      </div>
+
+      <!-- Table -->
+      <table class="info-table">
+        <tbody>
+
+          <!-- Iterate over Definitions -->
+          <ng-container *ngFor="let def of definitions">
+
+            <!-- Margin -->
+            <tr *ngIf="objLib.isEmptyObject(def)" style="height: 20px;"></tr>
+
+            <!-- Row -->
+            <tr *ngIf="!objLib.isEmptyObject(def)">
+
+              <!-- Name -->
+              <td [ngStyle]="{'width': maxWidth}">
+                <p class="line-property-name">{{ def.title.text | translate: def.title.textParams }}</p>
+              </td>
+
+              <!-- Content -->
+              <td class="left-text">
+
+                <!-- Content Template -->
+                <ng-container [ngTemplateOutlet]="def.template" [ngTemplateOutletContext]="{ item: item }"></ng-container>
+
+              </td>
+
+            </tr>
+
+          </ng-container>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</ng-template>

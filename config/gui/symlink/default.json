@@ -1,0 +1,112 @@
+[
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/gui.json"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/config.json"
+        },
+        "type": "GUI configuration"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/translations/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI translations"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/backgrounds/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI backgrounds"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/routes/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI routes"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/icons/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI icons"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/logos/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI logos"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/images/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI images"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/svgs/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "GUI SVGs"
+    },
+    {
+        "source": {
+            "location": "config",
+            "path": "gui/hashes/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "config hashes"
+    },
+    {
+        "source": {
+            "location": "lib",
+            "path": "objects/"
+        },
+        "target": {
+            "location": "gui",
+            "path": "assets/"
+        },
+        "type": "objects"
+    }
+]

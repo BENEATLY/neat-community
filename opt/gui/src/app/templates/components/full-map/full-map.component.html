@@ -1,0 +1,47 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Load Map Animation -->
+  <div class="mgl-map-overlay" [ngStyle]="{'opacity': (((map != null) && objLib.lookUpKey(map, 'rendering') && map.rendering.done)?0:1), 'visibility': (((map != null) && objLib.lookUpKey(map, 'rendering') && map.rendering.done)?'hidden':'visible')}">
+    <div class="middle-div">
+
+      <!-- Progress Bar -->
+      <div class="progress progress-bar-center map-progress-bar-center">
+        <div class="progress-bar progress-bar-striped progress-bar-animated map-progress-bar" role="progressbar" [ngStyle]="{'width': (((map != null) && objLib.lookUpKey(map, 'rendering'))?(map.rendering.meta.progress.toString() + '%'):'0%')}">
+        </div>
+      </div>
+
+      <!-- Progress Info -->
+      <p class="map-progress">
+        {{ (((map != null) && objLib.lookUpKey(map, 'rendering'))?(map.rendering.meta.progress.toString() + '%'):'0%') }} - {{ (((map != null) && objLib.lookUpKey(map, 'rendering'))?map.rendering.meta.action:'common.map.initialisingmap') | translate | uppercase }}
+      </p>
+
+    </div>
+  </div>
+
+  <!-- MapBox Map -->
+  <mgl-map *ngIf="map" id="map" [ngClass]="{'loaded': ((map != null) && objLib.lookUpKey(map, 'rendering') && map.rendering.done)}" [style]="map.style" [zoom]="map.zoom" [center]="map.center" (load)="mapLib.mapRenderUpdate(map, 'load')" (dataLoading)="mapLib.mapRenderUpdate(map, 'data')" (sourceDataLoading)="mapLib.mapRenderUpdate(map, 'sourceData')">
+
+    <!-- MapBox Layers -->
+    <ng-container *ngIf="objLib.lookUpKey(map, 'layer') && map.layer">
+      <mgl-layer *ngFor="let layer of map.layer" [id]="layer.name" [type]="layer.type" [source]="layer.source" [layout]="layer.layout" [paint]="layer.paint"></mgl-layer>
+    </ng-container>
+
+    <!-- Map Cards -->
+    <ng-container *ngIf="cards">
+      <ng-container *ngFor="let card of cards">
+        <app-template-map-card [context]="context" [position]="card.position" [title]="card.title" [titleParams]="card.titleParams" [item]="card.item" [definitions]="card.definitions"></app-template-map-card>
+      </ng-container>
+    </ng-container>
+
+  </mgl-map>
+
+</ng-template>

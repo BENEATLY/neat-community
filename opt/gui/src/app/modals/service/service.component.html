@@ -1,0 +1,90 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Modal -->
+<modal-dialog>
+
+  <!-- Modal Title -->
+  <h4 class="modal-title modaltitle" modal-header>{{ meta.title }}</h4>
+
+  <!-- Body -->
+  <div modal-body>
+
+    <!-- Display Result Table -->
+    <div *ngIf="timesCalculated()" class="result-table table-in-modal">
+
+      <!-- Table -->
+      <table class="table" cellspacing="0">
+
+        <!-- Table Head -->
+        <thead>
+          <tr class="rowtitle">
+
+            <!-- Service Name -->
+            <th><span [translate]="'common.service.name'"></span></th>
+
+            <!-- Service Description -->
+            <th><span [translate]="'common.service.description'"></span></th>
+
+            <!-- Service Status -->
+            <th><span [translate]="'common.service.status'"></span></th>
+
+            <!-- Service Running Time -->
+            <th><span [translate]="'common.service.uptime'"></span></th>
+
+          </tr>
+        </thead>
+
+        <!-- Table Body -->
+        <tbody>
+
+          <!-- Iterate over Results -->
+          <ng-container *ngFor="let item of items; index as i;">
+            <tr>
+
+              <!-- Service Name -->
+              <td class="html-present">
+                <div class="value-present">{{ item.name.toUpperCase() }}</div>
+              </td>
+
+              <!-- Service Description -->
+              <td class="html-present">
+                <div class="value-present">{{ item.description | translate }}</div>
+              </td>
+
+              <!-- Service Status -->
+              <td class="html-present">
+                <div *ngIf="item.status" class="value-present" style="background: linear-gradient(90deg, rgb(41, 137, 64) 0%, rgb(52, 186, 81) 100%); color: white; padding: 0 6px; font-size: 12px; font-weight: 300; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.8px; cursor: default; width: auto !important;">{{ 'modal.service.status.running' | translate | uppercase }}</div>
+                <div *ngIf="!item.status" class="value-present" style="background: linear-gradient(90deg, rgb(161, 37, 44) 0%, rgb(212, 86, 81) 100%); color: white; padding: 0 6px; font-size: 12px; font-weight: 300; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.8px; cursor: default; width: auto !important;">{{ 'modal.service.status.dead' | translate | uppercase }}</div>
+              </td>
+
+              <!-- Service Running Time -->
+              <td class="html-present">
+                <div class="value-present">{{ times[i] }}</div>
+              </td>
+
+            </tr>
+          </ng-container>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div modal-footer>
+
+    <!-- Cancel -->
+    <button class="btn btn-default btn-md panelbutton-text" (click)="modalService.cancel()" [translate]="'common.button.close'"></button>
+
+  </div>
+
+</modal-dialog>

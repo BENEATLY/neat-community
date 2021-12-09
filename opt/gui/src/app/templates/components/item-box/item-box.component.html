@@ -1,0 +1,123 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Box -->
+  <div class="col-xxxl-{{xxxlColWidth}} col-xxl-{{xxlColWidth}} col-xl-{{xlColWidth}} col-lg-{{lgColWidth}} col-md-{{mdColWidth}} col-sm-{{smColWidth}} col-{{xsColWidth}} nopadding flex-column">
+    <div class="white-box">
+
+      <!-- Header -->
+      <div class="header">
+        {{ title | translate: titleParams }}
+        <img *ngIf="cornerAction" (click)="cornerAction?cornerAction(context):null" [src]="cornerIcon">
+        <img *ngIf="infoRef" (click)="modalLib.boxHelpModal(modalService, {'title': translate.instant('common.label.help', {propertyName: translate.instant(title, titleParams)}), 'value': translate.instant(infoRef, infoRefParams)})" [src]="'/assets/svgs/info-gradient.svg'">
+      </div>
+
+      <!-- Table -->
+      <table class="info-table">
+        <tbody>
+
+          <!-- Format Info -->
+          <ng-container *ngFor="let property of formatLib.formatInfo(appConfig.config, objectDefinition, item, accessLevel)">
+
+            <!-- Property Info -->
+            <tr>
+
+              <!-- Property Name -->
+              <td [ngStyle]="{'width': maxWidth}">
+                <p class="line-property-name" [translate]="translateLib.constructPropertyName(objectDefinition, property)"></p>
+              </td>
+
+              <!-- Property Value -->
+              <td class="left-text">
+
+                <!-- Determine Value -->
+                <ng-container *ngVar="presentLib.typeConversion(property.value, property); let modelValue">
+
+                  <!-- Presentable (N/A) -->
+                  <ng-container *ngIf="valLib.hasPresentableValue(modelValue, property)">
+
+                    <!-- Value Presentation -->
+                    <p *ngIf="valLib.hasValuePresentation(modelValue, property)" [ngClass]="{'table-icon': presentLib.compressContent(property), 'html-present': (!presentLib.compressContent(property))}" class="line-property-value">
+                      <span *ngIf="(!presentLib.compressContent(property))" class="value-present" [ngClass]="presentLib.getVisualisationClass(property, item, translation)" (click)="presentLib.getVisualisationFunction(property, item, appConfig.config, objectDefinition, snackBar, modalService, timezone, translation, route, jquery('#update-required'), accessLevel.selected)" [innerHtml]="presentLib.applyVisualision(modelValue, property, item, timezone, translation, {'info': true}) | safe: 'html'"></span>
+                      <img *ngIf="presentLib.compressContent(property) && (!((modelValue == null) || (valLib.isJson(property) && (modelValue.length < 3)) || ((!valLib.isJson(property)) && (modelValue.length == 0))))" [src]="'/assets/svgs/eye-gradient.svg'" (click)="modalLib.longContentModal(modalService, {'value': modelValue, 'property': property, 'title': translate.instant(translateLib.constructPropertyName(objectDefinition, property))})">
+                    </p>
+
+                    <!-- Custom Presentation -->
+                    <p *ngIf="valLib.hasCustomPresentation(modelValue, property)" class="line-property-value html-present" [ngClass]="{'table-icon': valLib.isDownloadAbleFile(property)}">
+                      <img *ngIf="valLib.isImageFile(property)" (click)="focusLib.imageFocus(focusService, {'property': property, 'object': {'name': objectDefinition, 'val': modelValue}})" [src]="'/assets/svgs/image-gradient.svg'">
+                      <img *ngIf="valLib.isDownloadAbleFile(property)" (click)="fileLib.downloadFile(property, modelValue, cookieService, http, snackBar)" [src]="'/assets/svgs/download-gradient.svg'">
+                      <ng-container *ngIf="(!valLib.isIconOnly(property))">
+                        <span *ngIf="(!valLib.isLinked(property))" class="value-present">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, modelValue, property) }}</span>
+                        <span *ngIf="valLib.isLinked(property)" class="value-present linked" (click)="navigationLib.subNav(router, route.snapshot.url, objectDefinition, item, property, modelValue)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, modelValue, property) }}</span>
+                      </ng-container>
+                    </p>
+
+                    <!-- List Presentation -->
+                    <p *ngIf="valLib.hasListPresentation(modelValue, property)" class="line-property-value html-present">
+                      <span class="value-present">
+                        <ng-container *ngFor="let val of modelValue; let index = index; let count = count;">
+                          <span *ngIf="valLib.isLinked(property)" class="linked" (click)="navigationLib.subNav(router, route.snapshot.url, objectDefinition, item, property, val)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                          <span *ngIf="(!valLib.isLinked(property))" class="text">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                          <span *ngIf="(index < (count-2))" class="text comma">,</span>
+                          <span *ngIf="(index == (count-2))" class="text ampersand">&</span>
+                        </ng-container>
+                      </span>
+                    </p>
+
+                    <!-- 'Any' Presentation -->
+                    <p *ngIf="valLib.hasAnyPresentation(modelValue, property)" class="line-property-value">
+                      <span class="value-present">*</span>
+                    </p>
+
+                    <!-- Boolean Presentation -->
+                    <p *ngIf="valLib.hasBooleanPresentation(modelValue, property)" class="line-property-value info-checkbox">
+                      <input *ngIf="!valLib.hasVisualisation(property)" class="table-checkbox" type="checkbox" [checked]="modelValue" [disabled]="(!modelValue)">
+                      <span *ngIf="valLib.hasVisualisation(property)" [ngClass]="presentLib.getVisualisationClass(property, item, translation)" (click)="presentLib.getVisualisationFunction(property, item, appConfig.config, objectDefinition, snackBar, modalService, timezone, translation, route, jquery('#update-required'), accessLevel.selected)" [innerHtml]="presentLib.applyVisualision(modelValue, property, item, timezone, translation, {'unit': false}) | safe: 'html'"></span>
+                    </p>
+
+                    <!-- Invisible Presentation -->
+                    <p *ngIf="valLib.hasInvisiblePresentation(modelValue, property)" class="line-property-value html-present table-icon disabled grey">
+                      <img [src]="'/assets/svgs/lock.svg'">
+                    </p>
+
+                  </ng-container>
+
+                  <!-- Not Presentable (N/A) -->
+                  <ng-container *ngIf="!valLib.hasPresentableValue(modelValue, property)">
+                    <p *ngIf="valLib.hasNAPresentation(modelValue, property)" class="line-property-value">
+                      <span class="value-present" [translate]="'common.table.notavailable'"></span>
+                    </p>
+                    <p *ngIf="!valLib.hasNAPresentation(modelValue, property)" class="line-property-value"></p>
+                  </ng-container>
+
+                </ng-container>
+
+              </td>
+
+              <!-- Action -->
+              <td class="info-table-icon">
+
+                <!-- Edit Modal -->
+                <img *ngIf="valLib.isEditable(property) && ((!needsLicense) || license.validLicense)" (click)="modalLib.propertyModal(modalService, [property], {'object': {'name': objectDefinition, 'val': item}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(objectDefinition, 'edit'), {item: item}), 'type': 'Edit', 'accessLevel': accessLevel}, jquery('#update-required'))" [src]="'/assets/svgs/edit-gradient.svg'">
+
+              </td>
+
+            </tr>
+
+          </ng-container>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</ng-template>

@@ -1,0 +1,15 @@
+{
+    "basePath": "/api/",
+    "debug": false,
+    "port": 8001,
+    "protocol": "http",
+    "session": {
+        "expiration": 14,
+        "check": 3600
+    },
+    "maxPerPage": 500,
+    "nrProxy": 1,
+    "preFlightCache": 86400,
+    "unqueryable": [],
+    "version": "1.0.0"
+}

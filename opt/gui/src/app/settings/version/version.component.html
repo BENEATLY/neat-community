@@ -1,0 +1,31 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Result Div -->
+<div class="result-div with-footer">
+
+<!-- Navigation Header -->
+<app-template-navigation-header></app-template-navigation-header>
+
+<!-- Results -->
+<div class="results row nomargin blockpadding flex-no-height">
+
+  <!-- Iterate over Items -->
+  <ng-container *ngFor="let item of results">
+
+    <!-- Icon Block -->
+    <app-template-icon-block [icon]="item.icon" [title]="item.title" [background]="item.background" [content]="item.content"></app-template-icon-block>
+
+  </ng-container>
+
+</div>
+
+<!-- Footer -->
+<app-template-footer></app-template-footer>
+
+</div>

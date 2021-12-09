@@ -1,0 +1,35 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Template -->
+<ng-template #template>
+
+  <!-- Block -->
+  <div class="col-xxxl-{{xxxlColWidth}} col-xxl-{{xxlColWidth}} col-xl-{{xlColWidth}} col-lg-{{lgColWidth}} col-md-{{mdColWidth}} col-sm-{{smColWidth}} col-{{xsColWidth}} block" (click)="action?action(item):false">
+
+    <!-- Item Box -->
+    <div class="item-box" [ngClass]="{'active': (active?active(item):false)}">
+
+      <!-- Content -->
+      <div class="item-box-content">
+
+        <!-- Flag Option -->
+        <ng-container *ngIf="type == 'flag'">
+          <span class="flag-icon flag-icon-{{item.flag}} flag-box"></span>
+          <div class="flag-box-name">
+            <p class="flag-box-language">{{ item.language }}</p>
+          </div>
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

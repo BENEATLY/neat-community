@@ -1,0 +1,126 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Modal -->
+<modal-dialog>
+
+  <!-- Modal Title -->
+  <h4 class="modal-title modaltitle" modal-header>{{ meta.title }}</h4>
+
+  <!-- Form -->
+  <div modal-body>
+
+      <!-- Has Logs -->
+      <ng-container *ngIf="items.length && initDone">
+
+        <!-- Display Result Table -->
+        <div class="result-table table-in-modal">
+
+          <!-- Table -->
+          <table class="table" cellspacing="0">
+
+            <!-- Table Head -->
+            <thead>
+              <tr class="rowtitle">
+
+                <!-- Log File Name -->
+                <th><span [translate]="'common.logs.file'"></span></th>
+
+                <!-- Log File Path -->
+                <th><span [translate]="'common.logs.path'"></span></th>
+
+                <!-- Log File Size -->
+                <th>
+                  <span [translate]="'common.logs.size'"></span>
+                  <span class="table-header-unit">(kB) </span>
+                </th>
+
+                <!-- Log File Creation Date -->
+                <th><span [translate]="'common.logs.creation'"></span></th>
+
+                <!-- Log File Update Date -->
+                <th>
+                  <span [translate]="'common.logs.lastentry'"></span>
+                  <span>
+                    <img class="sort-down" [src]="'/assets/svgs/angle-double-colored.svg'">
+                  </span>
+                </th>
+
+                <!-- Log File Download -->
+                <th><span [translate]="'common.logs.download'"></span></th>
+
+              </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody>
+
+              <!-- Iterate over Results -->
+              <ng-container *ngFor="let item of items">
+                <tr>
+
+                  <!-- Log File Name -->
+                  <td class="html-present">
+                    <div class="value-present">{{ item.file }}</div>
+                  </td>
+
+                  <!-- Log File Path -->
+                  <td class="html-present">
+                    <div class="value-present">{{ item.path }}</div>
+                  </td>
+
+                  <!-- Log File Size -->
+                  <td class="html-present">
+                    <div class="value-present">{{ item.size }}</div>
+                  </td>
+
+                  <!-- Log File Creation Date -->
+                  <td class="html-present">
+                    <div class="value-present" [innerHtml]="presentLib.applyVisualision(item.creation, dateTimeProperty, item, timezone, translation, {'unit': false}) | safe: 'html'"></div>
+                  </td>
+
+                  <!-- Log File Update Date -->
+                  <td class="html-present">
+                    <div class="value-present" [innerHtml]="presentLib.applyVisualision(item.lastEntry, dateTimeProperty, item, timezone, translation, {'unit': false}) | safe: 'html'"></div>
+                  </td>
+
+                  <!-- Log File Download -->
+                  <td class="html-present table-icon">
+                    <img (click)="fileLib.downloadFile({'download': {'link': appConfig.config['apiRootUrl'] + 'plugin/id/' + meta.object.val.id.toString() + '&logs&download&uid='}}, {'reference': item.uid, 'name': item.file}, cookieService, http, snackBar)" [src]="'/assets/svgs/download-gradient.svg'">
+                  </td>
+
+                </tr>
+              </ng-container>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </ng-container>
+
+      <!-- No Logs -->
+      <ng-container *ngIf="!items.length && initDone">
+
+        <!-- No Logs Message -->
+        <p class="modal-informative" [translate]="'common.plugin.no-logs'"></p>
+
+      </ng-container>
+
+  </div>
+
+  <!-- Footer -->
+  <div modal-footer>
+
+    <!-- Cancel -->
+    <button class="btn" (click)="modalService.cancel()" [translate]="'common.button.close'"></button>
+
+  </div>
+
+</modal-dialog>

@@ -1,0 +1,164 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-start-orig/
+    Contact:    https://neatly.be/
+-->
+
+
+<!-- Navigation Bar -->
+<nav *ngIf="(shortPath != 'login')" class="navbar navbar-expand-lg navbar-dark white-bg nopadding nomargin" [ngClass]="{'navbar-public': publicPages.includes(shortPath)}">
+
+  <!-- Brand -->
+  <a *ngIf="(!publicPages.includes(shortPath)) && (appLogo.length > 0)" id="navbar-brand" class="navbar-brand neatly-blue-bg" [ngClass]="{'navbar-brand-full': leftNavigation, 'navbar-brand-small': (!leftNavigation)}">
+    <a routerLink="dashboard">
+      <img id="navbar-logo" class="navbar-logo" src="{{ appLogo }}">
+    </a>
+    <a id="navbar-brand-arrow-left" class="navbar-brand-arrow-left" (click)="switchLeftNavExpand()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="50 0 300 520" height="28px" width="28px" version="1.1">
+        <path fill="#FFF" opacity="0.9" d="M20.2 247.5L167 99.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17L85.3 256l118.5 119.7c4.7 4.7 4.7 12.3 0 17L184 412.5c-4.7 4.7-12.3 4.7-17 0l-146.8-148c-4.7-4.7-4.7-12.3 0-17z"></path>
+        <path fill="#FFF" opacity="0.6" d="M180.2 264.5l146.8 148c4.7 4.7 12.3 4.7 17 0l19.8-19.8c4.7-4.7 4.7-12.3 0-17L245.3 256l118.5-119.7c4.7-4.7 4.7-12.3 0-17L344 99.5c-4.7-4.7-12.3-4.7-17 0l-146.8 148c-4.7 4.7-4.7 12.3 0 17z"></path>
+      </svg>
+    </a>
+  </a>
+  <a *ngIf="publicPages.includes(shortPath) && (appLogo.length > 0)" class="navbar-brand neatly-blue-bg">
+    <a routerLink="home">
+      <img id="navbar-logo" class="navbar-logo" src="{{ appLogo }}">
+    </a>
+  </a>
+
+  <!-- Collapse Button -->
+  <button *ngIf="!publicPages.includes(shortPath)" type="button" class="navbar-toggler ml-auto hidden-sm-up float-xs-right" [ngClass]="{'navbar-dropdown-button-collapse-active': collapseActive()}" data-toggle="collapse" data-target="#NavBar" id="NavBarToggle" (click)="presentLib.toggleNavBarCollapse()">
+    <img [src]="'/assets/svgs/toggler-blue.svg'">
+  </button>
+  <button *ngIf="publicPages.includes(shortPath)" type="button" class="navbar-toggler ml-auto hidden-sm-up float-xs-right" [ngClass]="{'navbar-dropdown-button-collapse-active': collapseActive()}" data-toggle="collapse" data-target="#NavBar" id="NavBarToggle" (click)="presentLib.toggleNavBarCollapse()">
+    <img [src]="'/assets/svgs/toggler-white.svg'">
+  </button>
+
+  <!-- Navigation Bar Content (Non Log In) -->
+  <div *ngIf="(!publicPages.includes(shortPath)) && (!objLib.isEmptyObject(data.userData.info)) && ((middleNavigation != null) && (rightNavigation != null))" class="collapse navbar-collapse navbar-body-collapse" id="NavBar">
+
+    <!-- Navbar Middle Tabs -->
+    <ul class="nav navbar-nav mr-auto nopadding nomargin">
+
+      <!-- Iterate over Navigation Items -->
+      <ng-container *ngFor="let item of middleNavigation">
+
+        <!-- Navigation Item -->
+        <li *ngIf="collapseActive()" data-toggle="collapse" data-target="#NavBar" class="navbar-item navbar-collapse-separation" [ngClass]="{'active': navigationLib.checkPath((objLib.lookUpKey(item, 'activePath')?item.activePath:item.routerLink), shortPath)}" (click)="collapseNav(item.routerLink)">
+          <a [translate]="item.name"></a>
+        </li>
+        <li *ngIf="!collapseActive()" class="navbar-item" [ngClass]="{'active': navigationLib.checkPath((objLib.lookUpKey(item, 'activePath')?item.activePath:item.routerLink), shortPath)}" (click)="collapseNav(item.routerLink)">
+          <a [translate]="item.name"></a>
+        </li>
+
+      </ng-container>
+
+    </ul>
+
+    <!-- Navbar Right Tabs -->
+    <ul class="nav navbar-nav nopadding navbar-icons nomargin">
+
+      <!-- Iterate over Navigation Items -->
+      <ng-container *ngFor="let item of rightNavigation">
+
+        <!-- Navigation Item -->
+        <li *ngIf="collapseActive()" data-toggle="collapse" data-target="#NavBar" class="navbar-item navbar-collapse-separation" [ngClass]="{'active': navigationLib.checkPath((objLib.lookUpKey(item, 'activePath')?item.activePath:item.routerLink), shortPath)}" (click)="collapseNav(item.routerLink)">
+          <a>
+            <img [src]="'/assets/' + item.image">
+            <span *ngIf="objLib.lookUpKey(item, 'number')" class="badge badge-pill badge-notification">{{item.number}}</span>
+            <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="item.name"></a>
+          </a>
+        </li>
+        <li *ngIf="!collapseActive()" class="navbar-item" [ngClass]="{'active': navigationLib.checkPath((objLib.lookUpKey(item, 'activePath')?item.activePath:item.routerLink), shortPath)}" (click)="collapseNav(item.routerLink)">
+          <a>
+            <img [src]="'/assets/' + item.image">
+            <span *ngIf="objLib.lookUpKey(item, 'number')" class="badge badge-pill badge-notification">{{item.number}}</span>
+            <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="item.name"></a>
+          </a>
+        </li>
+
+      </ng-container>
+
+      <!-- User Info -->
+      <li *ngIf="collapseActive()" data-toggle="collapse" data-target="#NavBar" class="navbar-item navbar-collapse-separation navbar-right-image" [ngClass]="{'active': navigationLib.checkPath('user', shortPath)}" (click)="collapseNav('user/info')">
+        <a>
+          <img class="navbar-square-image" [ngClass]="{'invisible': !iconOnlyResize()}" [src]="presentLib.getProfilePicture(data.userData)">
+          <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="'navbar.user'"></a>
+        </a>
+      </li>
+      <li *ngIf="!collapseActive()" class="navbar-item navbar-right-image" [ngClass]="{'active': navigationLib.checkPath('user', shortPath)}" (click)="collapseNav('user/info')">
+        <a>
+          <img class="navbar-square-image" [ngClass]="{'invisible': !iconOnlyResize()}" [src]="presentLib.getProfilePicture(data.userData)">
+          <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="'navbar.user'"></a>
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+  <!-- Navigation Bar Content (Log In) -->
+  <div *ngIf="publicPages.includes(shortPath)" class="collapse navbar-collapse navbar-body-collapse" id="NavBar">
+
+    <!-- Navbar Middle Tabs -->
+    <ul class="nav navbar-nav mr-auto nopadding nomargin"></ul>
+
+    <!-- Navbar Right Tabs -->
+    <ul class="nav navbar-nav nopadding nomargin">
+
+      <!-- Language Selector -->
+      <li *ngIf="collapseActive()" data-toggle="collapse" data-target="#NavBar" class="navbar-item navbar-collapse-separation" [ngClass]="{'active': navigationLib.checkPath('languages', shortPath)}" (click)="collapseNav('languages')">
+
+        <a class="btn-group navbar-btn-group">
+          <button id="languageSelection" type="button" class="btn navbar-language-button" data-toggle="dropdown">
+            <span class="flag-icon flag-icon-{{translation.translation.flag}}"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageSelection">
+            <ng-container *ngFor="let option of translation.translationOptions">
+              <a class="dropdown-item" (click)="translation.setPreference(option)">
+                <span class="flag-icon flag-icon-{{option.flag}}"></span>
+                <p class="flag-text">{{ option.language }}</p>
+              </a>
+            </ng-container>
+          </div>
+        </a>
+        <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="'navbar.switch-language'"></a>
+
+      </li>
+      <li *ngIf="!collapseActive()" class="navbar-item navbar-language-item">
+
+        <a class="btn-group navbar-btn-group">
+          <button id="languageSelection" type="button" class="btn navbar-language-button" data-toggle="dropdown">
+            <span class="flag-icon flag-icon-{{translation.translation.flag}}"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageSelection">
+            <ng-container *ngFor="let option of translation.translationOptions">
+              <a class="dropdown-item" (click)="translation.setPreference(option)">
+                <span class="flag-icon flag-icon-{{option.flag}}"></span>
+                <p class="flag-text">{{ option.language }}</p>
+              </a>
+            </ng-container>
+          </div>
+        </a>
+        <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="'navbar.switch-language'"></a>
+
+      </li>
+
+      <!-- Log In -->
+      <li *ngIf="collapseActive()" data-toggle="collapse" data-target="#NavBar" class="navbar-item navbar-collapse-separation" [ngClass]="{'active': navigationLib.checkPath('login', shortPath)}" (click)="collapseNav('login')">
+        <a>
+          <a class="navbar-icon-only" [ngClass]="{'invisible': iconOnlyResize()}" [translate]="'navbar.login'"></a>
+        </a>
+      </li>
+      <li *ngIf="!collapseActive()" class="navbar-item navbar-public-item" [ngClass]="{'active': navigationLib.checkPath('login', shortPath)}" (click)="collapseNav('login')">
+        <a>
+          <a [translate]="'navbar.login'"></a>
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>

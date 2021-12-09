@@ -1,0 +1,18 @@
+<!--
+    Link: https://github.com/angular-patterns/ng-bootstrap-modal
+    License: Open Source (Undefined)
+-->
+
+
+<!-- Animation -->
+<div @baseAnimation>
+
+  <!-- Focus -->
+  <div id="focus-focus-point" (click)="backgroundClose($event)" class="modal focus-window fade in show display-block" tabindex="-1" role="dialog">
+    <ng-content select="[focus-content]"></ng-content>
+  </div>
+
+  <!-- Focus Backdrop -->
+  <div class="modal-backdrop focus-backdrop fade in"></div>
+
+</div>
