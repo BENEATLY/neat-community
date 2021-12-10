@@ -16,7 +16,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { DataService } from '@app/data.service';
 import { TimezoneService } from '@app/timezone.service';
 import { TranslationService } from '@app/translation.service';
-import { LicenseService } from '@app/license.service';
 import { SnackBarService } from '@app/snackbar.service';
 
 // Imports: Config Loaders
@@ -104,7 +103,7 @@ export class SettingsUserComponent implements OnInit {
 
 
   // Component Definition
-  constructor(public router: Router, public route: ActivatedRoute, public data: DataService, public http: HttpClient, public cookieService: CookieService, public appConfig: AppConfig, public snackBar: SnackBarService, public timezone: TimezoneService, public translate: TranslateService, public translation: TranslationService, private license: LicenseService) {
+  constructor(public router: Router, public route: ActivatedRoute, public data: DataService, public http: HttpClient, public cookieService: CookieService, public appConfig: AppConfig, public snackBar: SnackBarService, public timezone: TimezoneService, public translate: TranslateService, public translation: TranslationService) {
 
     // Translate
     let lang = this.translation.translation.translationFile;

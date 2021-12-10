@@ -106,7 +106,7 @@
               <td class="info-table-icon">
 
                 <!-- Edit Modal -->
-                <img *ngIf="valLib.isEditable(property) && ((!needsLicense) || license.validLicense)" (click)="modalLib.propertyModal(modalService, [property], {'object': {'name': objectDefinition, 'val': item}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(objectDefinition, 'edit'), {item: item}), 'type': 'Edit', 'accessLevel': accessLevel}, jquery('#update-required'))" [src]="'/assets/svgs/edit-gradient.svg'">
+                <img *ngIf="valLib.isEditable(property)" (click)="modalLib.propertyModal(modalService, [property], {'object': {'name': objectDefinition, 'val': item}, 'config': appConfig.config, 'route': route, 'title': translate.instant(translateLib.constructModalTitleTranslation(objectDefinition, 'edit'), {item: item}), 'type': 'Edit', 'accessLevel': accessLevel}, jquery('#update-required'))" [src]="'/assets/svgs/edit-gradient.svg'">
 
               </td>
 

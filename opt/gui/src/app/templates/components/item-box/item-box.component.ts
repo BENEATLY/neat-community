@@ -16,7 +16,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { DataService } from '@app/data.service';
 import { TranslationService } from '@app/translation.service';
 import { TimezoneService } from '@app/timezone.service';
-import { LicenseService } from '@app/license.service';
 import { SnackBarService } from '@app/snackbar.service';
 import { ModalService } from '@modal/services/modal.service';
 import { FocusService } from '@focus/services/focus.service';
@@ -74,7 +73,6 @@ export class TemplateItemBoxComponent implements OnInit {
   @Input() objectDefinition: string;
   @Input() accessLevel: any = null;
   @Input() disabledLevel: any[] = [];
-  @Input() needsLicense: Boolean = true;
   @Input() infoRef: any = null;
   @Input() infoRefParams: any = {};
   @Input() xxxlColWidth: number = 4;
@@ -93,7 +91,7 @@ export class TemplateItemBoxComponent implements OnInit {
 
 
   // Constructor
-  constructor(public router: Router, public route: ActivatedRoute, public translate: TranslateService, public translation: TranslationService, public http: HttpClient, public cookieService: CookieService, public data: DataService, public appConfig: AppConfig, public license: LicenseService, public modalService: ModalService, public focusService: FocusService, public snackBar: SnackBarService, public timezone: TimezoneService, private viewContainerRef: ViewContainerRef, private elementRef: ElementRef) {
+  constructor(public router: Router, public route: ActivatedRoute, public translate: TranslateService, public translation: TranslationService, public http: HttpClient, public cookieService: CookieService, public data: DataService, public appConfig: AppConfig, public modalService: ModalService, public focusService: FocusService, public snackBar: SnackBarService, public timezone: TimezoneService, private viewContainerRef: ViewContainerRef, private elementRef: ElementRef) {
 
     // Translate
     let lang = this.translation.translation.translationFile;

@@ -42,7 +42,7 @@
       </app-template-action-box>
 
       <!-- Active Sessions -->
-      <ng-container *ngIf="license.validLicense && resultInfo.activesession">
+      <ng-container *ngIf="resultInfo.activesession">
         <app-template-action-box [size]="4" [type]="'text'" [context]="context" [title]="'user.info.session'" [infoRef]="'user.info.help.session'" [cornerAction]="navigateToSession" [cornerIcon]="'/assets/svgs/external-link-gradient.svg'" [descriptiveText]="'user.info.session-message'" [descriptiveTextParams]="{'amount': resultInfo.activesession.length}"></app-template-action-box>
       </ng-container>
 

@@ -15,7 +15,6 @@ import { CookieService } from 'ngx-cookie-service';
 // Imports: Custom Services
 import { DataService } from '@app/data.service';
 import { TranslationService } from '@app/translation.service';
-import { LicenseService } from '@app/license.service';
 import { SnackBarService } from '@app/snackbar.service';
 
 // Imports: Config Loaders
@@ -50,7 +49,7 @@ export class DashboardComponent implements OnInit {
 
 
   // Constructor
-  constructor(public router: Router, public route: ActivatedRoute, public data: DataService, private http: HttpClient, private cookieService: CookieService, public appConfig: AppConfig, private snackBar: SnackBarService, public translate: TranslateService, public translation: TranslationService, private license: LicenseService) {
+  constructor(public router: Router, public route: ActivatedRoute, public data: DataService, private http: HttpClient, private cookieService: CookieService, public appConfig: AppConfig, private snackBar: SnackBarService, public translate: TranslateService, public translation: TranslationService) {
 
     // Translate
     let lang = this.translation.translation.translationFile;

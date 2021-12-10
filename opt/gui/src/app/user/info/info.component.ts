@@ -16,7 +16,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { DataService } from '@app/data.service';
 import { TimezoneService } from '@app/timezone.service';
 import { TranslationService } from '@app/translation.service';
-import { LicenseService } from '@app/license.service';
 import { SnackBarService } from '@app/snackbar.service';
 
 // Imports: Config Loaders
@@ -80,7 +79,7 @@ export class UserInfoComponent implements OnInit {
 
 
   // Constructor
-  constructor(public router: Router, public route: ActivatedRoute, public data: DataService, public http: HttpClient, public cookieService: CookieService, public appConfig: AppConfig, private hashConfig: HashConfig, public snackBar: SnackBarService, public timezone: TimezoneService, public translate: TranslateService, public translation: TranslationService, public license: LicenseService) {
+  constructor(public router: Router, public route: ActivatedRoute, public data: DataService, public http: HttpClient, public cookieService: CookieService, public appConfig: AppConfig, private hashConfig: HashConfig, public snackBar: SnackBarService, public timezone: TimezoneService, public translate: TranslateService, public translation: TranslationService) {
 
     // Translate
     let lang = this.translation.translation.translationFile;
@@ -103,9 +102,7 @@ export class UserInfoComponent implements OnInit {
     $('#update-required').on("update", () => { this.reloadConfig(); });
 
     // Get Page Info
-    if (this.license.validLicense) {
-      dataLib.getPageInfo(this.appConfig.config, this.data.userData, 'activesession', 'ActiveSession', dataLib.defaultColumns('activesession'), dataLib.defaultPageInfo('activesession', 21), this.resultInfo, null, dataLib.defaultSortingArray('activesession'), dataLib.defaultFilterArray('activesession', this.objectDefinition), dataLib.defaultFilterState(), {'activesession': {'level': 'own'}}, null, this.translate, this.timezone, this.snackBar, this.cookieService, this.http);
-    }
+    dataLib.getPageInfo(this.appConfig.config, this.data.userData, 'activesession', 'ActiveSession', dataLib.defaultColumns('activesession'), dataLib.defaultPageInfo('activesession', 21), this.resultInfo, null, dataLib.defaultSortingArray('activesession'), dataLib.defaultFilterArray('activesession', this.objectDefinition), dataLib.defaultFilterState(), {'activesession': {'level': 'own'}}, null, this.translate, this.timezone, this.snackBar, this.cookieService, this.http);
 
     // Set Map Config
     this.mapConfig = {
