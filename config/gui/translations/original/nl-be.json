@@ -895,68 +895,7 @@
             }
         }
     },
-    "plugin": {
-        "signup": {
-            "description": "Deze extensie maakt het voor bezoekers mogelijk om een ​​account aan te maken door op een knop op de 'Login' pagina te klikken. Het aangemaakte account wordt nadien aan het systeem toegevoegd met een voorgedefinieerde groep/functie.",
-            "tags": "Authenticatie"
-        },
-        "backup": {
-            "description": "Met deze extensie kunt u eenvoudig back-ups maken van de hele database. De herstelfunctionaliteit van de extensie kan worden gebruikt om de database bij te werken met behulp van een vooraf geëxporteerde back-up.",
-            "tags": "Migratie, Herstel"
-        },
-        "location": {
-            "description": "Deze extensie biedt de mogelijkheid aan om verschillende soorten locaties te stockeren. Deze locatie types zijn: landen, gemeentes, adressen en coördinaten.",
-            "tags": "Locatie"
-        },
-        "auto-backup": {
-            "description": "Deze extensie automatiseert het maken van een back-up van de gehele database op een regelmatige basis (door middel van een tijdschema). De back-up kan lokaal worden opgeslagen of kan worden geëxporteerd naar een externe locatie.",
-            "tags": "Migratie, Herstel"
-        },
-        "ldap": {
-            "description": "Deze extensie maakt het mogelijk om de gebruikers die geconfigureerd staan op een LDAP- of AD-server te synchroniseren met het systeem. Aanmeldpogingen worden gevalideerd door de externe LDAP- of AD-server.",
-            "tags": "Authenticatie"
-        },
-        "mail": {
-            "description": "Deze extensie zorgt ervoor dat services de mogelijkheid hebben om e-mails naar systeemgebruikers te sturen. Een externe mailserver is vereist.",
-            "tags": "Communicatie, E-mail"
-        },
-        "ftp": {
-            "description": "Deze extensie maakt het mogelijk om bestanden te transfereren van/naar externe locaties gebruikmakend van bestandsoverdrachtmethodes.",
-            "tags": "Bestand, Overdracht"
-        },
-        "crud": {
-            "description": "Deze extensie biedt beheerders de mogelijkheid om objecten van elk type te creëren, lezen, bijwerken en verwijderen (wanneer ze de volledige rechten voor dat object bezitten).",
-            "tags": "Creëren, Lezen, Bijwerken, Verwijderen"
-        },
-        "data-center": {
-            "description": "Met deze extensie kunt u eenvoudig een eenvoudige inventaris van een datacenter maken en onderhouden. Het traceert de locaties van apparaten in meerdere datacenters, in meerdere racks en in de individuele slots van elk rack.",
-            "tags": "Inventaris, Beheer, Server"
-        },
-        "device": {
-            "description": "Deze extensie biedt de mogelijkheid om meerdere soorten toestellen op te slaan. Voor elk toestel wordt deze informatie opgeslagen: een naam, een toesteltype, een toestelfunctie, een eigenaar, een serienummer, een IP-adres, een MAC-adres, inloggegevens, een opmerking, een unieke code, bereikbaarheids- en beschikbaarheidsinformatie.",
-            "tags": "Toestel"
-        },
-        "teacher-student": {
-            "description": "Deze extensie zorgt voor een scheiding tussen leerkrachten en studenten.",
-            "tags": "School"
-        },
-        "student-scores": {
-            "description": "Deze extensie biedt de functionaliteit om de dagelijkse schoolactiviteiten op te slaan, te beheren en te visualiseren zoals: cursussen, schooljaren, testen en scores.",
-            "tags": "School"
-        },
-        "trading": {
-            "description": "Met deze extensie kunt u de financiële markten (live) volgen. Instrumentgegevens worden regelmatig opgehaald bij een externe broker. Er is ook de mogelijkheid om automatisch te handelen, hierbij worden trades geactiveerd door een kopen/verkopen-definitie op basis van meerdere financiële indicatoren.",
-            "tags": "Markt, Trading, Financiën, Forex"
-        },
-        "app-ui": {
-            "description": "Met deze extensie kunt u de GUI look & feel configureren. Je kan onder andere de naam, het icoon en het logo van de applicatie wijzigen.",
-            "tags": "GUI, Design"
-        },
-        "app-audit": {
-            "description": "Via deze plugin kunnen activiteiten binnen de applicatie getraceert worden. De activiteiten van gebruikers en van extensie services kunnen bekeken worden in de applicatie GUI.",
-            "tags": "Audit, Monitoring"
-        }
-    },
+    "plugin": {},
     "plugins": {},
     "producer": {
         "default": {

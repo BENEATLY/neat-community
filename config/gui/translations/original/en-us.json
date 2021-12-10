@@ -895,68 +895,7 @@
             }
         }
     },
-    "plugin": {
-        "signup": {
-            "description": "This plugin makes it possible for visitors to create an account by clicking a button on the 'Login' page. The created account will be added to the system with a predefined team/function.",
-            "tags": "Authentication"
-        },
-        "backup": {
-            "description": "This plugin lets you easily perform backups of the entire database. The restoration functionality of the plugin can be used to revert/update the database by using an exported backup.",
-            "tags": "Migration, Recovery"
-        },
-        "location": {
-            "description": "This plugin provides the functionality to store different types of locations. These types include: countries, cities, addresses and coordinates.",
-            "tags": "Location"
-        },
-        "auto-backup": {
-            "description": "This plugin automates the creation of a backup of the entire database on a regular basis (via a time schedule). The backup can be stored locally or can be exported to a remote location.",
-            "tags": "Migration, Recovery"
-        },
-        "ldap": {
-            "description": "This plugin makes it possible to synchronise the users defined on an LDAP or AD server with the system. Authentication attempts will be validated by the remote LDAP or AD server.",
-            "tags": "Authentication"
-        },
-        "mail": {
-            "description": "This plugin adds the ability for services/actions to send mails to system users. An external mail server is required.",
-            "tags": "Communication, Mail"
-        },
-        "ftp": {
-            "description": "This plugin provides the functionality to transfer files from/to remote locations using various file transfer methods.",
-            "tags": "File, Transfer"
-        },
-        "crud": {
-            "description": "This plugin provides the possibility for administrator users to create, read, update and delete objects of any type (when owning the full rights for that object).",
-            "tags": "Create, Read, Update, Delete"
-        },
-        "data-center": {
-            "description": "This plugin allows you to easily create and maintain a basic inventory of a data center. It tracks locations of devices in multiple data centers, in multiple racks and in the individual slots of each rack.",
-            "tags": "Inventory, Management, Server"
-        },
-        "device": {
-            "description": "This plugin provides the functionality to store multiple types of devices. The following information is stored for each device: a name, a device type, a device function, an owner, a serial number, an IP address, a MAC address, credentials, a remark, a unique code, reachability and availability information.",
-            "tags": "Device"
-        },
-        "teacher-student": {
-            "description": "This plugin creates a seperation between teachers and student users.",
-            "tags": "School"
-        },
-        "student-scores": {
-            "description": "This plugin provides the functionality to store, manage and visualise daily school activities as: courses, school years, tests and scores.",
-            "tags": "School"
-        },
-        "trading": {
-            "description": "This plugin allows you to monitor the financial markets (live). Instrument data is regularly retrieved from an external broker. There's also the possibility to trade automatically triggered by an buy/sell definition based on multiple financial indicators.",
-            "tags": "Market, Trading, Finance, Forex"
-        },
-        "app-ui": {
-            "description": "This plugins allows you to configure the look & feel of the GUI. You can change the name, icon and logo of the application.",
-            "tags": "GUI, Design"
-        },
-        "app-audit": {
-            "description": "This plugin tracks activity of users and plugin services. Activity can be browsed via the application GUI.",
-            "tags": "Audit, Monitoring"
-        }
-    },
+    "plugin": {},
     "plugins": {},
     "producer": {
         "default": {
