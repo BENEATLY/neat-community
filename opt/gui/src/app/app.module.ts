@@ -106,8 +106,8 @@ import { PluginConfig } from '@app/plugin.config';
     MatSnackBarModule,
     ReactiveFormsModule,
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoidGRoYSIsImEiOiJja2MyNzd3ZnEyMGlrMnF0YmxmZXFlc3cxIn0.xdN05iW8TgKPvj6TwAspaQ',
-      geocoderAccessToken: 'pk.eyJ1IjoidGRoYSIsImEiOiJja2MyNzd3ZnEyMGlrMnF0YmxmZXFlc3cxIn0.xdN05iW8TgKPvj6TwAspaQ'
+      accessToken: null,
+      geocoderAccessToken: null
     })
 
   ],
