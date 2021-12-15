@@ -1,0 +1,93 @@
+#!/usr/local/bin/python
+
+################################################################################
+# Author:     Thomas D'haenens
+# License:    GPL-3.0
+# Link:       https://github.com/BENEATLY/neat-community/
+# Contact:    https://neatly.be/
+################################################################################
+
+
+# IMPORT: Standard Modules
+import sys                                                                                      # System Lib
+import ujson                                                                                    # UJSON Lib
+
+
+# FUNCTION: Read JSON File (No Logging)
+def readJSONFile(file):
+    with open(file, encoding='utf-8') as content:
+        return ujson.load(content)
+
+
+# CONFIGURATION: Determine Installation Location
+locationConfig = readJSONFile('/etc/neatly/base/location.json')
+
+# CONFIGURATION: Add Current Path to Default Python Paths
+sys.path.append(locationConfig['lib'])
+
+
+# IMPORT: Custom Modules
+from basic import *                                                                             # Actions Lib
+
+
+# QUERY: Refuse Connect on DB
+[refuseOut, refuseStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'REVOKE CONNECT ON DATABASE ' + sys.sharedConfig.db['connection']['db'] + ' FROM public;')
+
+# PRINT: Refuse Status
+print('-> Refused connecting to database ' + str(sys.sharedConfig.db['connection']['db']))
+
+# QUERY: Terminate Pending Connections
+[termOut, termStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'SELECT pid, pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = current_database() AND pid <> pg_backend_pid();')
+
+# PRINT: Termination Status
+print('-> Terminated pending connections on database ' + str(sys.sharedConfig.db['connection']['db']))
+
+# QUERY: Drop Database
+[dropOut, dropStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', 'postgres', 'postgres', '-c', 'DROP DATABASE ' + str(sys.sharedConfig.db['connection']['db']) + ';')
+
+# PRINT: Drop DB Status
+print('-> Dropped database: ' + str(sys.sharedConfig.db['connection']['db']))
+
+# QUERY: Create Database
+[createOut, createStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', 'postgres', 'postgres', '-c', 'CREATE DATABASE ' + str(sys.sharedConfig.db['connection']['db']) + ';')
+
+# PRINT: Create DB Status
+print('-> Created database: ' + str(sys.sharedConfig.db['connection']['db']))
+
+# QUERY: Grant Privileges
+[grantPrivilegesOut, grantPrivilegesStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', 'postgres', 'postgres', '-c', 'GRANT ALL PRIVILEGES ON DATABASE ' + str(sys.sharedConfig.db['connection']['db']) + ' TO ' + str(sys.sharedConfig.db['connection']['userName']) + ';')
+
+# PRINT: Grant Privileges
+print('-> Granted privileges on database ' + str(sys.sharedConfig.db['connection']['db']) + ' to user: ' + str(sys.sharedConfig.db['connection']['userName']))
+
+# QUERY: Grant Create Database Rights
+[createDBRightsOut, createDBRightsStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', 'postgres', 'postgres', '-c', 'ALTER USER ' + str(sys.sharedConfig.db['connection']['userName']) + ' CREATEDB;')
+
+# PRINT: Grant Create Database Rights
+print('-> Granted create database rights to user: ' + str(sys.sharedConfig.db['connection']['userName']))
+
+# QUERY: Change Owner
+[ownerOut, ownerStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', 'postgres', 'postgres', '-c', 'ALTER DATABASE ' + str(sys.sharedConfig.db['connection']['db']) + ' OWNER TO ' + str(sys.sharedConfig.db['connection']['userName']) + ';')
+
+# PRINT: Change Owner
+print('-> Changed owner of database ' + str(sys.sharedConfig.db['connection']['db']) + ' to user: ' + str(sys.sharedConfig.db['connection']['userName']))
+
+# QUERY: Make Super User
+[superOut, superStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', 'postgres', 'postgres', '-c', 'ALTER ROLE ' + str(sys.sharedConfig.db['connection']['userName']) + ' SUPERUSER;')
+
+# PRINT: Make Super User
+print('-> Made user ' + str(sys.sharedConfig.db['connection']['userName']) + ' a superuser')
+
+# QUERY: Reallow Connect
+[reAllowOut, reAllowStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'GRANT CONNECT ON DATABASE ' + sys.sharedConfig.db['connection']['db'] + ' TO public;')
+
+# PRINT: Reallow Connect
+print('-> Reallowed connecting to database ' + str(sys.sharedConfig.db['connection']['db']))
+
+# FILE: Remove Historic Migration Files
+for root, dirs, files in os.walk('/var/lib/neatly/base/migrations/versions/'):
+    [os.unlink(os.path.join(root, f)) for f in files]
+    [shutil.rmtree(os.path.join(root, d)) for d in dirs]
+
+# PRINT: Remove Migration Files
+print('-> Removed historical migration files')

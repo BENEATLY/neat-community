@@ -27,15 +27,9 @@ sys.path.append(locationConfig['lib'])
 
 
 # IMPORT: Custom Modules
-import actions                                                                                  # Actions Lib
+from basic import shInteractiveHandler, shInteractivePasswordHandler                            # Actions Lib
 
 
-# SYNC: All Configurations
-actions.syncAllConfigurations()
-
-# SYNC: Table Configuration
-actions.syncTableConfiguration()
-
-
-# End Message
-print('-> Config is synced')
+# SHELL: Start Interactive DB Connection via PSQL
+passwordHandler = shInteractivePasswordHandler(password=sys.sharedConfig.db['connection']['password'], timeout=5)
+shInteractiveHandler(handler=passwordHandler, noLog=True)(sys.executables.dbClient)("-U", sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'])

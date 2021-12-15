@@ -900,10 +900,10 @@ def killSleepingConnections():
     _logger.info('Killing sleeping connections of: ' + str(sys.sharedConfig.db['connection']['db']))
 
     # Revoke Connect
-    [revokeOut, revokeStatus] = shHandler(handler=shPasswordHandler(str(sys.sharedConfig.db['connection']['password'])))(sys.executables.dbClient)('-U', str(sys.sharedConfig.db['connection']['userName']), str(sys.sharedConfig.db['connection']['db']), '-c', 'REVOKE CONNECT ON DATABASE ' + str(sys.sharedConfig.db['connection']['db']) + ' FROM public;')
+    [revokeOut, revokeStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']))(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'REVOKE CONNECT ON DATABASE ' + sys.sharedConfig.db['connection']['db'] + ' FROM public;')
 
     # Kill Connections
-    [killOut, killStatus] = shHandler(handler=shPasswordHandler(str(sys.sharedConfig.db['connection']['password'])))(sys.executables.dbClient)('-U', str(sys.sharedConfig.db['connection']['userName']), str(sys.sharedConfig.db['connection']['db']), '-c', 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND pid <> pg_backend_pid();')
+    [killOut, killStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']))(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND pid <> pg_backend_pid();')
 
     # Status
     status = (revokeStatus and killStatus)
@@ -924,7 +924,7 @@ def allowDBReconnect():
     _logger.info('Allowing reconnect on: ' + str(sys.sharedConfig.db['connection']['db']))
 
     # Allow Reconnect
-    [connectOut, connectStatus] = shHandler(handler=shPasswordHandler(str(sys.sharedConfig.db['connection']['password'])))(sys.executables.dbClient)('-U', str(sys.sharedConfig.db['connection']['userName']), str(sys.sharedConfig.db['connection']['db']), '-c', 'GRANT CONNECT ON DATABASE ' + str(sys.sharedConfig.db['connection']['db']) + ' TO public;')
+    [connectOut, connectStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']))(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'GRANT CONNECT ON DATABASE ' + sys.sharedConfig.db['connection']['db'] + ' TO public;')
 
     # Log Message
     if (connectStatus): _logger.info('Allowed reconnecting')
@@ -1672,6 +1672,184 @@ def returnExitCode(val):
     (sys.exit(0) if val else sys.exit(1))
 
 
+# FUNCTION: SH Interactive Password Handler
+@log()
+def shInteractivePasswordHandler(password, timeout=5):
+
+    # FUNCTION: SH Password Handler
+    def internalShInteractivePasswordHandler(process):
+
+        # Timer Variables
+        timeInWait = 0
+        step = 0.1
+
+        # Wait for Input
+        while (timeInWait <= timeout):
+
+            # Determine Last Line of Buffer
+            lastLine = (process._handlerBuffer.split('\n')[-1] if hasattr(process, '_handlerBuffer') else '')
+
+            # Request for Password?
+            if (('password' in lastLine.lower()) and lastLine.endswith(': ')):
+                process._stdin_stream.stdin.put(password + '\n')
+                break
+
+            # Wait
+            sleep(step)
+            timeInWait += step
+
+        # Return
+        return (timeInWait <= timeout)
+
+    # Return Function
+    return internalShInteractivePasswordHandler
+
+
+# FUNCTION: SH Interactive Handler
+@log()
+def shInteractiveHandler(handler=None, okCode=0, noLog=False):
+
+    # Set Logger
+    logger = _logger
+
+    # Wrapper Function
+    def shInteractiveHandlerInternal(func):
+
+        # CLASS: Standard Input Interactive Thread
+        class StdInInteractive(threading.Thread):
+
+            # FUNCTION: Initialise
+            def __init__(self, wrappedStdIn, stdIn, process):
+
+                # Init Thread
+                threading.Thread.__init__(self)
+
+                # Initialised Variables
+                self.wrappedStdIn = wrappedStdIn
+                self.stdIn = stdIn
+                self.process = process
+
+            # FUNCTION: Run
+            def run(self):
+
+                # Set Standard Input Connected
+                self.process._inConnected = True
+
+                # Listen to Standard Input (Non-Stop) & Add to Wrapped Standard Input
+                while True: self.wrappedStdIn.put(self.stdIn.read(1))
+
+
+        # FUNCTION: Default Interactive Handler
+        def defaultInteractiveHandler(char, stdin, process):
+
+            # Create Default Settings
+            if (not hasattr(process, '_outAllowed')): process._outAllowed = False
+            if (not hasattr(process, '_inConnected')): process._inConnected = False
+
+            # Create Buffer for Handler
+            if (not hasattr(process, '_handlerBuffer')): process._handlerBuffer = ''
+
+            # Append Output to Buffer
+            process._handlerBuffer += char
+
+            # Connect Interactive Standard Input
+            if (not process._inConnected):
+                a = StdInInteractive(stdin, sys.stdin, process)
+                a.start()
+
+            # Write Out Standard Output
+            if (process._outAllowed):
+                sys.stdout.write(char)
+                sys.stdout.flush()
+
+
+        # FUNCTION: Wrapper
+        @wraps(func)
+        def shInteractiveHandlerWrapper(*args, **kwargs):
+
+            # Add Interactive Parameters
+            kwargs.update({'_out': defaultInteractiveHandler, '_out_bufsize': 0, '_tty_in': True, '_unify_ttys': True, '_bg': True})
+
+            # Log Message
+            if (not noLog): logger.info('Spawning interactive sub process: ' + str(func.__name__))
+
+            # Run Interactive Process
+            process = func(*args, **kwargs)
+
+            # Attempt
+            try:
+
+                # Handler
+                if (handler):
+
+                    # Execute Handler
+                    status = handler(process.process)
+
+                    # Failed Handling
+                    if (not status):
+
+                        # Kill
+                        try: process.kill()
+                        except: pass
+
+                        # Add Handler Buffer to Standard Output
+                        process.process._stdout = deque([process.process._handlerBuffer.encode()])
+
+                        # Log Message
+                        if (not noLog):
+                            logger.warning('Interactive sub process ' + str(func.__name__) + ' was terminated due to failed handling')
+                            logger.warning('Ran command: ' + str(e.full_cmd))
+                            logger.warning('STDOUT: ' + e.stdout.decode())
+                            logger.warning('STDERR: ' + e.stderr.decode())
+
+                        # Return
+                        return [process.process.stdout.decode() + process.process.stderr.decode(), (process.process.exit_code == okCode)]
+
+                    # Allow Output
+                    process.process._outAllowed = True
+
+                # No Handler
+                else: process.process._outAllowed = True
+
+                # Wait
+                process.wait()
+
+                # Log Message
+                if (not noLog): logger.info('Interactive sub process ' + str(func.__name__) + ' ended')
+
+                # Add Handler Buffer to Standard Output
+                process.process._stdout = deque([process.process._handlerBuffer.encode()])
+
+                # Return
+                return [process.process.stdout.decode() + process.process.stderr.decode(), (process.process.exit_code == okCode)]
+
+            except Exception as e:
+
+                # Kill
+                try: process.kill()
+                except: pass
+
+                # Add Handler Buffer to Standard Output
+                process.process._stdout = deque([process.process._handlerBuffer.encode()])
+
+                # Log Message
+                if (not noLog):
+                    logger.warning('Interactive sub process ' + str(func.__name__) + ' was killed')
+                    logger.warning('Ran command: ' + str(e.full_cmd))
+                    logger.warning('STDOUT: ' + e.stdout.decode())
+                    logger.warning('STDERR: ' + e.stderr.decode())
+
+                # Return
+                return [process.process.stdout.decode() + process.process.stderr.decode(), (process.process.exit_code == okCode)]
+
+
+        # Return Function
+        return shInteractiveHandlerWrapper
+
+    # Return Function
+    return shInteractiveHandlerInternal
+
+
 # FUNCTION: SH Password Handler
 @log()
 def shPasswordHandler(password):
@@ -1697,7 +1875,7 @@ def shPasswordHandler(password):
 
 # FUNCTION: SH Handler
 @log()
-def shHandler(subProcess=False, handler=None, okCode=0):
+def shHandler(subProcess=False, handler=None, okCode=0, noLog=False):
 
     # Set Logger
     logger = _logger
@@ -1712,7 +1890,7 @@ def shHandler(subProcess=False, handler=None, okCode=0):
             kwargs['_bg'] = True
 
             # Log Message
-            logger.info('Spawning sub process: ' + str(func.__name__))
+            if (not noLog): logger.info('Spawning sub process: ' + str(func.__name__))
 
             # Run Process
             process = func(*args, **kwargs)
@@ -1724,14 +1902,13 @@ def shHandler(subProcess=False, handler=None, okCode=0):
                 process.wait()
 
                 # Log Message
-                logger.info('Sub process ' + str(func.__name__) + ' was completed')
+                if (not noLog): logger.info('Sub process ' + str(func.__name__) + ' was completed')
 
                 # Handler
                 if (handler): process.process._stdout = deque([process.process._handlerBuffer.encode()])
 
                 # Return
-                strOut = process.process.stdout.decode() + process.process.stderr.decode()
-                return [strOut, (process.process.exit_code == okCode)]
+                return [process.process.stdout.decode() + process.process.stderr.decode(), (process.process.exit_code == okCode)]
 
             except Exception as e:
 
@@ -1744,21 +1921,21 @@ def shHandler(subProcess=False, handler=None, okCode=0):
                     process.process._stdout = deque([process.process._handlerBuffer.encode()])
 
                 # Log Message
-                logger.warning('Sub process ' + str(func.__name__) + ' was killed')
-                logger.warning('Ran command: ' + str(e.full_cmd))
-                logger.warning('STDOUT: ' + e.stdout.decode())
-                logger.warning('STDERR: ' + e.stderr.decode())
+                if (not noLog):
+                    logger.warning('Sub process ' + str(func.__name__) + ' was killed')
+                    logger.warning('Ran command: ' + str(e.full_cmd))
+                    logger.warning('STDOUT: ' + e.stdout.decode())
+                    logger.warning('STDERR: ' + e.stderr.decode())
 
                 # Return
-                strOut = process.process.stdout.decode() + process.process.stderr.decode()
-                return [strOut, (process.process.exit_code == okCode)]
+                return [process.process.stdout.decode() + process.process.stderr.decode(), (process.process.exit_code == okCode)]
 
 
         # FUNCTION: Spawn Process
         def spawnProcess(*args, **kwargs):
 
             # Log Message
-            logger.info('Spawning process: ' + str(func.__name__))
+            if (not noLog): logger.info('Spawning process: ' + str(func.__name__))
 
             # Process
             process = None
@@ -1770,14 +1947,13 @@ def shHandler(subProcess=False, handler=None, okCode=0):
                 process = func(*args, **kwargs)
 
                 # Log Message
-                logger.info('Process ' + str(func.__name__) + ' was completed')
+                if (not noLog): logger.info('Process ' + str(func.__name__) + ' was completed')
 
                 # Handler
                 if (handler): process.process._stdout = deque([process.process._handlerBuffer.encode()])
 
                 # Return
-                strOut = process.process.stdout.decode() + process.process.stderr.decode()
-                return [strOut, (process.process.exit_code == okCode)]
+                return [process.process.stdout.decode() + process.process.stderr.decode(), (process.process.exit_code == okCode)]
 
             # Fail
             except Exception as e:
@@ -1787,8 +1963,10 @@ def shHandler(subProcess=False, handler=None, okCode=0):
 
                 # Handler
                 if (handler):
-                    if (process): process.process._stdout = deque([process.process._handlerBuffer.encode()])
-                    else: strOut += process.process._handlerBuffer
+                    if (process):
+                        process.process._stdout = deque([process.process._handlerBuffer.encode()])
+                        strOut += (process.process.stdout.decode() + process.process.stderr.decode())
+                    else: strOut += ' '.join(str(traceback.format_exc()).split())
 
                 # No Handler
                 else:
@@ -1796,16 +1974,17 @@ def shHandler(subProcess=False, handler=None, okCode=0):
                     else: strOut += ' '.join(str(traceback.format_exc()).split())
 
                 # Log Message
-                logger.warning('Process ' + str(func.__name__) + ' failed')
-                logger.warning('Ran command: ' + str(e.full_cmd))
-                logger.warning('STDOUT: ' + e.stdout.decode())
-                logger.warning('STDERR: ' + e.stderr.decode())
+                if (not noLog):
+                    logger.warning('Process ' + str(func.__name__) + ' failed')
+                    logger.warning('Ran command: ' + str(e.full_cmd))
+                    logger.warning('STDOUT: ' + e.stdout.decode())
+                    logger.warning('STDERR: ' + e.stderr.decode())
 
                 # Return
                 return [strOut, False]
 
 
-        # Wrapper Function
+        # FUNCTION: Wrapper
         @wraps(func)
         def shHandlerWrapper(*args, **kwargs):
 

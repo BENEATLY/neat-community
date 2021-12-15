@@ -27,15 +27,19 @@ sys.path.append(locationConfig['lib'])
 
 
 # IMPORT: Custom Modules
-import actions                                                                                  # Actions Lib
+from basic import *                                                                             # Actions Lib
 
 
-# SYNC: All Configurations
-actions.syncAllConfigurations()
+# QUERY: Drop Alembic Versioning Table
+[dropOut, dropStatus] = shHandler(handler=shPasswordHandler(sys.sharedConfig.db['connection']['password']), noLog=True)(sys.executables.dbClient)('-U', sys.sharedConfig.db['connection']['userName'], sys.sharedConfig.db['connection']['db'], '-c', 'DROP TABLE "alembic_version";')
 
-# SYNC: Table Configuration
-actions.syncTableConfiguration()
+# PRINT: Drop Status
+print('-> Dropped migration table')
 
+# FILE: Remove Historic Migration Files
+for root, dirs, files in os.walk('/var/lib/neatly/base/migrations/versions/'):
+    [os.unlink(os.path.join(root, f)) for f in files]
+    [shutil.rmtree(os.path.join(root, d)) for d in dirs]
 
-# End Message
-print('-> Config is synced')
+# PRINT: Remove Migration Files
+print('-> Removed historical migration files')
