@@ -18,14 +18,6 @@ def getAllServices():
     return services
 
 
-# FUNCTION: Get Services By Plugin
-@log(returnValue=[])
-def getServicesByPlugin(id):
-    services = readJSONFile('/etc/neatly/base/service/service.json')
-    services = [getServiceStatus(service) for service in services if (service['plugin'] == id)]
-    return services
-
-
 # FUNCTION: Get Service Status
 @log(returnValue=(lambda x,y: x[0]))
 def getServiceStatus(service):

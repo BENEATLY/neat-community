@@ -892,6 +892,20 @@ def jsonify(obj):
     return (orjson.dumps(obj).decode('utf-8'), 200, {'Content-Type': 'application/json'})
 
 
+# FUNCTION: Serialize List
+def serializeList(objects, extra=[], **kwargs):
+    if ('rights' not in kwargs): kwargs['rights'] = g.rights
+    if (('user' not in kwargs) and (not kwargs.get('internal', False))): kwargs['user'] = g.user
+    return [obj.getPublic(kwargs, extra=extra) for obj in objects]
+
+
+# FUNCTION: Serialize Object
+def serializeObject(obj, extra=[], **kwargs):
+    if ('rights' not in kwargs): kwargs['rights'] = g.rights
+    if (('user' not in kwargs) and (not kwargs.get('internal', False))): kwargs['user'] = g.user
+    return obj.getPublic(kwargs, extra=extra)
+
+
 # FUNCTION: Kill Sleeping Connections
 @log(returnValue=False)
 def killSleepingConnections():

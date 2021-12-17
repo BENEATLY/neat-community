@@ -12,8 +12,8 @@ from alembic import command as AlembicCommand                                   
 
 # IMPORT: Custom Modules
 from basic import *                                                                                                                 # Basic Lib
-from triggers import mapTriggerFunction                                                                                             # Trigger Lib
-from generated import mapGeneratedProperty, mapGeneratedSetter                                                                      # Generated Lib
+from mapping import *                                                                                                               # Mapping Lib                                                                                              # Functions Lib
+
 
 # FUNCTION: Read Internal Tables
 @log()
@@ -55,6 +55,14 @@ def generateStaticTableDefinitions(classDef):
 
     # COMMON PROPERTIES
     tableDefinitions['properties'] = Obj(classDef['properties'], withList=False)
+
+    # OPTION PROPERTIES
+    tableDefinitions['option'] = classDef['option']
+    if (tableDefinitions['option']['handler']):
+        tableDefinitions['option']['handler'] = mapOption(tableDefinitions['option']['handler'])
+
+    # FUNCTIONS
+    [tableDefinitions.update({refName: mapFunction(refDef)}) for refName, refDef in classDef['function'].items()]
 
     # DIRECT PROPERTIES
     for refName, refDef in classDef['table']['direct'].items():
@@ -203,7 +211,7 @@ class Generic():
     def getAll(self): return {attr: getattr(self, attr) for attr in self.getAllProperties()}
 
     # FUNCTION: Get Public (Generic)
-    def getPublic(self, meta, finites={}):
+    def getPublic(self, meta, finites={}, extra=[]):
         className = self.__class__.__name__
         newFinites = deepcopy(finites)
         foundRights = [right for right in meta['rights'] if (right['apiAction']['name'] == 'Get') and (right['apiObject']['name'] == className)]
@@ -222,7 +230,7 @@ class Generic():
             newFinites['finiteBreak'] = [finite[1:] for finite in newFinites['finiteBreak'] if (len(finite) > 1)]
         currentFinites = [finite[0] for finite in newFinites['finiteBreak'] if (len(finite) == 1)]
         itemDict = {}
-        attributes = list(set(getattr(self.properties.public, 'common') + getattr(self.properties.public, rightLevel)) - set(currentFinites))
+        attributes = list(set(getattr(self.properties.public, 'common') + getattr(self.properties.public, rightLevel) + extra) - set(currentFinites))
         for attribute in attributes:
             itemDict[attribute] = getattr(self, attribute)
             if (hasattr(itemDict[attribute], 'id')):
@@ -300,9 +308,9 @@ for className, classDef in definedTables['class'].items():
     for trigger in classDef['trigger']:
         if (not trigger['event'].startswith('after_commit_')):
             if ('attribute' in trigger):
-                sa.event.listen(getattr(get_class_by_table(Base, Base.metadata.tables[classDef['private']['__tablename__']]), trigger['attribute']), trigger['event'], mapTriggerFunction(trigger))
+                sa.event.listen(getattr(get_class_by_table(Base, Base.metadata.tables[classDef['private']['__tablename__']]), trigger['attribute']), trigger['event'], mapTrigger(trigger))
             else:
-                sa.event.listen(get_class_by_table(Base, Base.metadata.tables[classDef['private']['__tablename__']]), trigger['event'], mapTriggerFunction(trigger))
+                sa.event.listen(get_class_by_table(Base, Base.metadata.tables[classDef['private']['__tablename__']]), trigger['event'], mapTrigger(trigger))
 
 
 # FUNCTION: Link After Commit Triggers
@@ -312,7 +320,7 @@ def linkAfterCommitTriggers(session):
     for className, classDef in definedTables['class'].items():
         for trigger in classDef['trigger']:
             if (trigger['event'].startswith('after_commit_')):
-                afterCommitTriggers.append((get_class_by_table(Base, Base.metadata.tables[classDef['private']['__tablename__']]), trigger['event'], mapTriggerFunction(trigger)))
+                afterCommitTriggers.append((get_class_by_table(Base, Base.metadata.tables[classDef['private']['__tablename__']]), trigger['event'], mapTrigger(trigger)))
     if (afterCommitTriggers):
         ModelChangeEvent(session, afterCommitTriggers)
 
@@ -337,23 +345,6 @@ def createDBSession():
 
     # Return Session
     return session
-
-
-# FUNCTION: Temporary Session Decorator
-@log()
-def inTempSession():
-    def inTempSessionInternal(func):
-        @wraps(func)
-        def inTempSessionWrapper(*args, **kwargs):
-            if ('session' in kwargs):
-                result = func(*args, **kwargs)
-            else:
-                session = createDBSession()
-                result = func(*args, **{**kwargs, 'session': session})
-                session.close()
-            return result
-        return inTempSessionWrapper
-    return inTempSessionInternal
 
 
 # FUNCTION: Create Tables

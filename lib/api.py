@@ -239,20 +239,51 @@ periodicExpireSessions()
 # FUNCTION: API Argument Provider Decorator
 def APIArgProvider(apiAction, attrs=[], options={}):
     def APIArgProviderInternal(func):
+
+        # FUNCTION: Wrapper
         @wraps(func)
         def APIArgProviderWrapper(*args, **kwargs):
+
+            # Get Attributes
             parsedAttrs = {attr: getKeyWordArgument(kwargs, attr) for attr in attrs}
+
+            # Get Path
             path = (parsedAttrs['path'] if ('path' in parsedAttrs) else getKeyWordArgument(kwargs, 'path')).lower()
+
+            # Path Exists
             if ((path in getAllClassNamesLowerCase(tables)) and (path not in apiUnqueryable)):
+
+                # Get Object Name
                 objectName = getClassName(path, tables)
+
+                # Determine Rights
                 rights = actions.checkRights(db.session, objectName, apiAction, g.user)
                 if not rights:
                     return ('', 403) # noCoverage
+
+                # Get Class
                 classObject = getClassByName(objectName, tables)
+
+                # Add Class Options
+                classOptions = {}
+                classOptions.update(classObject.option['options']['common'])
+                classOptions.update(classObject.option['options'].get(determinePassedRights(rights), {}))
+                options.update(classOptions)
+
+                # Parse Options
                 parsedOptions = parseAPIPathOptions(getKeyWordArgument(kwargs, 'options'), options)
-                return func(classObject, rights, parsedAttrs, parsedOptions)
+
+                # Return Function Result
+                if (apiAction == 'Get'): return func(classObject, rights, parsedAttrs, parsedOptions, bool(classOptions))
+                else: return func(classObject, rights, parsedAttrs, parsedOptions)
+
+            # Path Doesn't Exist
             return ('', 404) # noCoverage
+
+        # Return Function
         return APIArgProviderWrapper
+
+    # Return Function
     return APIArgProviderInternal
 
 
@@ -720,11 +751,6 @@ def addFilter(query, aliases, classObject, filter, getRights):
     return [status, query, aliases]
 
 
-# FUNCTION: Serialize List Object
-def serializeListObject(objects):
-    return [obj.getPublic({'user': g.user, 'rights': g.rights}) for obj in objects]
-
-
 # FUNCTION: Start Flask Application
 @log()
 def startApp():
@@ -890,7 +916,7 @@ def basicAuthError():
 @tokenAuth.login_required
 @log(returnValue=('', 409))
 def tokenAuthSuccess():
-    return jsonify({'authentication': True, **g.user.getPublic({'user': g.user, 'rights': g.rights})})
+    return jsonify({'authentication': True, **serializeObject(g.user)})
 
 # CALL: Token Auth Error Message
 @tokenAuth.error_handler
@@ -944,24 +970,36 @@ def getActivePluginList():
 @app.route(basePath + '<path:path>/id/<int:id>&<string:options>', methods=['GET'])
 @tokenAuth.login_required
 @log(returnValue=('', 409))
-@APIArgProvider(apiAction='Get', attrs=['path', 'id'], options={'logs': None, 'status': None, 'download': None, 'uid': 'str'})
-def getItemById(classObject, rights, attrs, options):
+@APIArgProvider(apiAction='Get', attrs=['path', 'id'])
+def getItemById(classObject, rights, attrs, options, hasClassOptions):
+
+    # Begin Query
     query = db.session.query(classObject).filter_by(id=attrs['id'])
+
+    # Add Basic Joins
     [query, aliases] = createAndJoinAliases(query, classObject, {}, classObject.properties.joins)
+
+    # Filter On Rights
     [query, aliases] = filters.filterByRights(query, classObject, determinePassedRights(rights), g.user, aliases=aliases)
+
+    # Get Result
     item = query.first()
+
+    # Return Result
     if item:
-        if (classObject is tables.Plugin):
-            if options['logs']:
-                if (options['download']):
-                    return plugins.getPluginLogContent(options, attrs['id'])
-                else:
-                    return jsonify({**item.getPublic({'user': g.user, 'rights': g.rights}), **plugins.getPluginLogData(attrs['id'])})
-            elif options['status']:
-                return jsonify({**item.getPublic({'user': g.user, 'rights': g.rights}), 'services': services.getServicesByPlugin(attrs['id'])})
-        return jsonify(item.getPublic({'user': g.user, 'rights': g.rights}))
-    else:
-        return ('', 404) # noCoverage
+
+        # Has Class Options & Option Handler
+        if (hasClassOptions and classObject.option['handler']):
+            result = classObject.option['handler'](options, item)
+            if (result is not None):
+                if isinstance(result, Response): return result
+                else: return jsonify(result)
+
+        # No Class Options
+        return jsonify(serializeObject(item))
+
+    # No Result
+    else: return ('', 404) # noCoverage
 
 
 # GET: Item List
@@ -969,8 +1007,8 @@ def getItemById(classObject, rights, attrs, options):
 @app.route(basePath + '<path:path>/list&<string:options>', methods=['GET'])
 @tokenAuth.login_required
 @log(returnValue=('', 409))
-@APIArgProvider(apiAction='Get', attrs=['path'], options={'level': 'str', 'filter': 'str', 'perPage': 'int', 'page': 'int', 'sort': 'str', 'order': 'str', 'count': None, 'status': None})
-def getItemList(classObject, rights, attrs, options):
+@APIArgProvider(apiAction='Get', attrs=['path'], options={'level': 'str', 'filter': 'str', 'perPage': 'int', 'page': 'int', 'sort': 'str', 'order': 'str', 'count': None})
+def getItemList(classObject, rights, attrs, options, hasClassOptions):
 
     # Get Main Options
     perPage = options['perPage']
@@ -1030,8 +1068,16 @@ def getItemList(classObject, rights, attrs, options):
         # Get Result
         result = query.all()
 
+        # Has Class Options & Option Handler
+        if (result and hasClassOptions and classObject.option['handler']):
+            modResult = classObject.option['handler'](options, result)
+            result = (serializeList(result) if (modResult is None) else modResult)
+
+        # Has No Class Options or Option Handler
+        else: result = serializeList(result)
+
         # Return Result
-        return jsonify({'page': page, 'maxPage': maxPage, 'perPage': perPage, 'total': len(result), 'exist': count, 'content': serializeListObject(result)})
+        return jsonify({'page': page, 'maxPage': maxPage, 'perPage': perPage, 'total': len(result), 'exist': count, 'content': result})
 
     # Regular Return
     else:
@@ -1039,8 +1085,16 @@ def getItemList(classObject, rights, attrs, options):
         # Get Result
         result = query.all()
 
+        # Has Class Options & Option Handler
+        if (result and hasClassOptions and classObject.option['handler']):
+            modResult = classObject.option['handler'](options, result)
+            result = (serializeList(result) if (modResult is None) else modResult)
+
+        # Has No Class Options or Option Handler
+        else: result = serializeList(result)
+
         # Return Result
-        return jsonify(serializeListObject(result))
+        return jsonify(result)
 
 
 # POST: Item (CREATE)
@@ -1374,7 +1428,7 @@ def postGUIProtocolSwitch():
 @app.route(basePath + 'translation/available', methods=['GET'])
 @log(returnValue=('', 409))
 def getEnabledTranslations():
-    return jsonify([trans.getPublic({'user': None, 'rights': generateGetAllRights(['Translation'])}) for trans in db.session.query(tables.Translation).filter_by(enabled=True).all()])
+    return jsonify(serializeList(db.session.query(tables.Translation).filter_by(enabled=True).all(), user=None, rights=generateGetAllRights(['Translation'])))
 
 
 # GET: Uptime

@@ -572,40 +572,6 @@ def deactivatePlugin(userId, session, id):
     _logger.info('Deactivated plugin ' + str(id))
 
 
-# FUNCTION: Get Plugin Log Data
-@log(returnValue={})
-def getPluginLogData(pluginId):
-    dir = sys.sharedConfig.logging['loggers']['plugin']['path'] + str(pluginId) + '/'
-    resp = {'logs': []}
-    _logger.debug('Listing log files in: ' + str(dir))
-    for dirpath, dirnames, files in os.walk(dir):
-        for name in files:
-            if ('.log' in name.lower()):
-                fullPath = os.path.join(dirpath, name)
-                _logger.debug('Found log: ' + str(fullPath))
-                fileStat = os.stat(fullPath)
-                fullPath = fullPath.replace(dir, '')
-                filePath = dirpath.replace(dir, '')
-                if (not filePath):
-                    filePath = None
-                resp['logs'].append({'uid': generateUIDfromString(fullPath), 'file': name, 'path': filePath, 'fullPath': fullPath, 'size': round(fileStat.st_size/1024, 1), 'creation': datetime.fromtimestamp(fileStat.st_ctime), 'lastEntry': datetime.fromtimestamp(fileStat.st_mtime)})
-    resp['logs'] = sorted(resp['logs'], key=lambda x: x['lastEntry'], reverse=True)
-    return resp
-
-
-# FUNCTION: Get Plugin Log Content
-@log(returnValue=('', 404))
-def getPluginLogContent(options, pluginId):
-    dir = sys.sharedConfig.logging['loggers']['plugin']['path'] + str(pluginId) + '/'
-    logList = getPluginLogData(dir)
-    if ('logs' in logList):
-        foundLogs = [log for log in logList['logs'] if (log['uid'] == options['uid'])]
-        if (len(foundLogs) == 1):
-            foundLogs = foundLogs[0]
-            return send_file(dir + foundLogs['fullPath'], attachment_filename=foundLogs['file'])
-    return ('', 404)
-
-
 # FUNCTION: Migrate DB
 @log()
 def migrateDB():

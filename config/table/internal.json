@@ -56,6 +56,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {},
                 "idReference": {},
@@ -119,6 +129,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {},
                 "idReference": {},

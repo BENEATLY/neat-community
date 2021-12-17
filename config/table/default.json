@@ -57,6 +57,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -166,6 +176,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -311,6 +331,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -543,6 +573,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -656,6 +696,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -763,6 +813,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -870,6 +930,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -959,6 +1029,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -1129,6 +1209,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -1312,6 +1402,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -1441,8 +1541,44 @@
                 "timeSeries": false
             },
             "generated": {
-                "hybrid": {},
+                "hybrid": {
+                    "logs": {
+                        "property": {
+                            "name": "pluginLogs",
+                            "plugin": null
+                        }
+                    },
+                    "services": {
+                        "property": {
+                            "name": "pluginServices",
+                            "plugin": null
+                        }
+                    }
+                },
                 "column": {}
+            },
+            "option": {
+                "handler": {
+                    "plugin": null,
+                    "name": "pluginOptionHandler"
+                },
+                "options": {
+                    "common": {},
+                    "all": {
+                        "status": null,
+                        "logs": null,
+                        "download": null,
+                        "uid": "str"
+                    },
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {
+                "getLogContent": {
+                    "name": "pluginGetLogContent",
+                    "plugin": null
+                }
             },
             "table": {
                 "direct": {
@@ -1657,6 +1793,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -1776,6 +1922,16 @@
                 },
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -2002,6 +2158,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {
@@ -2236,6 +2402,16 @@
                 "hybrid": {},
                 "column": {}
             },
+            "option": {
+                "handler": null,
+                "options": {
+                    "common": {},
+                    "all": {},
+                    "isolated": {},
+                    "own": {}
+                }
+            },
+            "function": {},
             "table": {
                 "direct": {
                     "id": {

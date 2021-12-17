@@ -20,6 +20,23 @@ def noId(attr):
     return attr
 
 
+# FUNCTION: Temporary Session Decorator
+@log()
+def inTempSession():
+    def inTempSessionInternal(func):
+        @wraps(func)
+        def inTempSessionWrapper(*args, **kwargs):
+            if ('session' in kwargs):
+                result = func(*args, **kwargs)
+            else:
+                session = tables.createDBSession()
+                result = func(*args, **{**kwargs, 'session': session})
+                session.close()
+            return result
+        return inTempSessionWrapper
+    return inTempSessionInternal
+
+
 # FUNCTION: Register Action
 @log()
 def registerAction(config, action=None, meta={}):
@@ -508,7 +525,7 @@ def bulkCommit(execParameter, sessionParameter):
 
 # FUNCTION: Sync All Configurations
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncAllConfigurations(session):
     syncAPIConfiguration(session=session)
     syncTranslationsConfiguration(session=session)
@@ -523,7 +540,7 @@ def syncAllConfigurations(session):
 
 # FUNCTION: Sync Messaging Configurations
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncMessagingConfigurations(session):
     syncTopicConfiguration(session=session)
     syncProducerConfiguration(session=session)
@@ -532,42 +549,42 @@ def syncMessagingConfigurations(session):
 
 # Function: Sync API Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncAPIConfiguration(session):
     updateAPIConfig(session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # Function: Sync Translations Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncTranslationsConfiguration(session):
     updateTranslationsConfig(session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # Function: Sync GUI Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncGUIConfiguration(session):
     updateGUIConfig(session.query(tables.Plugin).filter_by(activated=True).all(), session.query(tables.PluginOption).filter_by(public=True).all())
 
 
 # Function: Sync Table Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncTableConfiguration(session):
     updateTableConfig(session.query(tables.Plugin).filter_by(installed=True).all())
 
 
 # Function: Sync Service Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncServiceConfiguration(session):
     updateServiceConfig(session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # Function: Sync Topic Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncTopicConfiguration(session):
     updateTopicConfiguration(session.query(tables.Plugin).filter_by(activated=True).all())
     createTopics()
@@ -575,44 +592,44 @@ def syncTopicConfiguration(session):
 
 # Function: Sync Producer Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncProducerConfiguration(session):
     updateProducerConfig(session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # Function: Sync Consumer Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncConsumerConfiguration(session):
     updateConsumerConfig(session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # Function: Sync Logging Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncLoggingConfiguration(session):
     updateLoggingConfig(session.query(tables.Plugin).filter_by(installed=True).all())
 
 
 # Function: Sync Symbolic Link Configuration
 @log()
-@tables.inTempSession()
+@inTempSession()
 def syncSymbolicLinkConfiguration(session):
     updateSymbolicLinkConfig(session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # FUNCTION: Calculate Config Hashes
 @log()
-@tables.inTempSession()
+@inTempSession()
 def calculateConfigHashes(session):
     if (os.path.isfile('/etc/neatly/base/gui/gui.json')):
         license = readLicense()
         configHashes = {
             'config': calculateHash(readJSONFile('/etc/neatly/base/gui/gui.json')),
-            'availableTranslations': calculateHash([trans.getPublic({'internal': True, 'source': 'HashCalculation', 'rights': generateGetAllRights(['Translation'])}) for trans in session.query(tables.Translation).filter_by(enabled=True).all()]),
-            'right': calculateHash([right.getPublic({'internal': True, 'source': 'HashCalculation', 'rights': generateGetAllRights(['Right', 'ApiAction', 'ApiObject', 'Team', 'Function'])}) for right in session.query(tables.Right).all()]),
-            'pluginActionRight': calculateHash([pluginActionRight.getPublic({'internal': True, 'source': 'HashCalculation', 'rights': generateGetAllRights(['PluginActionRight', 'Plugin', 'Team', 'Function'])}) for pluginActionRight in session.query(tables.PluginActionRight).all()]),
-            'pluginOptionRight': calculateHash([pluginOptionRight.getPublic({'internal': True, 'source': 'HashCalculation', 'rights': generateGetAllRights(['PluginOptionRight', 'ApiAction', 'Plugin', 'Team', 'Function'])}) for pluginOptionRight in session.query(tables.PluginOptionRight).all()]),
+            'availableTranslations': calculateHash(serializeList(session.query(tables.Translation).filter_by(enabled=True).all(), internal=True, source='HashCalculation', rights=generateGetAllRights(['Translation']))),
+            'right': calculateHash(serializeList(session.query(tables.Right).all(), internal=True, source='HashCalculation', rights=generateGetAllRights(['Right', 'ApiAction', 'ApiObject', 'Team', 'Function']))),
+            'pluginActionRight': calculateHash(serializeList(session.query(tables.PluginActionRight).all(), internal=True, source='HashCalculation', rights=generateGetAllRights(['PluginActionRight', 'Plugin', 'Team', 'Function']))),
+            'pluginOptionRight': calculateHash(serializeList(session.query(tables.PluginOptionRight).all(), internal=True, source='HashCalculation', rights=generateGetAllRights(['PluginOptionRight', 'ApiAction', 'Plugin', 'Team', 'Function']))),
             'routes': calculateHash(readJSONFile('/etc/neatly/base/gui/routes/routes.json')),
             'translationFile': {translationFile: calculateHash(readJSONFile('/etc/neatly/base/gui/translations/' + translationFile)) for translationFile in next(os.walk('/etc/neatly/base/gui/translations/'))[2]},
             'license': calculateHash((license if license else {})),
