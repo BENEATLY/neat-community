@@ -1759,22 +1759,44 @@ def shInteractiveHandler(handler=None, okCode=0, noLog=False):
             # Create Default Settings
             if (not hasattr(process, '_outAllowed')): process._outAllowed = False
             if (not hasattr(process, '_inConnected')): process._inConnected = False
+            if (not hasattr(process, '_byteChar')): process._byteChar = b''
 
             # Create Buffer for Handler
             if (not hasattr(process, '_handlerBuffer')): process._handlerBuffer = ''
 
-            # Append Output to Buffer
-            process._handlerBuffer += char
+            # Byte?
+            if (isinstance(char, bytes)): process._byteChar = process._byteChar + char
+            elif (process._byteChar):
+
+                # Byte Sequence Over -> Decode
+                str = process._byteChar.decode('utf-8')
+
+                # Append Output to Buffer
+                process._handlerBuffer += str
+
+                # Write Out Decoded Bytes
+                if (process._outAllowed):
+                    sys.stdout.write(str)
+                    sys.stdout.flush()
+
+                # Clear Byte Sequence
+                process._byteChar = b''
 
             # Connect Interactive Standard Input
             if (not process._inConnected):
                 a = StdInInteractive(stdin, sys.stdin, process)
                 a.start()
 
-            # Write Out Standard Output
-            if (process._outAllowed):
-                sys.stdout.write(char)
-                sys.stdout.flush()
+            # No Bytes
+            if (not process._byteChar):
+
+                # Append Output to Buffer
+                process._handlerBuffer += char
+
+                # Write Out Standard Output
+                if (process._outAllowed):
+                    sys.stdout.write(char)
+                    sys.stdout.flush()
 
 
         # FUNCTION: Wrapper
@@ -1782,7 +1804,7 @@ def shInteractiveHandler(handler=None, okCode=0, noLog=False):
         def shInteractiveHandlerWrapper(*args, **kwargs):
 
             # Add Interactive Parameters
-            kwargs.update({'_out': defaultInteractiveHandler, '_out_bufsize': 0, '_tty_in': True, '_unify_ttys': True, '_bg': True})
+            kwargs.update({'_out': defaultInteractiveHandler, '_out_bufsize': 0, '_tty_in': True, '_unify_ttys': True, '_bg': True, '_encoding': 'utf-8'})
 
             # Log Message
             if (not noLog): logger.info('Spawning interactive sub process: ' + str(func.__name__))
@@ -1871,11 +1893,28 @@ def shPasswordHandler(password):
     # FUNCTION: SH Password Handler
     def internalShPasswordHandler(char, stdin, process):
 
-        # Create Buffer for Handler
+        # Create Default Settings and Buffer for Handler
+        if (not hasattr(process, '_byteChar')): process._byteChar = b''
         if (not hasattr(process, '_handlerBuffer')): process._handlerBuffer = ''
 
-        # Append Output to Buffer
-        process._handlerBuffer += char
+        # Byte?
+        if (isinstance(char, bytes)): process._byteChar = process._byteChar + char
+        elif (process._byteChar):
+
+            # Byte Sequence Over -> Decode
+            str = process._byteChar.decode('utf-8')
+
+            # Append Output to Buffer
+            process._handlerBuffer += str
+
+            # Clear Byte Sequence
+            process._byteChar = b''
+
+        # No Bytes
+        if (not process._byteChar):
+
+            # Append Output to Buffer
+            process._handlerBuffer += char
 
         # Determine Last Line of Buffer
         lastLine = process._handlerBuffer.split('\n')[-1]
@@ -2001,6 +2040,9 @@ def shHandler(subProcess=False, handler=None, okCode=0, noLog=False):
         # FUNCTION: Wrapper
         @wraps(func)
         def shHandlerWrapper(*args, **kwargs):
+
+            # Set Encoding
+            kwargs.update({'_encoding': 'utf-8'})
 
             # Has Handler
             if (handler): kwargs.update({'_out': handler, '_out_bufsize': 0, '_tty_in': True, '_unify_ttys': True})
