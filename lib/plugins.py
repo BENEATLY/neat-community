@@ -8,7 +8,6 @@
 
 # IMPORT: Standard Modules
 from urllib.request import urlretrieve                                                      # URL Retrieve Function
-from tarfile import open as tarOpen                                                         # Tar Extract Function
 
 # IMPORT: Custom Modules
 from basic import *                                                                         # Basic Lib
@@ -20,14 +19,34 @@ import services                                                                 
 # FUNCTION: Download Plugin
 @log(returnValue=False)
 def downloadPlugin(plugin, path):
-    _logger.info('Downloading plugin')
-    url = (plugin.url if plugin.url.endswith('/') else plugin.url + '/') + str(plugin.shortName) + '-' + str(plugin.version) + '.tar.gz'
-    urlretrieve(url, path + 'plugin.tar.gz')
-    _logger.info('Extracting plugin')
+
+    # Download Plugin
+    if (plugin.url):
+        _logger.info('Downloading plugin ' + str(plugin.id) + ' installation file from: ' + str(plugin.url))
+        url = (plugin.url if plugin.url.endswith('/') else plugin.url + '/') + str(plugin.shortName) + '-' + str(plugin.version) + '.tar.gz'
+        urlretrieve(url, path + 'plugin.tar.gz')
+
+    # Copy Plugin
+    else:
+
+        # Determine File Name
+        pluginFile = sys.sharedConfig.location['files'] + 'plugin-packages/uploads/' + str(plugin.shortName) + '-' + str(plugin.version) + '.tar.gz'
+
+        # File Found
+        if (os.path.isfile(pluginFile)):
+            _logger.info('Found uploaded plugin ' + str(plugin.id) + ' installation file')
+            shutil.copyfile(pluginFile, path + 'plugin.tar.gz')
+
+        # File Not Found
+        else:
+            _logger.warning('Did not find plugin ' + str(plugin.id) + ' installation file')
+            return False
+
+    _logger.info('Extracting plugin ' + str(plugin.id) + ' installation file')
     tar = tarOpen(path + 'plugin.tar.gz', 'r:gz')
     tar.extractall(path=path)
     tar.close()
-    _logger.info('Remove compressed file')
+    _logger.info('Remove plugin ' + str(plugin.id) + ' installation file')
     removeFile(path + 'plugin.tar.gz')
     return True
 
@@ -61,20 +80,17 @@ def installPlugin(userId, session, id):
 
         # Create Folders
         _logger.info('Creating plugin folder for plugin ' + str(id))
-        createDir(sys.sharedConfig.location['lib'] + 'plugin')
-        createDir(sys.sharedConfig.location['lib'] + 'plugin/' + str(id))
+        createDirPath(sys.sharedConfig.location['lib'] + 'plugin/' + str(id))
 
         # Set Workspace
         workspace = sys.sharedConfig.location['lib'] + 'plugin/' + str(id) + '/'
 
         # Download Plugin
-        if (plugin.url is not None):
-            _logger.info('Downloading plugin ' + str(id) + ' from: ' + str(plugin.url))
-            downloaded = downloadPlugin(plugin, workspace)
-            if (not downloaded):
-                _logger.warning('Unable to download plugin ' + str(id) + ' from: ' + str(plugin.url)) # noCoverage
-                updatePluginStatus(userId, session, plugin, None, 0) # noCoverage
-                return False # noCoverage
+        downloaded = downloadPlugin(plugin, workspace)
+        if (not downloaded):
+            _logger.warning('Unable to get plugin ' + str(id) + ' installation file') # noCoverage
+            updatePluginStatus(userId, session, plugin, None, 0) # noCoverage
+            return False # noCoverage
 
         # Set Progress
         updatePluginStatus(userId, session, plugin, transitionDirection, 22)

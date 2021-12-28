@@ -558,7 +558,7 @@ def syncAPIConfiguration(session):
 @log()
 @inTempSession()
 def syncTranslationsConfiguration(session):
-    updateTranslationsConfig(session.query(tables.Plugin).filter_by(activated=True).all())
+    updateTranslationsConfig(session.query(tables.Plugin).all(), session.query(tables.Plugin).filter_by(activated=True).all())
 
 
 # Function: Sync GUI Configuration

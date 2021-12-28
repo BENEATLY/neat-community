@@ -116,7 +116,6 @@ rights = []
 # DEFINE: Admin Rights
 skipRights = [
     {'apiObject': 'Translation', 'apiAction': 'Create'},
-    {'apiObject': 'Plugin', 'apiAction': 'Create'},
     {'apiObject': 'ActiveSession', 'apiAction': 'Create'},
     {'apiObject': 'ActiveSession', 'apiAction': 'Edit'},
     {'apiObject': 'AuthenticationMethod', 'apiAction': 'Create'},

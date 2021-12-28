@@ -921,6 +921,7 @@
         },
         "plugin": {
             "pagetitle": "Extensies",
+            "import": "Importeer nieuwe extensie",
             "overview": {
                 "pagetitle": "Overzicht"
             },

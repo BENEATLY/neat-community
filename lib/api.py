@@ -1319,6 +1319,115 @@ def setPluginOptions(plugin, allowedOptions):
     return (('', 200) if (plugins.setOptionDict(execParams, db.session, plugin, allowedOptions)) else ('', 403))
 
 
+# POST: Plugin Upload
+@app.route(basePath + 'plugin/upload', methods=['POST'])
+@tokenAuth.login_required
+@log(returnValue=('', 409))
+@hasRights(apiObject='Plugin', apiAction='Create')
+@fileUpload([{'name': 'plugin', 'secure': True, 'extension': ['.tar.gz']}])
+def postPluginUpload(**params):
+
+    # Create Storage Directory
+    createDirPath(sys.sharedConfig.location['files'] + 'plugin-packages/uploads/')
+    createDirPath(sys.sharedConfig.location['files'] + 'plugin-packages/contents/')
+
+    # Upload File
+    fileReference = uniqueFileReference(sys.sharedConfig.location['files'] + 'plugin-packages/uploads/')
+    tmpFilePath = sys.sharedConfig.location['files'] + 'plugin-packages/uploads/' + fileReference
+    uploadDir = sys.sharedConfig.location['files'] + 'plugin-packages/uploads/'
+    _logger.info('Uploading new plugin package: ' + params['files']['plugin']['fileName'] + ' as file ID ' + fileReference)
+    params['files']['plugin']['file'].save(tmpFilePath)
+    actions.manualRegisterAction({'user': g.user, 'source': 'API', 'description': 'Upload plugin package'}, db.session, {}, 'upload-plugin-package', meta={'file': {'name': params['files']['plugin']['fileName']}})
+
+    # Check if File Doesn't Exist
+    if (not os.path.isfile(tmpFilePath)): return ('', 400) # noCoverage
+
+    # Create Storage Directory
+    dirReference = uniqueDirReference(sys.sharedConfig.location['files'] + 'plugin-packages/contents/')
+    extractPath = sys.sharedConfig.location['files'] + 'plugin-packages/contents/' + dirReference + '/'
+    createDirPath(extractPath)
+
+    # Unpack Compressed File
+    tar = tarOpen(tmpFilePath, 'r:gz')
+    tar.extractall(path=extractPath)
+    tar.close()
+
+    # Read Package Info
+    packageFile = extractPath + 'package.json'
+    if (not os.path.isfile(packageFile)): return ('', 400) # noCoverage
+    packageInfo = readJSONFile(packageFile)
+
+    # Remove Storage Directory
+    removeDir(extractPath)
+
+    # Check if already existing
+    matchingPlugins = db.session.query(tables.Plugin).filter(or_(tables.Plugin.id == packageInfo['id'], tables.Plugin.shortName == packageInfo['shortName'])).all()
+
+    # Define Exec Parameters
+    execParams = {'user': g.user, 'source': 'API', 'description': 'Update plugin package'}
+
+    # Plugin Exists Already
+    if (matchingPlugins):
+
+        # Not Installed
+        if (not any([plugin.installed for plugin in matchingPlugins])):
+
+            # Remove Existing Plugins
+            for plugin in matchingPlugins:
+
+                # Remove Plugin
+                if (not actions.deleteById(execParams, db.session, tables.Plugin, plugin.id)): return ('', 400 ) # noCoverage
+
+            # Verify Dependencies
+            if (packageInfo['required']):
+                dependencies = [db.session.query(tables.Plugin).filter_by(id=req).first() for req in packageInfo['required']]
+                if (not all(dependencies)): return ('', 400) # noCoverage
+            else:
+                dependencies = []
+
+            # Add New Plugin
+            noReqPackageInfo = deepcopy(packageInfo)
+            noReqPackageInfo.update({'required': []})
+            actions.createByDict(execParams, db.session, tables.Plugin, **noReqPackageInfo, forceId=True)
+
+            # Add Plugin Dependencies
+            plugin = db.session.query(tables.Plugin).filter_by(id=packageInfo['id']).first()
+            if plugin:
+                plugin.required = dependencies
+                actions.merge(execParams, db.session, plugin)
+
+        # Installed
+        else: return ('', 400) # noCoverage
+
+    # Add New Plugin
+    else:
+
+        # Verify Dependencies
+        if (packageInfo['required']):
+            dependencies = [db.session.query(tables.Plugin).filter_by(id=req).first() for req in packageInfo['required']]
+            if (not all(dependencies)): return ('', 400) # noCoverage
+        else:
+            dependencies = []
+
+        # Add New Plugin
+        noReqPackageInfo = deepcopy(packageInfo)
+        noReqPackageInfo.update({'required': []})
+        actions.createByDict(execParams, db.session, tables.Plugin, **noReqPackageInfo, forceId=True)
+
+        # ADD: Plugin Dependencies
+        plugin = db.session.query(tables.Plugin).filter_by(id=packageInfo['id']).first()
+        if plugin:
+            plugin.required = dependencies
+            actions.merge(execParams, db.session, plugin)
+
+    # Change File Name
+    filePath = uploadDir + str(packageInfo['shortName']) + '-' + str(packageInfo['version']) + '.tar.gz'
+    os.rename(tmpFilePath, filePath)
+
+    # Return Response
+    return ('', 200)
+
+
 # GET: License Info
 @app.route(basePath + 'license/info', methods=['GET'])
 @tokenAuth.login_required
@@ -1349,7 +1458,7 @@ def getSSLInfo():
 @hasRights()
 @fileUpload([{'name': 'certificate', 'secure': True, 'extension': ['.crt']}, {'name': 'key', 'secure': True, 'extension': ['.key']}])
 def postSSLUpload(**params):
-    createDir('/etc/neatly/base/ssl')
+    createDirPath('/etc/neatly/base/ssl')
     if ('certificate' in params['files']):
         _logger.info('Uploading new certificate: ' + params['files']['certificate']['fileName'])
         params['files']['certificate']['file'].save('/etc/neatly/base/ssl/' + params['files']['certificate']['fileName'])

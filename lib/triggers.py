@@ -26,6 +26,14 @@ def reUpdateGUIConfig(changes):
     actions.calculateConfigHashes()
 
 
+# FUNCTION: Reupdate Translations Config
+@log(trigger=True)
+def reUpdateTranslationsConfig(changes):
+    _logger.info('Reupdating translations config due to: ' + ', '.join([(str(op) + ' transaction on ' + str(target.__class__.__name__) + ' ' + str(target.id)) for target, op in changes]))
+    actions.syncTranslationsConfiguration()
+    actions.calculateConfigHashes()
+
+
 # FUNCTION: Trigger PluginOption Message
 @log(trigger=True)
 def triggerPluginOptionMessage(changes):

@@ -1527,13 +1527,13 @@
                 },
                 "finiteBreak": [["required", "required"]],
                 "notEditable": {
-                    "common": ["id", "name", "shortName", "transition", "progress", "version", "default", "configPage", "required"],
+                    "common": ["id", "name", "shortName", "transition", "progress", "version", "default", "configPage", "required", "meta"],
                     "all": [],
                     "isolated": [],
                     "own": []
                 },
                 "notInitialisable": {
-                    "common": ["id", "name", "shortName", "installed", "activated", "transition", "progress", "version", "default", "configPage", "required"],
+                    "common": ["id", "name", "shortName", "installed", "activated", "transition", "progress", "version", "default", "configPage", "required", "meta"],
                     "all": [],
                     "isolated": [],
                     "own": []
@@ -1577,6 +1577,10 @@
             "function": {
                 "getLogContent": {
                     "name": "pluginGetLogContent",
+                    "plugin": null
+                },
+                "getPackageTranslationContent": {
+                    "name": "pluginGetPackageTranslationContent",
                     "plugin": null
                 }
             },
@@ -1647,6 +1651,11 @@
                         "type": "String",
                         "nullable": true,
                         "doc": "Config Page"
+                    },
+                    "meta": {
+                        "type": "PlainJSONB",
+                        "nullable": true,
+                        "doc": "Meta Data"
                     }
                 },
                 "idReference": {},
@@ -1734,7 +1743,22 @@
                     }
                 }
             },
-            "trigger": []
+            "trigger": [
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "reUpdateTranslationsConfig"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "reUpdateTranslationsConfig"
+                    }
+                }
+            ]
         },
         "Action": {
             "private": {

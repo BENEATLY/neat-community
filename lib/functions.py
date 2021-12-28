@@ -18,3 +18,9 @@ def pluginGetLogContent(self, options):
         foundLogs = foundLogs[0]
         return send_file(dir + foundLogs['fullPath'], attachment_filename=foundLogs['file'])
     return ('', 404)
+
+
+# FUNCTION: Plugin -> Get Package Translation Content
+@log(returnValue={})
+def pluginGetPackageTranslationContent(self, translation):
+    return self.meta.get('translations', {}).get(translation, {})

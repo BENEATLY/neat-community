@@ -51,6 +51,7 @@ from contextlib import redirect_stdout, redirect_stderr, ExitStack              
 import sh                                                                                                                                                                                   # Shell Lib
 from collections import deque                                                                                                                                                               # Collections Lib
 from psutil import Process                                                                                                                                                                  # Process Lib
+from tarfile import open as tarOpen                                                                                                                                                         # Tar Extract Function
 
 # IMPORT: Custom Modules
 from versioning import versioningManager, detectTransactionParams, sa, request, hybrid_property, get_class_by_table, os, ujson, copy, deepcopy, contextmanager, contextAvailable, g, orm    # Versioning Lib
@@ -816,8 +817,7 @@ def removeFile(file):
 def registerFile(dir, file):
     _logger.info('Registering ' + str(file) + ' in ' + sys.sharedConfig.location['lib'] + 'transition/' + str(dir))
     timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f')
-    createDir(sys.sharedConfig.location['lib'] + 'transition')
-    createDir(sys.sharedConfig.location['lib'] + 'transition/' + dir)
+    createDirPath(sys.sharedConfig.location['lib'] + 'transition/' + dir)
     if (os.path.isfile(file)):
         fileContent = readTextFile(file)
         writeTextFile(sys.sharedConfig.location['lib'] + 'transition/' + dir + '/' + timestamp, fileContent)
@@ -1118,6 +1118,20 @@ def uniqueFileReference(path=(sys.sharedConfig.location['lib'] + 'objects' + '/'
         else:
             fileReference = ''.join(choices(ascii_letters + digits, k=100))
     return fileReference
+
+
+# FUNCTION: Unique Directory Reference
+@log()
+def uniqueDirReference(path=(sys.sharedConfig.location['lib'] + 'objects' + '/')):
+    dirReference = ''.join(choices(ascii_letters + digits, k=100))
+    existingDirs = next(os.walk(path))[1]
+    unique = False
+    while (not unique):
+        if (dirReference not in existingDirs):
+            unique = True
+        else:
+            dirReference = ''.join(choices(ascii_letters + digits, k=100))
+    return dirReference
 
 
 # CLASS: Recurring Task Handler
@@ -1471,7 +1485,7 @@ def createPluginOptionDict(pluginOption):
 
 # FUNCTION: Update Config Generic
 @log()
-def updateConfigGeneric(name, plugins, defaultFile, targetFile, pluginFile, syncMethod=addSyncConfig, wrapper=None):
+def updateConfigGeneric(name, plugins, defaultFile, targetFile, pluginFile, syncMethod=addSyncConfig, addConfig={}, wrapper=None):
 
     # Log Message
     _logger.info('Updating ' + str(name) + ' config')
@@ -1486,6 +1500,9 @@ def updateConfigGeneric(name, plugins, defaultFile, targetFile, pluginFile, sync
         configFilePath = sys.sharedConfig.location['lib'] + 'plugin/' + str(plugin.id) + '/' + pluginFile
         if (os.path.isfile(configFilePath)):
             configDicts.append(readJSONFile(configFilePath))
+
+    # Add Provided Config
+    if (addConfig): configDicts.append(addConfig)
 
     # Wrapper
     if (wrapper): wrapper(configDicts)
@@ -1514,7 +1531,7 @@ def updateAPIConfig(plugins):
 
 # FUNCTION: Update Translations Config
 @log()
-def updateTranslationsConfig(plugins):
+def updateTranslationsConfig(plugins, activePlugins):
 
     # Log Message
     _logger.info('Updating translations config')
@@ -1525,8 +1542,14 @@ def updateTranslationsConfig(plugins):
     # Iterate over Translations
     for trans in translations:
 
+        # Determine Plain Translation Name
+        plainTranslationName = trans.replace('.json', '')
+
+        # Get Meta Translation from All Plugins
+        metaTranslations = addSyncConfig([plugin.getPackageTranslationContent(plainTranslationName) for plugin in plugins])
+
         # Update Translation
-        updateConfigGeneric(('translation ' + trans.replace('.json', '')), plugins, ('gui/translations/original/' + trans), ('gui/translations/' + trans), ('gui/translations/' + trans))
+        updateConfigGeneric(('translation ' + plainTranslationName), activePlugins, ('gui/translations/original/' + trans), ('gui/translations/' + trans), ('gui/translations/' + trans), addConfig=metaTranslations)
 
     # Log Message
     _logger.info('Successfully updated translations config')

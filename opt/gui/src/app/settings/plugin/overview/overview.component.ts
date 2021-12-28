@@ -282,6 +282,9 @@ export class SettingsPluginOverviewComponent implements OnInit {
 
   }
 
+  // Import Plugin
+  importPlugin(context, event) { context.pluginLib.importPlugin(event.target.files, context.appConfig.config, context.snackBar, context.cookieService, context.http); }
+
   // Open Help
   openHelp(context) { context.modalLib.helpModal(context.modalService, {'object': {'name': context.objectName, 'definition': context.objectDefinition, 'properties': context.objLib.getKeys(context.columns.model), 'right': context.definitionsLib.lookUpDefinitions(context.appConfig.config, context.data.userData.right, 'Get', context.objectDefinition), 'accessLevel': context.accessLevel.selected}}); }
 

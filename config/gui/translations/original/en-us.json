@@ -921,6 +921,7 @@
         },
         "plugin": {
             "pagetitle": "Plugins",
+            "import": "Import new plugin",
             "overview": {
                 "pagetitle": "Overview"
             },

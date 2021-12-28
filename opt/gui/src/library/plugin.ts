@@ -184,3 +184,32 @@ export function stringifyConfigOptions(config) {
 
 // Construct Plugin Action Path
 export function constructPluginActionPath(config, plugin, action) { return (config['apiRootUrl'] + 'plugin/' + plugin['id'] + '/action/' + action); }
+
+// Import Plugin File
+export function importPlugin(files: FileList, config, snackBarService, cookieService, httpModule) {
+
+  // Only One File Selected
+  if (files.length == 1) {
+
+    // Define API Authentication
+    let token = cookieService.get('token');
+    let headers: HttpHeaders = new HttpHeaders({"Authorization": "Token " + token});
+
+    // Create Form Data
+    let formData: FormData = new FormData();
+    formData.append('plugin', files.item(0), files.item(0).name);
+
+    // Perform Upload File API Call
+    httpModule.post(config['apiRootUrl'] + 'plugin/upload', formData, { headers }).subscribe(
+
+      // Success
+      res => {},
+
+      // Fail
+      err => { snackBarService.httpErrorOccurred(err); }
+
+    );
+
+  }
+
+}

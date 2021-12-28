@@ -41,6 +41,11 @@
 <!-- Navigation Header -->
 <app-template-navigation-header>
 
+  <!-- Import Plugin -->
+  <ng-container *ngIf="rightLib.sufficientRights(data.userData.right, objectDefinition, 'Create', 'all')">
+    <app-template-navigation-button [type]="'file'" [context]="context" [title]="'settings.plugin.import'" [reference]="'import-plugin-field-top'" [icon]="'/assets/svgs/cloud-upload-colored.svg'" [accept]="'.gz'" [action]="importPlugin"></app-template-navigation-button>
+  </ng-container>
+
   <!-- Help Button -->
   <ng-container *ngIf="(resultInfo.model != null) && rightLib.sufficientRights(data.userData.right, objectDefinition, 'Get', 'own')">
     <app-template-navigation-button [type]="'right'" [context]="context" [icon]="'/assets/svgs/help-gradient.svg'" [action]="openHelp"></app-template-navigation-button>
