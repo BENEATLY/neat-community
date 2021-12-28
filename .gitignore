@@ -29,5 +29,6 @@ opt/gui/src/assets/images
 opt/gui/src/assets/hashes
 opt/gui/src/assets/objects
 opt/gui/src/assets/config.json
+opt/plugin-packages/*
 lib/plugin/
 lib/migrations/versions/
