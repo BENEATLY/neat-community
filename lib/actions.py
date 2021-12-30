@@ -207,14 +207,12 @@ def retrieveObjectByUnique(session, classDef, values, autoComplete=True):
 # FUNCTION: Check Rights
 @log(returnValue=False)
 def checkRights(session, object, action, user):
-    [query, aliases] = createAndJoinAliases(session.query(tables.Right), tables.Right, {}, ['apiObject', 'apiAction'])
+    [query, aliases] = createAndJoinAliases(session.query(tables.Right.own, tables.Right.isolated, tables.Right.all), tables.Right, {}, ['apiObject', 'apiAction'])
     query = query.filter(and_((getSubAlias(aliases['apiObject']).name == object), (getSubAlias(aliases['apiAction']).name == action)))
     [query, aliases] = filters.filterByRights(query, tables.Right, 'own', user, aliases=aliases)
     rights = query.all()
-    result = [[right.own, right.isolated, right.all] for right in rights]
-    if len(result) > 0:
-        arr = [sum(i) for i in zip(*result)]
-        return arr
+    if rights:
+        return [any(i) for i in zip(*rights)]
     _logger.debug('No rights found!') # noCoverage
     return False # noCoverage
 
@@ -222,14 +220,12 @@ def checkRights(session, object, action, user):
 # FUNCTION: Check Plugin Action Rights
 @log(returnValue=False)
 def checkPluginActionRights(session, pluginId, action, user):
-    [query, aliases] = createAndJoinAliases(session.query(tables.PluginActionRight), tables.PluginActionRight, {}, ['plugin'])
+    [query, aliases] = createAndJoinAliases(session.query(tables.PluginActionRight.own, tables.PluginActionRight.isolated, tables.PluginActionRight.all), tables.PluginActionRight, {}, ['plugin'])
     query = query.filter(and_((getSubAlias(aliases['plugin']).id == pluginId), (tables.PluginActionRight.action == action)))
     [query, aliases] = filters.filterByRights(query, tables.PluginActionRight, 'own', user, aliases=aliases)
     rights = query.all()
-    result = [[right.own, right.isolated, right.all] for right in rights]
-    if len(result) > 0:
-        arr = [sum(i) for i in zip(*result)]
-        return arr
+    if rights:
+        return [any(i) for i in zip(*rights)]
     _logger.debug('No plugin action rights found!') # noCoverage
     return False # noCoverage
 
@@ -241,7 +237,7 @@ def checkPluginOptionRights(session, pluginId, group, option, action, user):
     query = query.filter(and_((getSubAlias(aliases['plugin']).id == pluginId), (getSubAlias(aliases['apiAction']).name == action), (tables.PluginOptionRight.group == group), (tables.PluginOptionRight.option == option)))
     [query, aliases] = filters.filterByRights(query, tables.PluginOptionRight, 'own', user, aliases=aliases)
     rights = query.all()
-    if len(rights) > 0: return True
+    if rights: return True
     _logger.debug('No plugin option rights found!') # noCoverage
     return False # noCoverage
 
@@ -255,7 +251,7 @@ def checkPluginOptionsRights(session, pluginId, action, user):
     rights = query.all()
     result = [{'group': right.group, 'option': right.option} for right in rights]
     result = [dict(t) for t in {tuple(d.items()) for d in result}]
-    if len(result) > 0:
+    if result:
         return result
     _logger.debug('No plugin options rights found!') # noCoverage
     return False # noCoverage

@@ -34,6 +34,28 @@ def reUpdateTranslationsConfig(changes):
     actions.calculateConfigHashes()
 
 
+# FUNCTION: Clear Active Plugins Cache
+@log(trigger=True)
+def clearActivePluginsCache(changes):
+    _logger.info('Clearing active plugins API cache due to: ' + ', '.join([(str(op) + ' transaction on ' + str(target.__class__.__name__) + ' ' + str(target.id)) for target, op in changes]))
+    if (contextAvailable()):
+        current_app.cache.delete('getActivePlugins')
+        _logger.info('Cleared cache')
+    else:
+        _logger.info('Unable to clear cache, no context given')
+
+
+# FUNCTION: Clear Available Translations Cache
+@log(trigger=True)
+def clearAvailableTranslationsCache(changes):
+    _logger.info('Clearing available translations API cache due to: ' + ', '.join([(str(op) + ' transaction on ' + str(target.__class__.__name__) + ' ' + str(target.id)) for target, op in changes]))
+    if (contextAvailable()):
+        current_app.cache.delete('getAvailableTranslations')
+        _logger.info('Cleared cache')
+    else:
+        _logger.info('Unable to clear cache, no context given')
+
+
 # FUNCTION: Trigger PluginOption Message
 @log(trigger=True)
 def triggerPluginOptionMessage(changes):

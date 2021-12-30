@@ -115,7 +115,29 @@
                 "idReference": {},
                 "reference": {}
             },
-            "trigger": []
+            "trigger": [
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "clearAvailableTranslationsCache"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "clearAvailableTranslationsCache"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "clearAvailableTranslationsCache"
+                    }
+                }
+            ]
         },
         "ActiveSession": {
             "private": {
@@ -1756,6 +1778,27 @@
                     "function": {
                         "plugin": null,
                         "name": "reUpdateTranslationsConfig"
+                    }
+                },
+                {
+                    "event": "after_commit_insert",
+                    "function": {
+                        "plugin": null,
+                        "name": "clearActivePluginsCache"
+                    }
+                },
+                {
+                    "event": "after_commit_update",
+                    "function": {
+                        "plugin": null,
+                        "name": "clearActivePluginsCache"
+                    }
+                },
+                {
+                    "event": "after_commit_delete",
+                    "function": {
+                        "plugin": null,
+                        "name": "clearActivePluginsCache"
                     }
                 }
             ]

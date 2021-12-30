@@ -35,8 +35,8 @@ import sys                                                                      
 import types                                                                                                                                                                                # Types Lib
 from flask.json import JSONEncoder, JSONDecoder                                                                                                                                             # JSON Encoder/Decoder Lib
 from flask_sqlalchemy import SQLAlchemy                                                                                                                                                     # Flask-SQLAlchemy Lib
-from flask import Flask, Response, send_file                                                                                                                                                # Flask Lib
-from sqlalchemy import create_engine, select, func, or_, and_, not_                                                                                                                         # SQLAlchemy Lib
+from flask import Flask, Response, send_file, current_app                                                                                                                                   # Flask Lib
+from sqlalchemy import create_engine, select, func, or_, and_, not_, case                                                                                                                   # SQLAlchemy Lib
 from sqlalchemy.orm import configure_mappers, scoped_session, sessionmaker, column_property, relationship, aliased                                                                          # SQLAlchemy ORM
 import hashlib                                                                                                                                                                              # Hash Lib
 import operator                                                                                                                                                                             # Operator Lib
@@ -1675,9 +1675,8 @@ def readSSL(config):
 
 # FUNCTION: Has Valid SSL
 @log(returnValue=False)
-def hasValidSSL(config):
-    sslInfo = readSSL(config)
-    if (sslInfo and sslInfo['certificate'] and sslInfo['key'] and (datetime.fromisoformat(sslInfo['expiryDate']) > datetime.now())):
+def hasValidSSL(info):
+    if (info and info['certificate'] and info['key'] and (datetime.fromisoformat(info['expiryDate']) > datetime.now())):
         _logger.debug('Valid SSL config detected')
         return True
     _logger.warning('Invalid SSL config detected')

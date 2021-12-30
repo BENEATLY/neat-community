@@ -185,7 +185,7 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=apiConfig['nrProxy'], x_host=apiConfig['nrProxy'], x_for=apiConfig['nrProxy'])
 
 # DEFINITION: Flask Caching
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+app.cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # DEFINITION: Flask Authentication Services
 basicAuth = HTTPBasicAuth()
@@ -234,6 +234,9 @@ licensed = readLicense()
 
 # PERFORM EXPIRE SESSION JOB
 periodicExpireSessions()
+
+# READ SSL INFO
+app.ssl = readSSL(apiConfig)
 
 
 # FUNCTION: API Argument Provider Decorator
@@ -364,10 +367,8 @@ def hasRights(apiObject='Right', apiAction='Edit', level=2):
         @wraps(func)
         def hasRightsWrapper(*args, **kwargs):
             rights = actions.checkRights(db.session, apiObject, apiAction, g.user)
-            if (not rights):
-                return ('', 403) # noCoverage
-            elif (level is not None) and (not sum(rights[level:3])):
-                return ('', 403) # noCoverage
+            if (not rights): return ('', 403) # noCoverage
+            elif (level is not None) and (not any(rights[level:3])): return ('', 403) # noCoverage
             return func()
         return hasRightsWrapper
     return hasRightsInternal
@@ -960,6 +961,7 @@ def getOwnPluginOptionRightsList():
 
 # GET: Active Plugin List
 @app.route(basePath + 'plugin/list/active', methods=['GET'])
+@app.cache.cached(timeout=0, key_prefix='getActivePlugins')
 @log(returnValue=('', 409))
 def getActivePluginList():
     return jsonify(actions.getActivePlugins(db.session))
@@ -1431,24 +1433,22 @@ def postPluginUpload(**params):
 # GET: License Info
 @app.route(basePath + 'license/info', methods=['GET'])
 @tokenAuth.login_required
+@app.cache.cached(timeout=0, key_prefix='getLicense')
 @log(returnValue=('', 409))
 def getLicenseInfo():
-    if licensed:
-        return jsonify(licensed)
-    return ('', 404) # noCoverage
+    if (licensed): return jsonify(licensed)
+    else: return ('', 404) # noCoverage
 
 
 # GET: SSL Info
 @app.route(basePath + 'ssl/info', methods=['GET'])
 @tokenAuth.login_required
-@log(returnValue=('', 409))
 @hasRights()
+@app.cache.cached(timeout=0, key_prefix='getSSL')
+@log(returnValue=('', 409))
 def getSSLInfo():
-    sslInfo = readSSL(apiConfig)
-    if sslInfo:
-        return jsonify(sslInfo)
-    else:
-        return ('', 404) # noCoverage
+    if (current_app.ssl): return jsonify(current_app.ssl)
+    else: return ('', 404) # noCoverage
 
 
 # POST: SSL Upload
@@ -1458,12 +1458,18 @@ def getSSLInfo():
 @hasRights()
 @fileUpload([{'name': 'certificate', 'secure': True, 'extension': ['.crt']}, {'name': 'key', 'secure': True, 'extension': ['.key']}])
 def postSSLUpload(**params):
+
+    # Create SSL Storage Path
     createDirPath('/etc/neatly/base/ssl')
+
+    # Certificate
     if ('certificate' in params['files']):
         _logger.info('Uploading new certificate: ' + params['files']['certificate']['fileName'])
         params['files']['certificate']['file'].save('/etc/neatly/base/ssl/' + params['files']['certificate']['fileName'])
         actions.manualRegisterAction({'user': g.user, 'source': 'API', 'description': 'Upload SSL certificate'}, db.session, {}, 'upload-ssl-certificate', meta={'file': {'name': params['files']['certificate']['fileName']}})
         updateSSLConfig('certificate', params['files']['certificate']['fileName'])
+
+    # Key
     if ('key' in params['files']):
         _logger.info('Uploading new key: ' + params['files']['key']['fileName'])
         params['files']['key']['file'].save('/etc/neatly/base/ssl/' + params['files']['key']['fileName'])
@@ -1480,6 +1486,10 @@ def postSSLUpload(**params):
     # Update Web Server Config
     if ((apiProtocol.lower() == 'https') or (guiProtocol.lower() == 'https')):
         updateWebServer(basePath, apiPort, apiProtocol, apiSSLCertificate, apiSSLKey, guiProtocol)
+
+    # Reload SSL Config
+    current_app.ssl = readSSL(apiConfig)
+    current_app.cache.delete('getSSL')
 
     # Return Response
     return ('', 200)
@@ -1501,7 +1511,7 @@ def postAPIProtocolSwitch():
             switchAPIProtocol(data['protocol'].lower())
             return ('', 200)
         _logger.debug('Switch to different protocol (' + data['protocol'].lower() + ')')
-        if (hasValidSSL(apiConfig)):
+        if (hasValidSSL(current_app.ssl)):
             switchAPIProtocol(data['protocol'].lower())
             return ('', 200)
         return ('', 400) # noCoverage
@@ -1525,7 +1535,7 @@ def postGUIProtocolSwitch():
             switchGUIProtocol(data['protocol'].lower())
             return ('', 200)
         _logger.debug('Switch to different protocol (' + data['protocol'].lower() + ')')
-        if (hasValidSSL(apiConfig)):
+        if (hasValidSSL(current_app.ssl)):
             switchGUIProtocol(data['protocol'].lower())
             return ('', 200)
         return ('', 400) # noCoverage
@@ -1535,6 +1545,7 @@ def postGUIProtocolSwitch():
 
 # GET: Enabled Translations
 @app.route(basePath + 'translation/available', methods=['GET'])
+@app.cache.cached(timeout=0, key_prefix='getAvailableTranslations')
 @log(returnValue=('', 409))
 def getEnabledTranslations():
     return jsonify(serializeList(db.session.query(tables.Translation).filter_by(enabled=True).all(), user=None, rights=generateGetAllRights(['Translation'])))
@@ -1549,7 +1560,7 @@ def getUptime():
 
 # GET: Version (All)
 @app.route(basePath + 'version/all', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getVersionAll')
+@app.cache.cached(timeout=0, key_prefix='getVersionAll')
 @log(returnValue=('', 409))
 def getVersionAll():
     return jsonify({'api': str(apiVersion), 'gui': str(guiVersion), 'db': str(dbVersion), 'webserver': str(webServerVersion), 'messaging': str(messagingVersion), 'python': str(pythonVersion)})
@@ -1557,7 +1568,7 @@ def getVersionAll():
 
 # GET: API Version
 @app.route(basePath + 'version/api', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getAPIVersion')
+@app.cache.cached(timeout=0, key_prefix='getAPIVersion')
 @log(returnValue=('', 409))
 def getAPIVersion():
     return jsonify({'version': str(apiVersion)})
@@ -1565,7 +1576,7 @@ def getAPIVersion():
 
 # GET: GUI Version
 @app.route(basePath + 'version/gui', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getGUIVersion')
+@app.cache.cached(timeout=0, key_prefix='getGUIVersion')
 @log(returnValue=('', 409))
 def getGUIVersion():
     return jsonify({'version': str(guiVersion)})
@@ -1573,7 +1584,7 @@ def getGUIVersion():
 
 # GET: DB Version
 @app.route(basePath + 'version/db', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getDBVersion')
+@app.cache.cached(timeout=0, key_prefix='getDBVersion')
 @log(returnValue=('', 409))
 def getDBVersion():
     return jsonify({'version': str(dbVersion)})
@@ -1581,7 +1592,7 @@ def getDBVersion():
 
 # GET: Web Server Version
 @app.route(basePath + 'version/webserver', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getWebServerVersion')
+@app.cache.cached(timeout=0, key_prefix='getWebServerVersion')
 @log(returnValue=('', 409))
 def getWebServerVersion():
     return jsonify({'version': str(webServerVersion)})
@@ -1589,7 +1600,7 @@ def getWebServerVersion():
 
 # GET: Messaging Bus Version
 @app.route(basePath + 'version/messaging', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getMessagingVersion')
+@app.cache.cached(timeout=0, key_prefix='getMessagingVersion')
 @log(returnValue=('', 409))
 def getMessagingVersion():
     return jsonify({'version': str(messagingVersion)})
@@ -1597,7 +1608,7 @@ def getMessagingVersion():
 
 # GET: Python Version
 @app.route(basePath + 'version/python', methods=['GET'])
-@cache.cached(timeout=0, key_prefix='getPythonVersion')
+@app.cache.cached(timeout=0, key_prefix='getPythonVersion')
 @log(returnValue=('', 409))
 def getPythonVersion():
     return jsonify({'version': str(pythonVersion)})
