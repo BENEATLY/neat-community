@@ -54,12 +54,12 @@ def generateStaticTableDefinitions(classDef):
     tableDefinitions.update(classDef['private'])
 
     # COMMON PROPERTIES
-    tableDefinitions['properties'] = Obj(classDef['properties'], withList=False)
+    tableDefinitions['_properties'] = Obj(classDef['properties'], withList=False)
 
     # OPTION PROPERTIES
-    tableDefinitions['option'] = classDef['option']
-    if (tableDefinitions['option']['handler']):
-        tableDefinitions['option']['handler'] = mapOption(tableDefinitions['option']['handler'])
+    tableDefinitions['_option'] = classDef['option']
+    if (tableDefinitions['_option']['handler']):
+        tableDefinitions['_option']['handler'] = mapOption(tableDefinitions['_option']['handler'])
 
     # FUNCTIONS
     [tableDefinitions.update({refName: mapFunction(refDef)}) for refName, refDef in classDef['function'].items()]
@@ -220,7 +220,7 @@ class Generic():
             _logger.warning('No \'Get\' rights on ' + self.__class__.__name__ + ' - ' + logExecutor(meta))
             raise AttributeError()
         if (not newFinites):
-            newFinites = {'handBrake': [className], 'finiteBreak': self.properties.finiteBreak}
+            newFinites = {'handBrake': [className], 'finiteBreak': self._properties.finiteBreak}
         else:
             newFinites['handBrake'].append(className)
             if (len(newFinites['handBrake']) > 3):
@@ -230,7 +230,7 @@ class Generic():
             newFinites['finiteBreak'] = [finite[1:] for finite in newFinites['finiteBreak'] if (len(finite) > 1)]
         currentFinites = [finite[0] for finite in newFinites['finiteBreak'] if (len(finite) == 1)]
         itemDict = {}
-        attributes = list(set(getattr(self.properties.public, 'common') + getattr(self.properties.public, rightLevel) + extra) - set(currentFinites))
+        attributes = list(set(getattr(self._properties.public, 'common') + getattr(self._properties.public, rightLevel) + extra) - set(currentFinites))
         for attribute in attributes:
             itemDict[attribute] = getattr(self, attribute)
             if (hasattr(itemDict[attribute], 'id')):
@@ -422,7 +422,7 @@ def enableTimeScale():
     for className, classDef in definedTables['class'].items():
         if (classDef['properties']['timeSeries']):
             _logger.info('Creating Hypertable on table: ' + str(classDef['private']['__tablename__']))
-            [hyperTableOut, hyperTableStatus] = shHandler(handler=shPasswordHandler(str(sys.sharedConfig.db['connection']['password'])))(sys.executables.dbClient)('-U', str(sys.sharedConfig.db['connection']['userName']), str(sys.sharedConfig.db['connection']['db']), '-c', 'SELECT CREATE_HYPERTABLE(\'"' + str(classDef['private']['__tablename__']) + '"\', \'' + str(cl['properties']['timeSeries']) + '\');')
+            [hyperTableOut, hyperTableStatus] = shHandler(handler=shPasswordHandler(str(sys.sharedConfig.db['connection']['password'])))(sys.executables.dbClient)('-U', str(sys.sharedConfig.db['connection']['userName']), str(sys.sharedConfig.db['connection']['db']), '-c', 'SELECT CREATE_HYPERTABLE(\'"' + str(classDef['private']['__tablename__']) + '"\', \'' + str(classDef['properties']['timeSeries']) + '\');')
             if (hyperTableStatus): _logger.info('Created Hypertable on table: ' + str(classDef['private']['__tablename__']))
             else: _logger.warning('Failed to create Hypertable on table: ' + str(classDef['private']['__tablename__']))
 

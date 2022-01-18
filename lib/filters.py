@@ -90,7 +90,7 @@ def convertValue(val):
 # FUNCTION: Filter By Rights
 @log()
 def filterByRights(query, object, accessRight, user, aliases={}):
-    filters = object.properties.filters.rights
+    filters = object._properties.filters.rights
     if (hasattr(filters, accessRight)):
         accessFilter = getattr(filters, accessRight)
         for statement in accessFilter:

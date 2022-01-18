@@ -269,8 +269,8 @@ def APIArgProvider(apiAction, attrs=[], options={}):
 
                 # Add Class Options
                 classOptions = {}
-                classOptions.update(classObject.option['options']['common'])
-                classOptions.update(classObject.option['options'].get(determinePassedRights(rights), {}))
+                classOptions.update(classObject._option['options']['common'])
+                classOptions.update(classObject._option['options'].get(determinePassedRights(rights), {}))
                 options.update(classOptions)
 
                 # Parse Options
@@ -530,13 +530,13 @@ def sortBy(x, sort):
 # FUNCTION: Sortable Properties
 @log(returnValue=[])
 def sortableProperties(target, right):
-    return getattr(target.properties.sorts.sortable, 'common') + getattr(target.properties.sorts.sortable, right)
+    return getattr(target._properties.sorts.sortable, 'common') + getattr(target._properties.sorts.sortable, right)
 
 
 # FUNCTION: Filterable Properties
 @log(returnValue=[])
 def filterableProperties(target, right):
-    return getattr(target.properties.filters.filterable, 'common') + getattr(target.properties.filters.filterable, right)
+    return getattr(target._properties.filters.filterable, 'common') + getattr(target._properties.filters.filterable, right)
 
 
 # FUNCTION: Option Allowed
@@ -612,7 +612,7 @@ def addSort(query, aliases, classObject, sort, order, getRights):
             while (isinstance(target, orm.util.AliasedClass)):
 
                 # Create New Sort Path
-                sort = sort + '.' + target.properties.sorts.default.property
+                sort = sort + '.' + target._properties.sorts.default.property
 
                 # Store Previous Target
                 prevTarget = target
@@ -623,7 +623,7 @@ def addSort(query, aliases, classObject, sort, order, getRights):
 
             # Get Order
             if (order in ['asc', 'desc']): sortOrderObject = getattr(target, order)()
-            else: sortOrderObject = getattr(target, ('asc' if prevTarget.properties.sorts.default.order else 'desc'))()
+            else: sortOrderObject = getattr(target, ('asc' if prevTarget._properties.sorts.default.order else 'desc'))()
 
         # Sort (InstrumentedAttribute)
         else:
@@ -643,7 +643,7 @@ def addSort(query, aliases, classObject, sort, order, getRights):
         while (isinstance(target, DeclarativeMeta) or isinstance(target, orm.util.AliasedClass)):
 
             # Create New Sort Path
-            sort = ((sort + '.') if sort else '') + target.properties.sorts.default.property
+            sort = ((sort + '.') if sort else '') + target._properties.sorts.default.property
 
             # Store Previous Target
             prevTarget = target
@@ -654,7 +654,7 @@ def addSort(query, aliases, classObject, sort, order, getRights):
 
         # Get Order
         if (order in ['asc', 'desc']): sortOrderObject = getattr(target, order)()
-        else: sortOrderObject = getattr(target, ('asc' if prevTarget.properties.sorts.default.order else 'desc'))()
+        else: sortOrderObject = getattr(target, ('asc' if prevTarget._properties.sorts.default.order else 'desc'))()
 
     # Add Sort Query
     query = query.order_by(sortOrderObject)
@@ -979,7 +979,7 @@ def getItemById(classObject, rights, attrs, options, hasClassOptions):
     query = db.session.query(classObject).filter_by(id=attrs['id'])
 
     # Add Basic Joins
-    [query, aliases] = createAndJoinAliases(query, classObject, {}, classObject.properties.joins)
+    [query, aliases] = createAndJoinAliases(query, classObject, {}, classObject._properties.joins)
 
     # Filter On Rights
     [query, aliases] = filters.filterByRights(query, classObject, determinePassedRights(rights), g.user, aliases=aliases)
@@ -991,8 +991,8 @@ def getItemById(classObject, rights, attrs, options, hasClassOptions):
     if item:
 
         # Has Class Options & Option Handler
-        if (hasClassOptions and classObject.option['handler']):
-            result = classObject.option['handler'](options, item)
+        if (hasClassOptions and classObject._option['handler']):
+            result = classObject._option['handler'](options, item)
             if (result is not None):
                 if isinstance(result, Response): return result
                 else: return jsonify(result)
@@ -1026,7 +1026,7 @@ def getItemList(classObject, rights, attrs, options, hasClassOptions):
     query = db.session.query(classObject)
 
     # Add Basic Joins
-    [query, aliases] = createAndJoinAliases(query, classObject, {}, classObject.properties.joins)
+    [query, aliases] = createAndJoinAliases(query, classObject, {}, classObject._properties.joins)
 
     # Filter On Rights
     [query, aliases] = filters.filterByRights(query, classObject, determinePassedRights(rights, specificRight=options['level']), g.user, aliases=aliases)
@@ -1071,8 +1071,8 @@ def getItemList(classObject, rights, attrs, options, hasClassOptions):
         result = query.all()
 
         # Has Class Options & Option Handler
-        if (result and hasClassOptions and classObject.option['handler']):
-            modResult = classObject.option['handler'](options, result)
+        if (result and hasClassOptions and classObject._option['handler']):
+            modResult = classObject._option['handler'](options, result)
             result = (serializeList(result) if (modResult is None) else modResult)
 
         # Has No Class Options or Option Handler
@@ -1088,8 +1088,8 @@ def getItemList(classObject, rights, attrs, options, hasClassOptions):
         result = query.all()
 
         # Has Class Options & Option Handler
-        if (result and hasClassOptions and classObject.option['handler']):
-            modResult = classObject.option['handler'](options, result)
+        if (result and hasClassOptions and classObject._option['handler']):
+            modResult = classObject._option['handler'](options, result)
             result = (serializeList(result) if (modResult is None) else modResult)
 
         # Has No Class Options or Option Handler

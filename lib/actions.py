@@ -155,7 +155,7 @@ def getDefaultValues(classDef):
 def retrieveObjectByUnique(session, classDef, values, autoComplete=True):
 
     # Define Variables
-    uniqueProperties = mergeUniqueDefinitions(classDef.properties.unique)
+    uniqueProperties = mergeUniqueDefinitions(classDef._properties.unique)
     referencedProperties = classDef().getRelatedProperties()
     mergeItems = [property for property in list(set(flattenArray(list(uniqueProperties.values())))) if (property in referencedProperties)]
     orMatch = []
@@ -261,9 +261,9 @@ def checkPluginOptionsRights(session, pluginId, action, user):
 @log(returnValue=False)
 def checkLimitations(session, model, selectedRight, action, data):
     if (action == 'Create'):
-        forbiddenParams = flattenArray([model.properties.notInitialisable.common, getattr(model.properties.notInitialisable, selectedRight)])
+        forbiddenParams = flattenArray([model._properties.notInitialisable.common, getattr(model._properties.notInitialisable, selectedRight)])
     elif (action == 'Edit'):
-        forbiddenParams = flattenArray([model.properties.notEditable.common, getattr(model.properties.notEditable, selectedRight)])
+        forbiddenParams = flattenArray([model._properties.notEditable.common, getattr(model._properties.notEditable, selectedRight)])
     else:
         _logger.debug('Limitation: no action could be matched') # noCoverage
         return False # noCoverage
