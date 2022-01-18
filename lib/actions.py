@@ -269,7 +269,7 @@ def checkLimitations(session, model, selectedRight, action, data):
         return False # noCoverage
     foundParams = list(set(list(data.keys())).intersection(forbiddenParams))
     if foundParams:
-        _logger.debug('Limitation: ' + str(foundParams) + ' is not ' + ('editable' if (action == 'Create') else 'initialisable'))
+        _logger.debug('Limitation: ' + str(foundParams) + ' is not ' + ('initialisable' if (action == 'Create') else 'editable'))
         return False
     return True
 
