@@ -37,12 +37,18 @@ def reUpdateTranslationsConfig(changes):
 # FUNCTION: Clear Active Plugins Cache
 @log(trigger=True)
 def clearActivePluginsCache(changes):
+    
+    # Clear Active Plugin Cache
     _logger.info('Clearing active plugins API cache due to: ' + ', '.join([(str(op) + ' transaction on ' + str(target.__class__.__name__) + ' ' + str(target.id)) for target, op in changes]))
     if (contextAvailable()):
         current_app.cache.delete('getActivePlugins')
         _logger.info('Cleared cache')
     else:
         _logger.info('Unable to clear cache, no context given')
+
+    # Calculate Config Hashes
+    _logger.info('Recalculating config hashes due to: ' + ', '.join([(str(op) + ' transaction on ' + str(target.__class__.__name__) + ' ' + str(target.id)) for target, op in changes]))
+    actions.calculateConfigHashes()
 
 
 # FUNCTION: Clear Available Translations Cache
