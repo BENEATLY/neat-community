@@ -32,3 +32,5 @@ opt/gui/src/assets/config.json
 opt/plugin-packages/*
 lib/plugin/
 lib/migrations/versions/
+lib/objects/
+config/ssl/
