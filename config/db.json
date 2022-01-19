@@ -1,10 +1,10 @@
 {
     "connection": {
-        "type": "postgresql",
-        "userName": "neat",
-        "password": "neat",
-        "ip": "localhost",
-        "db": "neatdb",
-        "port": 5432
+        "db": "neatdb", 
+        "ip": "localhost", 
+        "password": "neat", 
+        "port": 5432, 
+        "type": "postgresql", 
+        "userName": "neat"
     }
 }

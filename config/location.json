@@ -1,6 +1,6 @@
 {
-    "config": "/etc/neatly/base/",
-    "files": "/opt/neatly/base/",
-    "gui": "/var/www/neatly/base/",
+    "config": "/etc/neatly/base/", 
+    "files": "/opt/neatly/base/", 
+    "gui": "/var/www/neatly/base/", 
     "lib": "/var/lib/neatly/base/"
 }

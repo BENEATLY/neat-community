@@ -1,38 +1,38 @@
 {
     "loggers": {
         "actions": {
-            "path": "/var/log/neatly/base/",
-            "file": "actions.log",
-            "level": "DEBUG"
-        },
+            "file": "actions.log", 
+            "level": "DEBUG", 
+            "path": "/var/log/neatly/base/"
+        }, 
         "api": {
-            "path": "/var/log/neatly/base/",
-            "file": "api.log",
-            "level": "DEBUG"
-        },
-        "resources": {
-            "path": "/var/log/neatly/base/",
-            "file": "resources.log",
-            "level": "DEBUG"
-        },
+            "file": "api.log", 
+            "level": "DEBUG", 
+            "path": "/var/log/neatly/base/"
+        }, 
         "launch": {
-            "path": "/var/log/neatly/base/",
-            "file": "launch.log",
-            "level": "DEBUG"
-        },
+            "file": "launch.log", 
+            "level": "DEBUG", 
+            "path": "/var/log/neatly/base/"
+        }, 
         "loader": {
-            "path": "/var/log/neatly/base/",
-            "file": "loader.log",
-            "level": "DEBUG"
-        },
-        "tables": {
-            "path": "/var/log/neatly/base/",
-            "file": "tables.log",
-            "level": "DEBUG"
-        },
+            "file": "loader.log", 
+            "level": "DEBUG", 
+            "path": "/var/log/neatly/base/"
+        }, 
         "plugin": {
-            "path": "/var/log/neatly/base/plugin/",
+            "path": "/var/log/neatly/base/plugin/", 
             "plugins": {}
+        }, 
+        "resources": {
+            "file": "resources.log", 
+            "level": "DEBUG", 
+            "path": "/var/log/neatly/base/"
+        }, 
+        "tables": {
+            "file": "tables.log", 
+            "level": "DEBUG", 
+            "path": "/var/log/neatly/base/"
         }
     }
 }

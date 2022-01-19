@@ -1,1000 +1,1000 @@
 {
     "common": {
         "button": {
-            "display": "display",
-            "filter": "filter",
-            "page": "page",
-            "result-segment": "Displaying {start} - {end} of {results}",
-            "cancel": "cancel",
-            "close": "close",
-            "contact": "contact",
-            "back": "back",
-            "backto": "{item}",
-            "create": "create",
-            "delete": "delete",
-            "edit": "edit",
-            "terminate": "terminate",
-            "save": "save",
-            "legend": "legend",
-            "download": "download"
-        },
+            "back": "back", 
+            "backto": "{item}", 
+            "cancel": "cancel", 
+            "close": "close", 
+            "contact": "contact", 
+            "create": "create", 
+            "delete": "delete", 
+            "display": "display", 
+            "download": "download", 
+            "edit": "edit", 
+            "filter": "filter", 
+            "legend": "legend", 
+            "page": "page", 
+            "result-segment": "Displaying {start} - {end} of {results}", 
+            "save": "save", 
+            "terminate": "terminate"
+        }, 
         "comparator": {
-            "=null": "is null",
-            "!=null": "is not null",
-            "=": "is equal to",
-            "!=": "is not equal to",
-            "~=": "includes",
-            "!~=": "does not include",
-            ">": "is > than",
-            ">=": "is >= than",
-            "<": "is < than",
-            "<=": "is <= than",
-            "=true": "is true",
-            "=false": "is false"
-        },
+            "!=": "is not equal to", 
+            "!=null": "is not null", 
+            "!~=": "does not include", 
+            "<": "is < than", 
+            "<=": "is <= than", 
+            "=": "is equal to", 
+            "=false": "is false", 
+            "=null": "is null", 
+            "=true": "is true", 
+            ">": "is > than", 
+            ">=": "is >= than", 
+            "~=": "includes"
+        }, 
         "filter": {
-          "filter-applied": "filter applied",
-          "filter-apply": "apply filter",
-          "filter-fixed": "fixed",
-          "filter-incomplete": "incomplete",
-          "filter-invalid": "invalid filter",
-          "select-comparator": "select comparator",
-          "select-property": "select property"
-        },
+            "filter-applied": "filter applied", 
+            "filter-apply": "apply filter", 
+            "filter-fixed": "fixed", 
+            "filter-incomplete": "incomplete", 
+            "filter-invalid": "invalid filter", 
+            "select-comparator": "select comparator", 
+            "select-property": "select property"
+        }, 
         "greetings": {
             "funny": {
                 "regular": {
-                    "0": "Turbo turbo, {info, property, firstName}!",
-                    "1": "Hi {info, property, firstName}, have a good day!",
-                    "2": "Bonjour, {info, property, firstName}.",
-                    "3": "Arrrrrghh mah matey {info, property, firstName}!",
-                    "4": "Nihao {info, property, firstName}.",
-                    "5": "It's great to see you again, {info, property, firstName}!",
-                    "6": "Hope you're surviving another workweek, {info, property, firstName}.",
-                    "7": "Helloooo from the other side!!",
+                    "0": "Turbo turbo, {info, property, firstName}!", 
+                    "1": "Hi {info, property, firstName}, have a good day!", 
+                    "2": "Bonjour, {info, property, firstName}.", 
+                    "3": "Arrrrrghh mah matey {info, property, firstName}!", 
+                    "4": "Nihao {info, property, firstName}.", 
+                    "5": "It's great to see you again, {info, property, firstName}!", 
+                    "6": "Hope you're surviving another workweek, {info, property, firstName}.", 
+                    "7": "Helloooo from the other side!!", 
                     "8": "{info, property, firstName}, pet me. Purrrrrr."
-                },
+                }, 
                 "time-based": {
                     "day": {
-                        "4": "Do you even sleep, {info, property, firstName}?",
-                        "7": "{info, property, firstName}, I hope you've had your coffee already.",
-                        "11": "What are we eating today, {info, property, firstName}?",
-                        "12": "Enjoy your meal, {info, property, firstName}!",
-                        "13": "{info, property, firstName}, how you doin'?",
-                        "18": "Have a lovely evening, {info, property, firstName}!",
-                        "22": "Shouldn't you sleep by now, {info, property, firstName}?",
-                        "23": "{info, property, firstName}, you are a nocturnal animal!"
-                    },
+                        "11": "What are we eating today, {info, property, firstName}?", 
+                        "12": "Enjoy your meal, {info, property, firstName}!", 
+                        "13": "{info, property, firstName}, how you doin'?", 
+                        "18": "Have a lovely evening, {info, property, firstName}!", 
+                        "22": "Shouldn't you sleep by now, {info, property, firstName}?", 
+                        "23": "{info, property, firstName}, you are a nocturnal animal!", 
+                        "4": "Do you even sleep, {info, property, firstName}?", 
+                        "7": "{info, property, firstName}, I hope you've had your coffee already."
+                    }, 
                     "week": {
-                        "0": "{info, property, firstName}, enjoy your weekend!",
-                        "1": "{info, property, firstName}, how was your weekend?",
-                        "2": "{info, property, firstName}, happy \"Not Friday\"",
-                        "3": "Here's the good news {info, property, firstName}: Only 2 more days until Friday!",
-                        "4": "Here's the good news {info, property, firstName}: Tomorrow it's Friday!",
-                        "5": "{info, property, firstName}, almost weekendddd!!",
+                        "0": "{info, property, firstName}, enjoy your weekend!", 
+                        "1": "{info, property, firstName}, how was your weekend?", 
+                        "2": "{info, property, firstName}, happy \"Not Friday\"", 
+                        "3": "Here's the good news {info, property, firstName}: Only 2 more days until Friday!", 
+                        "4": "Here's the good news {info, property, firstName}: Tomorrow it's Friday!", 
+                        "5": "{info, property, firstName}, almost weekendddd!!", 
                         "6": "{info, property, firstName}, enjoy your weekend!"
                     }
                 }
-            },
+            }, 
             "license": {
-                "valid": "Open Source!",
-                "none": "Hi {info, property, firstName}, please provide a valid license."
-            },
+                "none": "Hi {info, property, firstName}, please provide a valid license.", 
+                "valid": "Open Source!"
+            }, 
             "polite": {
                 "regular": {
-                    "0": "Hello, {info, property, firstName}.",
-                    "1": "Have a good day, {info, property, firstName}!",
-                    "2": "It's great to see you again, {info, property, firstName}!",
-                    "3": "Hi {info, property, firstName}, I hope you're doing fine.",
-                    "4": "Hi, {info, property, firstName}.",
+                    "0": "Hello, {info, property, firstName}.", 
+                    "1": "Have a good day, {info, property, firstName}!", 
+                    "2": "It's great to see you again, {info, property, firstName}!", 
+                    "3": "Hi {info, property, firstName}, I hope you're doing fine.", 
+                    "4": "Hi, {info, property, firstName}.", 
                     "5": "Good day to you, {info, property, firstName}!"
-                },
+                }, 
                 "time-based": {
                     "day": {
-                        "6": "Good morning, {info, property, firstName}.",
-                        "12": "Good afternoon, {info, property, firstName}!",
-                        "13": "Good afternoon, {info, property, firstName}!",
-                        "18": "Good evening, {info, property, firstName}!",
-                        "22": "Good night, {info, property, firstName}."
-                    },
+                        "12": "Good afternoon, {info, property, firstName}!", 
+                        "13": "Good afternoon, {info, property, firstName}!", 
+                        "18": "Good evening, {info, property, firstName}!", 
+                        "22": "Good night, {info, property, firstName}.", 
+                        "6": "Good morning, {info, property, firstName}."
+                    }, 
                     "week": {
-                        "0": "{info, property, firstName}, enjoy your weekend!",
-                        "1": "Enjoy your start of the week, {info, property, firstName}.",
-                        "5": "Hi {info, property, firstName}, almost weekend!",
+                        "0": "{info, property, firstName}, enjoy your weekend!", 
+                        "1": "Enjoy your start of the week, {info, property, firstName}.", 
+                        "5": "Hi {info, property, firstName}, almost weekend!", 
                         "6": "{info, property, firstName}, enjoy your weekend!"
                     }
                 }
-            },
+            }, 
             "ssl": {
-                "valid": "Your application is secured, {info, property, firstName}. Nice work!",
-                "none": "Hi {info, property, firstName}, please secure your application using an SSL configuration.",
-                "expired": "Oh oh {info, property, firstName}, it seems like your SSL certificate expired.",
-                "soon-expire": "Hi {info, property, firstName}, it looks like your SSL certificate will expire soon."
+                "expired": "Oh oh {info, property, firstName}, it seems like your SSL certificate expired.", 
+                "none": "Hi {info, property, firstName}, please secure your application using an SSL configuration.", 
+                "soon-expire": "Hi {info, property, firstName}, it looks like your SSL certificate will expire soon.", 
+                "valid": "Your application is secured, {info, property, firstName}. Nice work!"
             }
-        },
+        }, 
         "label": {
-            "reenter": "re-enter {propertyName}",
-            "set": "set {propertyName}?",
-            "help": "explanation of \"{propertyName}\"",
-            "description": "description",
-            "columns": "columns",
-            "attributes": "attributes",
-            "no-description": "There is no description available."
-        },
+            "attributes": "attributes", 
+            "columns": "columns", 
+            "description": "description", 
+            "help": "explanation of \"{propertyName}\"", 
+            "no-description": "There is no description available.", 
+            "reenter": "re-enter {propertyName}", 
+            "set": "set {propertyName}?"
+        }, 
         "legal": {
-            "licensed": "licensed",
-            "type": "license type",
-            "opensource": "GNU General Public License v3.0",
             "info": {
                 "license": "All information about the current license is displayed in here."
-            }
-        },
+            }, 
+            "licensed": "licensed", 
+            "opensource": "GNU General Public License v3.0", 
+            "type": "license type"
+        }, 
         "legend": {
-            "free": "free",
-            "occupied": "occupied",
-            "empty": "empty",
-            "excluded": "excluded",
-            "undefined": "undefined",
-            "disabled": "disabled"
-        },
+            "disabled": "disabled", 
+            "empty": "empty", 
+            "excluded": "excluded", 
+            "free": "free", 
+            "occupied": "occupied", 
+            "undefined": "undefined"
+        }, 
         "login": {
-            "username": "User Name",
-            "password": "Password",
-            "submit": "Sign In"
-        },
+            "password": "Password", 
+            "submit": "Sign In", 
+            "username": "User Name"
+        }, 
         "logs": {
-            "file": "logfile",
-            "path": "path",
-            "download": "download",
-            "size": "size",
-            "creation": "creation",
-            "lastentry": "last entry"
-        },
+            "creation": "creation", 
+            "download": "download", 
+            "file": "logfile", 
+            "lastentry": "last entry", 
+            "path": "path", 
+            "size": "size"
+        }, 
         "map": {
-            "initialisingmap": "initialising map...",
-            "loadingmap": "loading map...",
-            "loadinglayers": "loading layers...",
+            "initialisingmap": "initialising map...", 
+            "loadinglayers": "loading layers...", 
+            "loadingmap": "loading map...", 
             "ready": "ready"
-        },
+        }, 
         "plugin": {
-            "install": "install",
-            "installed": "installed",
-            "not-installed": "not installed",
-            "installing": "installing",
-            "activate": "activate",
-            "activated": "activated",
-            "activating": "activating",
-            "uninstall": "uninstall",
-            "uninstalling": "uninstalling",
-            "deactivate": "deactivate",
-            "deactivating": "deactivating",
+            "activate": "activate", 
+            "activated": "activated", 
+            "activating": "activating", 
+            "deactivate": "deactivate", 
+            "deactivating": "deactivating", 
+            "install": "install", 
+            "installed": "installed", 
+            "installing": "installing", 
+            "no-logs": "No log files were found.", 
+            "not-installed": "not installed", 
             "option": {
                 "edit": "Modify {plugin, property, name}"
-            },
-            "no-logs": "No log files were found."
-        },
+            }, 
+            "uninstall": "uninstall", 
+            "uninstalling": "uninstalling"
+        }, 
         "service": {
-            "name": "service name",
-            "description": "description",
-            "status": "status",
+            "description": "description", 
+            "name": "service name", 
+            "status": "status", 
             "uptime": "uptime"
-        },
+        }, 
         "snackbar": {
-            "message": {
-                "invalidCredentials": "The entered username & password combination is invalid.",
-                "licenseUpload": "Upload a license to be able to use this system.",
-                "logonError": "Something went wrong during logon. Please try again later.",
-                "manualLogOut": {
-                    "content": "Have a nice day!",
-                    "title": "You're logged out"
-                },
-                "expiredLogOut": {
-                    "content": "Try to log in again.",
-                    "title": "Your session has expired"
-                },
-                "sslExpired": "Your SSL certificate is expired. Upload a new certificate/key combination.",
-                "sslExpireSoon": "Your SSL certificate will expire soon. Upload a new certificate/key combination."
-            },
             "button": {
-                "show": "show",
-                "close": "close"
+                "close": "close", 
+                "show": "show"
+            }, 
+            "message": {
+                "expiredLogOut": {
+                    "content": "Try to log in again.", 
+                    "title": "Your session has expired"
+                }, 
+                "invalidCredentials": "The entered username & password combination is invalid.", 
+                "licenseUpload": "Upload a license to be able to use this system.", 
+                "logonError": "Something went wrong during logon. Please try again later.", 
+                "manualLogOut": {
+                    "content": "Have a nice day!", 
+                    "title": "You're logged out"
+                }, 
+                "sslExpireSoon": "Your SSL certificate will expire soon. Upload a new certificate/key combination.", 
+                "sslExpired": "Your SSL certificate is expired. Upload a new certificate/key combination."
             }
-        },
+        }, 
         "ssl": {
             "activeprotocol": {
-                "api": "active api protocol",
+                "api": "active api protocol", 
                 "gui": "active gui protocol"
-            },
-            "hasssl": "ssl present",
-            "certificate": "certificate",
-            "key": "key",
-            "issuer": {
-                "organisation": "issuer (organisation)",
-                "location": "issuer (location)"
-            },
-            "expirydate": "expiry date",
-            "upload": {
-                "certificate": "upload new certificate",
-                "key": "upload new key"
-            },
-            "secure": {
-                "api": "Secure API",
-                "gui": "Secure GUI"
-            },
-            "switchprotocol": {
-                "api": "Switch API protocol",
-                "gui": "Switch GUI protocol",
-                "to": "Switch to {protocol}"
-            },
+            }, 
+            "certificate": "certificate", 
+            "expirydate": "expiry date", 
+            "hasssl": "ssl present", 
             "info": {
-                "security": "This box provides an overview of the current security status with regards to SLL encryption. It's important to provide a trusted CA signed valid SSL certificate (and key) to enforce encryption on all communication with the application. Without SSL encryption, your application is more vulnerable to security threats. After uploading a valid certificate and key, change the API protocol and GUI protocol to HTTPS (both!) for optimal SSL encryption security.",
-                "certificate": "This box provides more information related to the uploaded SSL certificate. The most important aspects are:<br><li>Is your certificate signed by a trusted certificate authority (CA)?</li><li>Is your certificate still valid? This can be determined via the \"expiry date\". Make sure to upload a new valid SSL certificate and SSL key prior to expiration. After SSL certificate expiration, interaction with the application will be labeled as \"insecure\". In that case, services and browsers might refuse to communicate with the application.</li>",
-                "upload": {
-                    "certificate": "Each SSL configuration consists of a certificate and a key. Using the button in this box, you can upload a new certificate. The extension of the certificate must be \".crt\".",
-                    "key": "Each SSL configuration consists of a certificate and a key. Using the button in this box, you can upload a new key. The extension of the key must be \".key\"."
-                },
+                "certificate": "This box provides more information related to the uploaded SSL certificate. The most important aspects are:<br><li>Is your certificate signed by a trusted certificate authority (CA)?</li><li>Is your certificate still valid? This can be determined via the \"expiry date\". Make sure to upload a new valid SSL certificate and SSL key prior to expiration. After SSL certificate expiration, interaction with the application will be labeled as \"insecure\". In that case, services and browsers might refuse to communicate with the application.</li>", 
+                "security": "This box provides an overview of the current security status with regards to SLL encryption. It's important to provide a trusted CA signed valid SSL certificate (and key) to enforce encryption on all communication with the application. Without SSL encryption, your application is more vulnerable to security threats. After uploading a valid certificate and key, change the API protocol and GUI protocol to HTTPS (both!) for optimal SSL encryption security.", 
                 "switchprotocol": {
-                    "api": "You can use the button in this box to change the protocol used by the API.<br><br>The following options are possible:<br><li>HTTP: Insecure</li><li>HTTPS: Secure</li>",
+                    "api": "You can use the button in this box to change the protocol used by the API.<br><br>The following options are possible:<br><li>HTTP: Insecure</li><li>HTTPS: Secure</li>", 
                     "gui": "You can use the button in this box to change the protocol used by the GUI.<br><br>The following options are possible:<br><li>HTTP: Insecure</li><li>HTTPS: Secure</li>"
+                }, 
+                "upload": {
+                    "certificate": "Each SSL configuration consists of a certificate and a key. Using the button in this box, you can upload a new certificate. The extension of the certificate must be \".crt\".", 
+                    "key": "Each SSL configuration consists of a certificate and a key. Using the button in this box, you can upload a new key. The extension of the key must be \".key\"."
                 }
+            }, 
+            "issuer": {
+                "location": "issuer (location)", 
+                "organisation": "issuer (organisation)"
+            }, 
+            "key": "key", 
+            "secure": {
+                "api": "Secure API", 
+                "gui": "Secure GUI"
+            }, 
+            "switchprotocol": {
+                "api": "Switch API protocol", 
+                "gui": "Switch GUI protocol", 
+                "to": "Switch to {protocol}"
+            }, 
+            "upload": {
+                "certificate": "upload new certificate", 
+                "key": "upload new key"
             }
-        },
+        }, 
         "statistics": {
-            "average": "average",
-            "median": "median",
-            "passrate": "pass rate",
+            "average": "average", 
+            "median": "median", 
+            "passrate": "pass rate", 
             "stddev": "std. dev."
-        },
+        }, 
         "table": {
-            "info": "info",
-            "list": "list",
-            "empty-list": "empty list",
-            "add-item": "Add item",
-            "actions": "actions",
-            "notavailable": "N/A",
-            "notfound": "No {objectName} found...",
-            "unknown": "unknown",
-            "multi": "..."
-        },
+            "actions": "actions", 
+            "add-item": "Add item", 
+            "empty-list": "empty list", 
+            "info": "info", 
+            "list": "list", 
+            "multi": "...", 
+            "notavailable": "N/A", 
+            "notfound": "No {objectName} found...", 
+            "unknown": "unknown"
+        }, 
         "validate": {
-            "minChar": "Must consist of at least {chars} characters",
-            "maxChar": "Maximum {chars} characters allowed",
-            "plainCharOnly": "Only plain characters are allowed",
-            "doubleSpace": "Double spaces are not allowed",
-            "doubleQuote": "Double quotes are not allowed",
-            "whitespace": "Whitespaces are not allowed",
-            "lowerCaseOnly": "Only lower case characters are allowed",
-            "upperCaseOnly": "Only upper case characters are allowed",
-            "exists": "This already exists",
-            "invalidMail": "Invalid mail address",
-            "invalidJSON": "Invalid JSON input",
-            "invalidPhone": "Invalid phone number",
-            "invalidIP": "Invalid IP address",
-            "invalidMAC": "Invalid MAC address",
-            "invalidHexColor": "Invalid hexadecimal color",
-            "oneSpecialChar": "Should contain a special character",
-            "oneUpperCaseChar": "Should contain a upper case letter",
-            "oneNumberChar": "Should contain a number",
-            "matching": "Not matching",
-            "emptyList": "List can not be empty",
-            "emptySelection": "Selection can not be empty",
-            "notInPossibilities": "Not a selection from the list of possibilities",
-            "invalidNumber": "Invalid number",
-            "maxNumber": "Highest possible number is {number}",
-            "minNumber": "Lowest possible number is {number}",
-            "precisionNumber": "Number should be rounded off with a precision of {precision}",
-            "emptyInput": "Input can not be empty",
-            "combinationExists": "Combination already exists",
-            "secureFileName": "Insecure file name"
-        },
+            "combinationExists": "Combination already exists", 
+            "doubleQuote": "Double quotes are not allowed", 
+            "doubleSpace": "Double spaces are not allowed", 
+            "emptyInput": "Input can not be empty", 
+            "emptyList": "List can not be empty", 
+            "emptySelection": "Selection can not be empty", 
+            "exists": "This already exists", 
+            "invalidHexColor": "Invalid hexadecimal color", 
+            "invalidIP": "Invalid IP address", 
+            "invalidJSON": "Invalid JSON input", 
+            "invalidMAC": "Invalid MAC address", 
+            "invalidMail": "Invalid mail address", 
+            "invalidNumber": "Invalid number", 
+            "invalidPhone": "Invalid phone number", 
+            "lowerCaseOnly": "Only lower case characters are allowed", 
+            "matching": "Not matching", 
+            "maxChar": "Maximum {chars} characters allowed", 
+            "maxNumber": "Highest possible number is {number}", 
+            "minChar": "Must consist of at least {chars} characters", 
+            "minNumber": "Lowest possible number is {number}", 
+            "notInPossibilities": "Not a selection from the list of possibilities", 
+            "oneNumberChar": "Should contain a number", 
+            "oneSpecialChar": "Should contain a special character", 
+            "oneUpperCaseChar": "Should contain a upper case letter", 
+            "plainCharOnly": "Only plain characters are allowed", 
+            "precisionNumber": "Number should be rounded off with a precision of {precision}", 
+            "secureFileName": "Insecure file name", 
+            "upperCaseOnly": "Only upper case characters are allowed", 
+            "whitespace": "Whitespaces are not allowed"
+        }, 
         "version": {
-            "angular": "angular",
-            "gui": "GUI",
-            "api": "API",
-            "database": "database",
-            "messaging": "messaging",
-            "python": "python",
+            "angular": "angular", 
+            "api": "API", 
+            "database": "database", 
+            "gui": "GUI", 
+            "messaging": "messaging", 
+            "python": "python", 
             "webserver": "web server"
-        },
+        }, 
         "view": {
-            "all": "full view",
-            "isolated": "team view",
+            "all": "full view", 
+            "isolated": "team view", 
             "own": "own view"
         }
-    },
+    }, 
     "consumer": {
         "default": {
             "eventlogging": "internal event logging consumer"
         }
-    },
+    }, 
     "dashboard": {
         "pagetitle": "Dashboard"
-    },
+    }, 
+    "leftbar": {
+        "settings": {
+            "functions": "Functions", 
+            "languages": "Languages", 
+            "legal": "Legal", 
+            "plugin": {
+                "configuration": "Configuration", 
+                "overview": "Overview"
+            }, 
+            "plugins": "Plugins", 
+            "rights": {
+                "object": "Objects", 
+                "plugin": "Plugin Actions", 
+                "pluginoption": "Plugin Options", 
+                "rights": "Rights"
+            }, 
+            "ssl": "SSL", 
+            "teams": "Teams", 
+            "users": "Users", 
+            "version": "Version"
+        }, 
+        "user": {
+            "info": "User Information", 
+            "language": "Language", 
+            "logout": "Log Out", 
+            "sessions": "Sessions", 
+            "timezone": "Time Zone"
+        }
+    }, 
+    "modal": {
+        "eula": {
+            "title": "End User License Agreement"
+        }, 
+        "log": {
+            "title": "{item, property, name} - log files"
+        }, 
+        "service": {
+            "status": {
+                "dead": "stopped", 
+                "running": "active"
+            }, 
+            "title": "{item, property, name} - services"
+        }
+    }, 
     "navbar": {
-        "dashboard": "Dashboard",
-        "login": "Log In",
-        "settings": "Settings",
-        "user": "User Profile",
-        "switch-language": "Switch Language"
-    },
+        "dashboard": "Dashboard", 
+        "login": "Log In", 
+        "settings": "Settings", 
+        "switch-language": "Switch Language", 
+        "user": "User Profile"
+    }, 
     "object": {
         "ActiveSession": {
             "help": {
-                "intro": "{right, select, own{Your own} isolated{Your team's} other{All}} active sessions are visualised here. An active session is established once a user logs in successfully.",
+                "intro": "{right, select, own{Your own} isolated{Your team's} other{All}} active sessions are visualised here. An active session is established once a user logs in successfully.", 
                 "properties": {
-                    "ip": "The IP address of the user",
-                    "client": "The used web client (browser)",
-                    "user": "The user of the session",
-                    "creation": "The timestamp of the first successful log on of the session",
-                    "lastActive": "The timestamp of the last usage of the session",
-                    "static": "Never expire the session",
-                    "expired": "The expiry status of the session",
-                    "token": "The authentication token used for this session"
+                    "client": "The used web client (browser)", 
+                    "creation": "The timestamp of the first successful log on of the session", 
+                    "expired": "The expiry status of the session", 
+                    "ip": "The IP address of the user", 
+                    "lastActive": "The timestamp of the last usage of the session", 
+                    "static": "Never expire the session", 
+                    "token": "The authentication token used for this session", 
+                    "user": "The user of the session"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "active session: {item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})"
-                },
-                "edit": {
-                    "title": "edit active session: {item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})"
-                },
-                "delete": {
-                    "title": "are you sure you want to terminate this active session?"
-                },
                 "create": {
                     "title": "create active session"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to terminate this active session?"
+                }, 
+                "edit": {
+                    "title": "edit active session: {item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})"
+                }, 
+                "info": {
+                    "title": "active session: {item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Active Session",
-                "plural": "Active Sessions"
-            },
+                "plural": "Active Sessions", 
+                "singular": "Active Session"
+            }, 
             "presentation": {
-                "all": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})",
-                "isolated": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})",
+                "all": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})", 
+                "isolated": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})", 
                 "own": "{item, property, ip}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "ip": "IP address",
-                "client": "client",
-                "user": "user",
-                "creation": "first login",
-                "lastActive": "last active",
-                "static": "static",
-                "expired": "expired",
-                "token": "token"
+                "client": "client", 
+                "creation": "first login", 
+                "expired": "expired", 
+                "id": "identifier", 
+                "ip": "IP address", 
+                "lastActive": "last active", 
+                "static": "static", 
+                "token": "token", 
+                "user": "user"
             }
-        },
+        }, 
         "ApiAction": {
             "help": {
-                "intro": "\"Actions\" are the operations that can be performed on objects via the API. Common actions are: create, delete and edit.",
+                "intro": "\"Actions\" are the operations that can be performed on objects via the API. Common actions are: create, delete and edit.", 
                 "properties": {
                     "name": "The name of the action"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Action",
-                "plural": "Actions"
-            },
+                "plural": "Actions", 
+                "singular": "Action"
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
+                "id": "identifier", 
                 "name": "name"
             }
-        },
+        }, 
         "ApiObject": {
             "help": {
-                "intro": "An \"Object\" is a blob of data that represents a certain thing. This can be a physical or virtual element. Object data can be obtained via the API.",
+                "intro": "An \"Object\" is a blob of data that represents a certain thing. This can be a physical or virtual element. Object data can be obtained via the API.", 
                 "properties": {
                     "name": "The name of the object"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Object",
-                "plural": "Objects"
-            },
+                "plural": "Objects", 
+                "singular": "Object"
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
+                "id": "identifier", 
                 "name": "name"
             }
-        },
+        }, 
         "AuthenticationMethod": {
             "help": {
-                "intro": "{right, select, own{Your own authentication method is} isolated{Your team members' authentication methods are} other{All authentication methods are}} visualised here. An authentication method is a method used to determine the validity of user credentials on log in. If the user credentials are valid, an active session will be created for that user. There's a \"Default\" authentication method, when selected the user credentials will be compared to the user information present in the database of the application. You can also make use of plugins providing additional (remote) authentication methods (e.g. the LDAP plugin).{right, select, own{} isolated{} other{ When making use of an authentication method provided by a plugin, we do recommend to keep at least one administrative user on the \"Default\" authentication method. To mitigate the risk of potential lock outs.}}",
+                "intro": "{right, select, own{Your own authentication method is} isolated{Your team members' authentication methods are} other{All authentication methods are}} visualised here. An authentication method is a method used to determine the validity of user credentials on log in. If the user credentials are valid, an active session will be created for that user. There's a \"Default\" authentication method, when selected the user credentials will be compared to the user information present in the database of the application. You can also make use of plugins providing additional (remote) authentication methods (e.g. the LDAP plugin).{right, select, own{} isolated{} other{ When making use of an authentication method provided by a plugin, we do recommend to keep at least one administrative user on the \"Default\" authentication method. To mitigate the risk of potential lock outs.}}", 
                 "properties": {
-                    "name": "The name of the authentication method",
+                    "name": "The name of the authentication method", 
                     "plugin": "The plugin providing the authentication method"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "authentication method: {item, property, name} ({item, property, plugin.name})"
-                },
-                "edit": {
-                    "title": "edit authentication method: {item, property, name} ({item, property, plugin.name})"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this authentication method?"
-                },
                 "create": {
                     "title": "create authentication method"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this authentication method?"
+                }, 
+                "edit": {
+                    "title": "edit authentication method: {item, property, name} ({item, property, plugin.name})"
+                }, 
+                "info": {
+                    "title": "authentication method: {item, property, name} ({item, property, plugin.name})"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Authentication Method",
-                "plural": "Authentication Methods"
-            },
+                "plural": "Authentication Methods", 
+                "singular": "Authentication Method"
+            }, 
             "presentation": {
-                "all": "{item, property, name} ({item, property, plugin.name})",
-                "isolated": "{item, property, name} ({item, property, plugin.name})",
+                "all": "{item, property, name} ({item, property, plugin.name})", 
+                "isolated": "{item, property, name} ({item, property, plugin.name})", 
                 "own": "{item, property, name} ({item, property, plugin.name})"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "name": "name",
+                "id": "identifier", 
+                "name": "name", 
                 "plugin": "plugin"
             }
-        },
+        }, 
         "File": {
             "help": {
-                "intro": "{right, select, own{Your own} isolated{Your team's} other{All}} files are visualised here. A file is an uploaded piece of content (e.g. picture, document).",
+                "intro": "{right, select, own{Your own} isolated{Your team's} other{All}} files are visualised here. A file is an uploaded piece of content (e.g. picture, document).", 
                 "properties": {
-                    "name": "The file to upload",
-                    "reference": "The reference to the file",
-                    "creation": "The timestamp of the file upload",
-                    "uploader": "The user that uploaded the file",
-                    "size": "The size of the file (in kB)"
+                    "creation": "The timestamp of the file upload", 
+                    "name": "The file to upload", 
+                    "reference": "The reference to the file", 
+                    "size": "The size of the file (in kB)", 
+                    "uploader": "The user that uploaded the file"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "file: {item, property, name}"
-                },
-                "edit": {
-                    "title": "edit file: {item, property, name}"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this file?"
-                },
                 "create": {
                     "title": "upload file"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this file?"
+                }, 
+                "edit": {
+                    "title": "edit file: {item, property, name}"
+                }, 
+                "info": {
+                    "title": "file: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "File",
-                "plural": "Files"
-            },
+                "plural": "Files", 
+                "singular": "File"
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "name": "file",
-                "reference": "reference",
-                "creation": "created",
-                "uploader": "uploader",
-                "size": "size"
+                "creation": "created", 
+                "id": "identifier", 
+                "name": "file", 
+                "reference": "reference", 
+                "size": "size", 
+                "uploader": "uploader"
             }
-        },
+        }, 
         "Function": {
             "help": {
-                "intro": "{right, select, own{Your own} isolated{Your team's} other{All}} functions are visualised here. A function is a profession that is executed by a certain user.",
+                "intro": "{right, select, own{Your own} isolated{Your team's} other{All}} functions are visualised here. A function is a profession that is executed by a certain user.", 
                 "properties": {
                     "name": "The name of the function"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "function: {item, property, name}"
-                },
-                "edit": {
-                    "title": "edit function: {item, property, name}"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this function?"
-                },
                 "create": {
                     "title": "create function"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this function?"
+                }, 
+                "edit": {
+                    "title": "edit function: {item, property, name}"
+                }, 
+                "info": {
+                    "title": "function: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Function",
-                "plural": "Functions"
-            },
+                "plural": "Functions", 
+                "singular": "Function"
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
+                "id": "identifier", 
                 "name": "name"
             }
-        },
+        }, 
         "Plugin": {
             "help": {
-                "intro": "All plugins are visualised here. A plugin is an extension that can be used to add functionality to the system.",
+                "intro": "All plugins are visualised here. A plugin is an extension that can be used to add functionality to the system.", 
                 "properties": {
-                    "name": "The name of the plugin",
-                    "description": "The description of the plugin",
-                    "installed": "The installation status of the plugin",
-                    "activated": "The activation status of the plugin",
-                    "progress": "The progress of the current plugin action",
-                    "version": "The version of the plugin",
-                    "default": "A value that determines if the plugin is present on the system by default",
-                    "tags": "Relevant keywords associated with this plugin",
-                    "status": "The status of the plugin",
-                    "required": "The list of plugins that need to be installed first, before this plugin can be installed",
-                    "configPage": "The reference to the web page used to configure the plugin",
-                    "logs": "The log files of the plugin",
-                    "serviceStatus": "The service status of the plugin"
+                    "activated": "The activation status of the plugin", 
+                    "configPage": "The reference to the web page used to configure the plugin", 
+                    "default": "A value that determines if the plugin is present on the system by default", 
+                    "description": "The description of the plugin", 
+                    "installed": "The installation status of the plugin", 
+                    "logs": "The log files of the plugin", 
+                    "name": "The name of the plugin", 
+                    "progress": "The progress of the current plugin action", 
+                    "required": "The list of plugins that need to be installed first, before this plugin can be installed", 
+                    "serviceStatus": "The service status of the plugin", 
+                    "status": "The status of the plugin", 
+                    "tags": "Relevant keywords associated with this plugin", 
+                    "version": "The version of the plugin"
                 }
-            },
+            }, 
             "modal": {
                 "info": {
                     "title": "plugin: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Plugin",
-                "plural": "Plugins"
-            },
+                "plural": "Plugins", 
+                "singular": "Plugin"
+            }, 
             "presentation": {
-                "all": "{item, property, name} ({item, property, version})",
-                "isolated": "{item, property, name} ({item, property, version})",
+                "all": "{item, property, name} ({item, property, version})", 
+                "isolated": "{item, property, name} ({item, property, version})", 
                 "own": "{item, property, name} ({item, property, version})"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "name": "name",
-                "description": "description",
-                "installed": "installed",
-                "activated": "activated",
-                "progress": "progress",
-                "version": "version",
-                "default": "default",
-                "tags": "tags",
-                "status": "status",
-                "required": "requirements",
-                "configPage": "config",
-                "logs": "logs",
-                "serviceStatus": "services"
+                "activated": "activated", 
+                "configPage": "config", 
+                "default": "default", 
+                "description": "description", 
+                "id": "identifier", 
+                "installed": "installed", 
+                "logs": "logs", 
+                "name": "name", 
+                "progress": "progress", 
+                "required": "requirements", 
+                "serviceStatus": "services", 
+                "status": "status", 
+                "tags": "tags", 
+                "version": "version"
             }
-        },
+        }, 
+        "PluginActionRight": {
+            "help": {
+                "intro": "All plugin action rights are visualised here. A plugin action right is used to permit the execution of plugin actions to a certain group of users.<br>There are three types of access:<ul><li><b>Own</b>: Permits the group of users to perform the selected plugin action on 'owned' objects (if applicable). This means that the user should be related to this object in a direct manner.</li><li><b>Team</b>: Permits the group of users to perform the selected plugin action on 'team' objects (if applicable). This means that the user should be related to this object via its team.</li><li><b>Full</b>: Permits the group of users to perform the selected plugin action on any object (if applicable). This means that the user can perform the action on all objects. There is no limitation.</li></ul><br><br>When no team and function is selected, the plugin right will apply to <b>all</b> users.", 
+                "properties": {
+                    "action": "The name of the action", 
+                    "all": "Permits the group of users to perform the selected plugin action on any object (if applicable)", 
+                    "function": "The function able to perform the action", 
+                    "isolated": "Permits the group of users to perform the selected plugin action on 'team' objects (if applicable)", 
+                    "own": "Permits the group of users to perform the selected plugin action on 'owned' objects (if applicable)", 
+                    "plugin": "The plugin where the right belongs to", 
+                    "team": "The team able to perform the action"
+                }
+            }, 
+            "modal": {
+                "create": {
+                    "title": "create plugin action right"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this plugin action right?"
+                }, 
+                "edit": {
+                    "title": "edit plugin action right: [{item, property, plugin.name} - {item, property, action}]"
+                }, 
+                "info": {
+                    "title": "plugin action right: [{item, property, plugin.name} - {item, property, action}]"
+                }
+            }, 
+            "naming": {
+                "plural": "Plugin Action Rights", 
+                "singular": "Plugin Action Right"
+            }, 
+            "presentation": {
+                "all": "{item, property, plugin.name} - {item, property, action}", 
+                "isolated": "{item, property, plugin.name} - {item, property, action}", 
+                "own": "{item, property, plugin.name} - {item, property, action}"
+            }, 
+            "properties": {
+                "action": "action", 
+                "all": "full", 
+                "function": "function", 
+                "id": "identifier", 
+                "isolated": "team", 
+                "own": "own", 
+                "plugin": "plugin", 
+                "team": "team"
+            }
+        }, 
+        "PluginOptionRight": {
+            "help": {
+                "intro": "All plugin option rights are visualised here. A plugin option right is used to allow modification of specific plugin parameters to a certain group of users.<br>When no team and function is selected, the plugin right will apply to <b>all</b> users.", 
+                "properties": {
+                    "apiAction": "The action that can be performed by the user on the plugin option", 
+                    "description": "The description of the option", 
+                    "function": "The function able to perform the action on the plugin option", 
+                    "group": "The group of the option", 
+                    "option": "The name of the option", 
+                    "plugin": "The plugin where the option belongs to", 
+                    "team": "The team able to perform the action on the plugin option"
+                }
+            }, 
+            "modal": {
+                "create": {
+                    "title": "create plugin option right"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this plugin option right?"
+                }, 
+                "edit": {
+                    "title": "edit plugin option right: [{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}]"
+                }, 
+                "info": {
+                    "title": "plugin option right: [{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}]"
+                }
+            }, 
+            "naming": {
+                "plural": "Plugin Option Rights", 
+                "singular": "Plugin Option Right"
+            }, 
+            "presentation": {
+                "all": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}", 
+                "isolated": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}", 
+                "own": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}"
+            }, 
+            "properties": {
+                "apiAction": "action", 
+                "description": "description", 
+                "function": "function", 
+                "group": "group", 
+                "id": "identifier", 
+                "option": "option", 
+                "plugin": "plugin", 
+                "team": "team"
+            }
+        }, 
         "Right": {
             "help": {
-                "intro": "All rights are visualised here. A right is used to permit the execution of object operations to a certain group of users.<br>There are three types of access:<ul><li><b>Own</b>: Permits the group of users to perform the selected action on the selected 'owned' object. This means that the user should be related to this object in a direct manner.<br><i>E.g.: A device owned by this user, the contact details of this user, etcetera...</i></li><li><b>Team</b>: Permits the group of users to perform the selected action on the selected 'team' object. This means that the user should be related to this object via its team.<br><i>E.g.: A device owned by the user's team, the contact details of a colleague in the same team, etcetera...</i></li><li><b>Full</b>: Permits the group of users to perform the selected action on the selected object. This means that the user can perform the action on all objects. There is no limitation.<br><i>E.g.: A device owned by another team, the contact details of a colleague in another team, etcetera...</i></li></ul><br><br>When no team and function is selected, the right will apply to <b>all</b> users.",
+                "intro": "All rights are visualised here. A right is used to permit the execution of object operations to a certain group of users.<br>There are three types of access:<ul><li><b>Own</b>: Permits the group of users to perform the selected action on the selected 'owned' object. This means that the user should be related to this object in a direct manner.<br><i>E.g.: A device owned by this user, the contact details of this user, etcetera...</i></li><li><b>Team</b>: Permits the group of users to perform the selected action on the selected 'team' object. This means that the user should be related to this object via its team.<br><i>E.g.: A device owned by the user's team, the contact details of a colleague in the same team, etcetera...</i></li><li><b>Full</b>: Permits the group of users to perform the selected action on the selected object. This means that the user can perform the action on all objects. There is no limitation.<br><i>E.g.: A device owned by another team, the contact details of a colleague in another team, etcetera...</i></li></ul><br><br>When no team and function is selected, the right will apply to <b>all</b> users.", 
                 "properties": {
-                    "apiObject": "The object where the right provides access to",
-                    "apiAction": "The action where the right provides access to",
-                    "team": "The team where access is provided to",
-                    "function": "The function where access is provided to",
-                    "own": "Permits the group of users to perform the selected action on the selected 'owned' object",
-                    "isolated": "Permits the group of users to perform the selected action on the selected 'team' object",
-                    "all": "Permits the group of users to perform the selected action on the selected object without limitation"
+                    "all": "Permits the group of users to perform the selected action on the selected object without limitation", 
+                    "apiAction": "The action where the right provides access to", 
+                    "apiObject": "The object where the right provides access to", 
+                    "function": "The function where access is provided to", 
+                    "isolated": "Permits the group of users to perform the selected action on the selected 'team' object", 
+                    "own": "Permits the group of users to perform the selected action on the selected 'owned' object", 
+                    "team": "The team where access is provided to"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "right: [{item, property, apiObject.name} - {item, property, apiAction.name}]"
-                },
-                "edit": {
-                    "title": "edit right: [{item, property, apiObject.name} - {item, property, apiAction.name}]"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this right?"
-                },
                 "create": {
                     "title": "create right"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this right?"
+                }, 
+                "edit": {
+                    "title": "edit right: [{item, property, apiObject.name} - {item, property, apiAction.name}]"
+                }, 
+                "info": {
+                    "title": "right: [{item, property, apiObject.name} - {item, property, apiAction.name}]"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Right",
-                "plural": "Rights"
-            },
+                "plural": "Rights", 
+                "singular": "Right"
+            }, 
             "presentation": {
-                "all": "{item, property, apiAction} - {item, property, apiObject}",
-                "isolated": "{item, property, apiAction} - {item, property, apiObject}",
+                "all": "{item, property, apiAction} - {item, property, apiObject}", 
+                "isolated": "{item, property, apiAction} - {item, property, apiObject}", 
                 "own": "{item, property, apiAction} - {item, property, apiObject}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "apiObject": "object",
-                "apiAction": "action",
-                "team": "team",
-                "function": "function",
-                "own": "own access",
-                "isolated": "team access",
-                "all": "full access"
+                "all": "full access", 
+                "apiAction": "action", 
+                "apiObject": "object", 
+                "function": "function", 
+                "id": "identifier", 
+                "isolated": "team access", 
+                "own": "own access", 
+                "team": "team"
             }
-        },
+        }, 
         "Team": {
             "help": {
-                "intro": "{right, select, own{Your own team is} isolated{Your own team is} other{All teams are}} visualised here. A team is a group where a certain user belongs to.",
+                "intro": "{right, select, own{Your own team is} isolated{Your own team is} other{All teams are}} visualised here. A team is a group where a certain user belongs to.", 
                 "properties": {
                     "name": "The name of the team"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "team: {item, property, name}"
-                },
-                "edit": {
-                    "title": "edit team: {item, property, name}"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this team?"
-                },
                 "create": {
                     "title": "create team"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this team?"
+                }, 
+                "edit": {
+                    "title": "edit team: {item, property, name}"
+                }, 
+                "info": {
+                    "title": "team: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Team",
-                "plural": "Teams"
-            },
+                "plural": "Teams", 
+                "singular": "Team"
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
+                "id": "identifier", 
                 "name": "name"
             }
-        },
+        }, 
         "Translation": {
             "help": {
-                "intro": "All translations are visualised here. A translation is used to enable the GUI to work in different languages.",
+                "intro": "All translations are visualised here. A translation is used to enable the GUI to work in different languages.", 
                 "properties": {
-                    "language": "The language used by the translation",
-                    "country": "The country where this translation is intended for",
-                    "flag": "The flag icon used to visualise the translation (for a full list, see: https://flagicons.lipis.dev/)",
-                    "translationFile": "The name of the translation file that contains the contents of the translation",
-                    "locale": "The locale that's used when selecting the translation",
-                    "enabled": "A value that indicates if the translation is enabled for usage"
+                    "country": "The country where this translation is intended for", 
+                    "enabled": "A value that indicates if the translation is enabled for usage", 
+                    "flag": "The flag icon used to visualise the translation (for a full list, see: https://flagicons.lipis.dev/)", 
+                    "language": "The language used by the translation", 
+                    "locale": "The locale that's used when selecting the translation", 
+                    "translationFile": "The name of the translation file that contains the contents of the translation"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "translation: {item, property, country} - {item, property, language} ({item, property, translationFile})"
-                },
-                "edit": {
-                    "title": "edit translation: {item, property, country} - {item, property, language} ({item, property, translationFile})"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this translation?"
-                },
                 "create": {
                     "title": "create translation"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this translation?"
+                }, 
+                "edit": {
+                    "title": "edit translation: {item, property, country} - {item, property, language} ({item, property, translationFile})"
+                }, 
+                "info": {
+                    "title": "translation: {item, property, country} - {item, property, language} ({item, property, translationFile})"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "Translation",
-                "plural": "Translations"
-            },
+                "plural": "Translations", 
+                "singular": "Translation"
+            }, 
             "presentation": {
-                "all": "{item, property, country} - {item, property, language} ({item, property, translationFile})",
-                "isolated": "{item, property, country} - {item, property, language} ({item, property, translationFile})",
+                "all": "{item, property, country} - {item, property, language} ({item, property, translationFile})", 
+                "isolated": "{item, property, country} - {item, property, language} ({item, property, translationFile})", 
                 "own": "{item, property, country} - {item, property, language} ({item, property, translationFile})"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "language": "language",
-                "country": "country",
-                "flag": "flag",
-                "translationFile": "translation file",
-                "locale": "locale",
-                "enabled": "enabled"
+                "country": "country", 
+                "enabled": "enabled", 
+                "flag": "flag", 
+                "id": "identifier", 
+                "language": "language", 
+                "locale": "locale", 
+                "translationFile": "translation file"
             }
-        },
+        }, 
         "User": {
             "help": {
-                "intro": "{right, select, own{Your own user is} isolated{All users of your team are} other{All users are}} visualised here.",
+                "intro": "{right, select, own{Your own user is} isolated{All users of your team are} other{All users are}} visualised here.", 
                 "properties": {
-                    "userName": "The username of the user",
-                    "firstName": "The first name of the user",
-                    "lastName": "The last name of the user",
-                    "mail": "The email address of the user",
-                    "phone": "The phone number of the user",
-                    "team": "The team of the user",
-                    "function": "The function of the user",
-                    "authenticationMethod": "The method used to authenticate the user",
-                    "creation": "The timestamp of the user creation",
-                    "password": "The password of the user",
-                    "image": "The profile picture of the user"
+                    "authenticationMethod": "The method used to authenticate the user", 
+                    "creation": "The timestamp of the user creation", 
+                    "firstName": "The first name of the user", 
+                    "function": "The function of the user", 
+                    "image": "The profile picture of the user", 
+                    "lastName": "The last name of the user", 
+                    "mail": "The email address of the user", 
+                    "password": "The password of the user", 
+                    "phone": "The phone number of the user", 
+                    "team": "The team of the user", 
+                    "userName": "The username of the user"
                 }
-            },
+            }, 
             "modal": {
-                "info": {
-                    "title": "user: {item, property, firstName} {item, property, lastName}"
-                },
-                "edit": {
-                    "title": "edit user: {item, property, firstName} {item, property, lastName}"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this user?"
-                },
                 "create": {
                     "title": "create user"
+                }, 
+                "delete": {
+                    "title": "are you sure you want to delete this user?"
+                }, 
+                "edit": {
+                    "title": "edit user: {item, property, firstName} {item, property, lastName}"
+                }, 
+                "info": {
+                    "title": "user: {item, property, firstName} {item, property, lastName}"
                 }
-            },
+            }, 
             "naming": {
-                "singular": "User",
-                "plural": "Users"
-            },
+                "plural": "Users", 
+                "singular": "User"
+            }, 
             "presentation": {
-                "all": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})",
-                "isolated": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})",
+                "all": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})", 
+                "isolated": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})", 
                 "own": "{item, property, firstName} {item, property, lastName}"
-            },
+            }, 
             "properties": {
-                "id": "identifier",
-                "userName": "user name",
-                "firstName": "first name",
-                "lastName": "last name",
-                "mail": "mail",
-                "phone": "phone",
-                "team": "team",
-                "function": "function",
-                "authenticationMethod": "authentication method",
-                "creation": "created",
-                "password": "password",
-                "image": "profile picture"
-            }
-        },
-        "PluginOptionRight": {
-            "help": {
-                "intro": "All plugin option rights are visualised here. A plugin option right is used to allow modification of specific plugin parameters to a certain group of users.<br>When no team and function is selected, the plugin right will apply to <b>all</b> users.",
-                "properties": {
-                    "plugin": "The plugin where the option belongs to",
-                    "group": "The group of the option",
-                    "option": "The name of the option",
-                    "description": "The description of the option",
-                    "apiAction": "The action that can be performed by the user on the plugin option",
-                    "team": "The team able to perform the action on the plugin option",
-                    "function": "The function able to perform the action on the plugin option"
-                }
-            },
-            "modal": {
-                "info": {
-                    "title": "plugin option right: [{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}]"
-                },
-                "edit": {
-                    "title": "edit plugin option right: [{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}]"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this plugin option right?"
-                },
-                "create": {
-                    "title": "create plugin option right"
-                }
-            },
-            "naming": {
-                "singular": "Plugin Option Right",
-                "plural": "Plugin Option Rights"
-            },
-            "presentation": {
-                "all": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}",
-                "isolated": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}",
-                "own": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}"
-            },
-            "properties": {
-                "id": "identifier",
-                "plugin": "plugin",
-                "apiAction": "action",
-                "team": "team",
-                "function": "function",
-                "group": "group",
-                "option": "option",
-                "description": "description"
-            }
-        },
-        "PluginActionRight": {
-            "help": {
-                "intro": "All plugin action rights are visualised here. A plugin action right is used to permit the execution of plugin actions to a certain group of users.<br>There are three types of access:<ul><li><b>Own</b>: Permits the group of users to perform the selected plugin action on 'owned' objects (if applicable). This means that the user should be related to this object in a direct manner.</li><li><b>Team</b>: Permits the group of users to perform the selected plugin action on 'team' objects (if applicable). This means that the user should be related to this object via its team.</li><li><b>Full</b>: Permits the group of users to perform the selected plugin action on any object (if applicable). This means that the user can perform the action on all objects. There is no limitation.</li></ul><br><br>When no team and function is selected, the plugin right will apply to <b>all</b> users.",
-                "properties": {
-                    "plugin": "The plugin where the right belongs to",
-                    "action": "The name of the action",
-                    "team": "The team able to perform the action",
-                    "function": "The function able to perform the action",
-                    "own": "Permits the group of users to perform the selected plugin action on 'owned' objects (if applicable)",
-                    "isolated": "Permits the group of users to perform the selected plugin action on 'team' objects (if applicable)",
-                    "all": "Permits the group of users to perform the selected plugin action on any object (if applicable)"
-                }
-            },
-            "modal": {
-                "info": {
-                    "title": "plugin action right: [{item, property, plugin.name} - {item, property, action}]"
-                },
-                "edit": {
-                    "title": "edit plugin action right: [{item, property, plugin.name} - {item, property, action}]"
-                },
-                "delete": {
-                    "title": "are you sure you want to delete this plugin action right?"
-                },
-                "create": {
-                    "title": "create plugin action right"
-                }
-            },
-            "naming": {
-                "singular": "Plugin Action Right",
-                "plural": "Plugin Action Rights"
-            },
-            "presentation": {
-                "all": "{item, property, plugin.name} - {item, property, action}",
-                "isolated": "{item, property, plugin.name} - {item, property, action}",
-                "own": "{item, property, plugin.name} - {item, property, action}"
-            },
-            "properties": {
-                "id": "identifier",
-                "plugin": "plugin",
-                "action": "action",
-                "team": "team",
-                "function": "function",
-                "own": "own",
-                "isolated": "team",
-                "all": "full"
+                "authenticationMethod": "authentication method", 
+                "creation": "created", 
+                "firstName": "first name", 
+                "function": "function", 
+                "id": "identifier", 
+                "image": "profile picture", 
+                "lastName": "last name", 
+                "mail": "mail", 
+                "password": "password", 
+                "phone": "phone", 
+                "team": "team", 
+                "userName": "user name"
             }
         }
-    },
-    "leftbar": {
-        "settings": {
-            "version": "Version",
-            "users": "Users",
-            "teams": "Teams",
-            "functions": "Functions",
-            "rights": {
-                "rights": "Rights",
-                "object": "Objects",
-                "plugin": "Plugin Actions",
-                "pluginoption": "Plugin Options"
-            },
-            "languages": "Languages",
-            "ssl": "SSL",
-            "plugin": {
-                "overview": "Overview",
-                "configuration": "Configuration"
-            },
-            "plugins": "Plugins",
-            "legal": "Legal"
-        },
-        "user": {
-            "info": "User Information",
-            "timezone": "Time Zone",
-            "language": "Language",
-            "sessions": "Sessions",
-            "logout": "Log Out"
-        }
-    },
-    "modal": {
-        "log": {
-            "title": "{item, property, name} - log files"
-        },
-        "eula": {
-            "title": "End User License Agreement"
-        },
-        "service": {
-            "title": "{item, property, name} - services",
-            "status": {
-                "running": "active",
-                "dead": "stopped"
-            }
-        }
-    },
-    "plugin": {},
-    "plugins": {},
+    }, 
+    "plugin": {}, 
+    "plugins": {}, 
     "producer": {
         "default": {
             "internal": "internal producer"
         }
-    },
+    }, 
     "service": {
         "default": {
-            "database": "databank service",
-            "webserver": "web server service",
-            "neatly": "NEATLY service",
-            "zookeeper": "configuration service",
-            "kafka": "data streaming service"
-        },
+            "database": "databank service", 
+            "kafka": "data streaming service", 
+            "neatly": "NEATLY service", 
+            "webserver": "web server service", 
+            "zookeeper": "configuration service"
+        }, 
         "status": {
-            "running": "running",
-            "failed": "failing"
+            "failed": "failing", 
+            "running": "running"
         }
-    },
+    }, 
     "settings": {
-        "version": {
-            "pagetitle": "Version"
-        },
-        "plugin": {
-            "pagetitle": "Plugins",
-            "import": "Import new plugin",
-            "overview": {
-                "pagetitle": "Overview"
-            },
-            "configure": {
-                "pagetitle": "Configuration"
-            }
-        },
-        "legal": {
-            "pagetitle": "License",
-            "license": "license details",
-            "questions": "Still have any questions?",
-            "contact-us": "Contact us",
-            "expired": {
-                "pagetitle": "Expired",
-                "what": "Now what?",
-                "directions": "Some <b>pages</b> within the application are <b>not available</b> when no valid license is provided. Please <b>contact your administrator</b> to obtain a <b>new, valid license</b>."
-            }
-        },
-        "right": {
-            "pagetitle": "Rights"
-        },
-        "user": {
-            "pagetitle": "Users"
-        },
-        "team": {
-            "pagetitle": "Teams"
-        },
         "function": {
             "pagetitle": "Functions"
-        },
+        }, 
         "language": {
             "pagetitle": "Translations"
-        },
+        }, 
+        "legal": {
+            "contact-us": "Contact us", 
+            "expired": {
+                "directions": "Some <b>pages</b> within the application are <b>not available</b> when no valid license is provided. Please <b>contact your administrator</b> to obtain a <b>new, valid license</b>.", 
+                "pagetitle": "Expired", 
+                "what": "Now what?"
+            }, 
+            "license": "license details", 
+            "pagetitle": "License", 
+            "questions": "Still have any questions?"
+        }, 
+        "pagetitle": "Settings", 
+        "plugin": {
+            "configure": {
+                "pagetitle": "Configuration"
+            }, 
+            "import": "Import new plugin", 
+            "overview": {
+                "pagetitle": "Overview"
+            }, 
+            "pagetitle": "Plugins"
+        }, 
+        "right": {
+            "pagetitle": "Rights"
+        }, 
         "ssl": {
-            "pagetitle": "SSL",
-            "security": "security details",
-            "certificate": "certificate details",
-            "upload-cert": "Upload a new certificate",
-            "upload-key": "Upload a new key",
-            "questions": "Still have any questions?",
-            "contact-us": "Contact us"
-        },
-        "pagetitle": "Settings"
-    },
+            "certificate": "certificate details", 
+            "contact-us": "Contact us", 
+            "pagetitle": "SSL", 
+            "questions": "Still have any questions?", 
+            "security": "security details", 
+            "upload-cert": "Upload a new certificate", 
+            "upload-key": "Upload a new key"
+        }, 
+        "team": {
+            "pagetitle": "Teams"
+        }, 
+        "user": {
+            "pagetitle": "Users"
+        }, 
+        "version": {
+            "pagetitle": "Version"
+        }
+    }, 
     "user": {
         "info": {
-            "pagetitle": "User Info",
-            "personal-details": "your personal details",
-            "timezone": "your time zone",
-            "language": "your preferred language",
-            "session": "your active sessions",
-            "session-message": "At the moment, there {amount, plural, one{is} other{are}} {amount} active {amount, plural, one{session} other{sessions}} making use of your account.",
-            "logout": "Log Out",
             "help": {
-                "session": "This box displays the total amount of active sessions registered to your account. You can view each of your active sessions in detail by clicking on the 'go-to-link' button (button with an arrow pointing at the right-top corner).",
-                "language": "This box displays your preferred language. The entire user interface will be displayed in this language.<br><br>The language you currently prefer is: \"{language}\".<br><br>The preferred language can be changed by clicking on the 'edit' button (button with a pencil).",
-                "timezone": "In this map, you can see your timezone. All time related data in this user interface is automatically converted to match your timezone. This timezone information is automatically detected. If this detected timezone is incorrect, please adapt the time settings on your local computer to match your actual timezone (and reload the page).<br><br><b>LEGEND:</b><br><li>Grey area: Covers all geographical zones that make use of your timezone.</li><li>Blue area: Covers your own geographical zone.</li>",
-                "personal-details": "In this box, all your personal details are displayed. If there is any false or outdated information displayed, you can modify it by clicking on the 'edit' button on the right of the detail (button with a pencil). If there's no 'edit' button present, please contact your system administrator to rectify the false information."
-            }
-        },
+                "language": "This box displays your preferred language. The entire user interface will be displayed in this language.<br><br>The language you currently prefer is: \"{language}\".<br><br>The preferred language can be changed by clicking on the 'edit' button (button with a pencil).", 
+                "personal-details": "In this box, all your personal details are displayed. If there is any false or outdated information displayed, you can modify it by clicking on the 'edit' button on the right of the detail (button with a pencil). If there's no 'edit' button present, please contact your system administrator to rectify the false information.", 
+                "session": "This box displays the total amount of active sessions registered to your account. You can view each of your active sessions in detail by clicking on the 'go-to-link' button (button with an arrow pointing at the right-top corner).", 
+                "timezone": "In this map, you can see your timezone. All time related data in this user interface is automatically converted to match your timezone. This timezone information is automatically detected. If this detected timezone is incorrect, please adapt the time settings on your local computer to match your actual timezone (and reload the page).<br><br><b>LEGEND:</b><br><li>Grey area: Covers all geographical zones that make use of your timezone.</li><li>Blue area: Covers your own geographical zone.</li>"
+            }, 
+            "language": "your preferred language", 
+            "logout": "Log Out", 
+            "pagetitle": "User Info", 
+            "personal-details": "your personal details", 
+            "session": "your active sessions", 
+            "session-message": "At the moment, there {amount, plural, one{is} other{are}} {amount} active {amount, plural, one{session} other{sessions}} making use of your account.", 
+            "timezone": "your time zone"
+        }, 
         "language": {
             "pagetitle": "Interface Language"
-        },
+        }, 
+        "pagetitle": "User Settings", 
         "session": {
             "pagetitle": "Active Sessions"
-        },
+        }, 
         "timezone": {
-            "pagetitle": "Time Zone",
-            "location": "location",
-            "timezone": "time zone",
-            "time": "time",
-            "locale": "locale"
-        },
-        "pagetitle": "User Settings"
+            "locale": "locale", 
+            "location": "location", 
+            "pagetitle": "Time Zone", 
+            "time": "time", 
+            "timezone": "time zone"
+        }
     }
 }

@@ -1,7 +1,7 @@
 [
     {
-        "name": "_internal.trigger.pluginoption",
-        "numPartitions": 1,
+        "name": "_internal.trigger.pluginoption", 
+        "numPartitions": 1, 
         "replicationFactor": 1
     }
 ]

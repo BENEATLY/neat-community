@@ -1,0 +1,101 @@
+#!/usr/local/bin/python
+
+# IMPORT: Standard Modules
+import sys                                                                                      # System Lib
+import json                                                                                     # JSON Lib
+import os                                                                                       # OS Lib
+
+
+# FUNCTION: Read JSON File
+def readJSONFile(file):
+    with open(file) as content:
+        return json.load(content)
+
+# FUNCTION: Write Clean JSON File
+def writeCleanJSONFile(file, info):
+    with open(file, 'w+') as content:
+        json.dump(info, content, indent=4, sort_keys=True)
+
+
+# DEFINITIONS: Config Files
+configFiles = [
+    {'subFolder': 'api', 'file': 'default.json'},
+    {'subFolder': 'gui/symlink', 'file': 'default.json'},
+    {'subFolder': 'gui/translations/original'},
+    {'subFolder': 'gui', 'file': 'default.json'},
+    {'subFolder': 'logging', 'file': 'default.json'},
+    {'subFolder': 'messaging/consumer', 'file': 'default.json'},
+    {'subFolder': 'messaging/producer', 'file': 'default.json'},
+    {'subFolder': 'messaging/topic', 'file': 'default.json'},
+    {'subFolder': 'service', 'file': 'default.json'},
+    {'subFolder': 'table', 'file': 'default.json'},
+    {'subFolder': 'table', 'file': 'internal.json'},
+    {'file': 'db.json'},
+    {'file': 'env.json'},
+    {'file': 'location.json'},
+    {'file': 'pluginRepo.json'},
+    {'file': 'sqlEngine.json'}
+]
+
+
+# FUNCTION: Beautify
+def beautify(filePath):
+
+    # File Exists
+    if (os.path.isfile(filePath)):
+
+        # Read Contents
+        contents = readJSONFile(filePath)
+
+        # Write (Clean) Contents to File
+        writeCleanJSONFile(filePath, contents)
+
+        # Message
+        print('-> Beautified file: ' + filePath)
+
+    # File Doesn't Exist
+    else:
+
+        # Message
+        print('-> Missing file: ' + filePath)
+
+
+# DETERMINE: Base Folder
+if (os.path.isfile('/etc/neatly/base/location.json')):
+    locationConfig = readJSONFile('/etc/neatly/base/location.json')
+    baseFolder = locationConfig['config']
+else:
+    scriptFolder = os.path.dirname(os.path.abspath(__file__))
+    baseFolder = os.path.abspath(os.path.join(scriptFolder, '../../config')) + '/'
+
+
+# ITERATE: Config Files
+for configFile in configFiles:
+
+    # Construct File Path
+    filePath = baseFolder + ((configFile['subFolder'] + '/') if ('subFolder' in configFile) else '') + (configFile['file'] if ('file' in configFile) else '')
+
+    # Folder
+    if ('file' not in configFile):
+
+        # Get Files in Directory
+        fileNames = next(os.walk(filePath))[2]
+
+        # Filter (JSON Only)
+        fileNames = [fileName for fileName in fileNames if fileName.endswith('.json')]
+
+        # Iterate Files
+        for fileName in fileNames:
+
+            # Beautify File
+            beautify(filePath + fileName)
+
+    # File
+    else:
+
+        # Beautify File
+        beautify(filePath)
+
+
+# End Message
+print('-> Beautified all config files')

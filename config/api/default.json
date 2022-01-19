@@ -1,15 +1,15 @@
 {
-    "basePath": "/api/",
-    "debug": false,
-    "port": 6010,
-    "protocol": "http",
+    "basePath": "/api/", 
+    "debug": false, 
+    "maxPerPage": 500, 
+    "nrProxy": 1, 
+    "port": 6010, 
+    "preFlightCache": 86400, 
+    "protocol": "http", 
     "session": {
-        "expiration": 14,
-        "check": 3600
-    },
-    "maxPerPage": 500,
-    "nrProxy": 1,
-    "preFlightCache": 86400,
-    "unqueryable": [],
+        "check": 3600, 
+        "expiration": 14
+    }, 
+    "unqueryable": [], 
     "version": "1.0.0"
 }

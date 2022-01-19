@@ -1,149 +1,250 @@
 {
     "class": {
-        "Transaction": {
-            "private": {
-                "__tablename__": "transaction"
-            },
-            "properties": {
-                "filters": {
-                    "filterable": {
-                        "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
-                        "all": [],
-                        "isolated": [],
-                        "own": []
-                    },
-                    "rights": {
-                        "own": [{"sub": "user", "attr": "id"}],
-                        "isolated": [{"sub": "user.team", "attr": "id"}]
-                    }
-                },
-                "sorts": {
-                    "default": {
-                        "property": "issuedAt",
-                        "order": false
-                    },
-                    "sortable": {
-                        "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
-                        "all": [],
-                        "isolated": [],
-                        "own": []
-                    }
-                },
-                "joins": ["plugin", "user"],
-                "unique": [],
-                "public": {
-                    "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
-                    "all": [],
-                    "isolated": [],
-                    "own": []
-                },
-                "finiteBreak": [],
-                "notEditable": {
-                    "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
-                    "all": [],
-                    "isolated": [],
-                    "own": []
-                },
-                "notInitialisable": {
-                    "common": ["id", "source", "description", "issuedAt", "clientAddress", "plugin", "user"],
-                    "all": [],
-                    "isolated": [],
-                    "own": []
-                },
-                "timeSeries": false
-            },
+        "Activity": {
+            "function": {}, 
             "generated": {
-                "hybrid": {},
-                "column": {}
-            },
+                "column": {}, 
+                "hybrid": {}
+            }, 
             "option": {
-                "handler": null,
+                "handler": null, 
                 "options": {
-                    "common": {},
-                    "all": {},
-                    "isolated": {},
+                    "all": {}, 
+                    "common": {}, 
+                    "isolated": {}, 
                     "own": {}
                 }
-            },
-            "function": {},
-            "table": {
-                "direct": {},
-                "idReference": {},
-                "reference": {}
-            },
-            "trigger": []
-        },
-        "Activity": {
+            }, 
             "private": {
                 "__tablename__": "activity"
-            },
+            }, 
             "properties": {
                 "filters": {
                     "filterable": {
-                        "common": ["id", "tableName", "issuedAt", "verb", "transaction"],
-                        "all": [],
-                        "isolated": [],
+                        "all": [], 
+                        "common": [
+                            "id", 
+                            "tableName", 
+                            "issuedAt", 
+                            "verb", 
+                            "transaction"
+                        ], 
+                        "isolated": [], 
                         "own": []
-                    },
+                    }, 
                     "rights": {
-                        "own": [{"sub": "transaction.user", "attr": "id"}],
-                        "isolated": [{"sub": "transaction.user.team", "attr": "id"}]
+                        "isolated": [
+                            {
+                                "attr": "id", 
+                                "sub": "transaction.user.team"
+                            }
+                        ], 
+                        "own": [
+                            {
+                                "attr": "id", 
+                                "sub": "transaction.user"
+                            }
+                        ]
                     }
-                },
+                }, 
+                "finiteBreak": [], 
+                "joins": [
+                    "transaction"
+                ], 
+                "notEditable": {
+                    "all": [], 
+                    "common": [
+                        "id", 
+                        "tableName", 
+                        "issuedAt", 
+                        "verb", 
+                        "originalData", 
+                        "changedData", 
+                        "transaction"
+                    ], 
+                    "isolated": [], 
+                    "own": []
+                }, 
+                "notInitialisable": {
+                    "all": [], 
+                    "common": [
+                        "id", 
+                        "tableName", 
+                        "issuedAt", 
+                        "verb", 
+                        "originalData", 
+                        "changedData", 
+                        "transaction"
+                    ], 
+                    "isolated": [], 
+                    "own": []
+                }, 
+                "public": {
+                    "all": [], 
+                    "common": [
+                        "id", 
+                        "tableName", 
+                        "issuedAt", 
+                        "verb", 
+                        "originalData", 
+                        "changedData", 
+                        "transaction"
+                    ], 
+                    "isolated": [], 
+                    "own": []
+                }, 
                 "sorts": {
                     "default": {
-                        "property": "issuedAt",
-                        "order": false
-                    },
+                        "order": false, 
+                        "property": "issuedAt"
+                    }, 
                     "sortable": {
-                        "common": ["id", "tableName", "issuedAt", "verb", "transaction"],
-                        "all": [],
-                        "isolated": [],
+                        "all": [], 
+                        "common": [
+                            "id", 
+                            "tableName", 
+                            "issuedAt", 
+                            "verb", 
+                            "transaction"
+                        ], 
+                        "isolated": [], 
                         "own": []
                     }
-                },
-                "joins": ["transaction"],
-                "unique": [],
-                "public": {
-                    "common": ["id", "tableName", "issuedAt", "verb", "originalData", "changedData", "transaction"],
-                    "all": [],
-                    "isolated": [],
-                    "own": []
-                },
-                "finiteBreak": [],
-                "notEditable": {
-                    "common": ["id", "tableName", "issuedAt", "verb", "originalData", "changedData", "transaction"],
-                    "all": [],
-                    "isolated": [],
-                    "own": []
-                },
-                "notInitialisable": {
-                    "common": ["id", "tableName", "issuedAt", "verb", "originalData", "changedData", "transaction"],
-                    "all": [],
-                    "isolated": [],
-                    "own": []
-                },
-                "timeSeries": false
-            },
+                }, 
+                "timeSeries": false, 
+                "unique": []
+            }, 
+            "table": {
+                "direct": {}, 
+                "idReference": {}, 
+                "reference": {}
+            }, 
+            "trigger": []
+        }, 
+        "Transaction": {
+            "function": {}, 
             "generated": {
-                "hybrid": {},
-                "column": {}
-            },
+                "column": {}, 
+                "hybrid": {}
+            }, 
             "option": {
-                "handler": null,
+                "handler": null, 
                 "options": {
-                    "common": {},
-                    "all": {},
-                    "isolated": {},
+                    "all": {}, 
+                    "common": {}, 
+                    "isolated": {}, 
                     "own": {}
                 }
-            },
-            "function": {},
+            }, 
+            "private": {
+                "__tablename__": "transaction"
+            }, 
+            "properties": {
+                "filters": {
+                    "filterable": {
+                        "all": [], 
+                        "common": [
+                            "id", 
+                            "source", 
+                            "description", 
+                            "issuedAt", 
+                            "clientAddress", 
+                            "plugin", 
+                            "user"
+                        ], 
+                        "isolated": [], 
+                        "own": []
+                    }, 
+                    "rights": {
+                        "isolated": [
+                            {
+                                "attr": "id", 
+                                "sub": "user.team"
+                            }
+                        ], 
+                        "own": [
+                            {
+                                "attr": "id", 
+                                "sub": "user"
+                            }
+                        ]
+                    }
+                }, 
+                "finiteBreak": [], 
+                "joins": [
+                    "plugin", 
+                    "user"
+                ], 
+                "notEditable": {
+                    "all": [], 
+                    "common": [
+                        "id", 
+                        "source", 
+                        "description", 
+                        "issuedAt", 
+                        "clientAddress", 
+                        "plugin", 
+                        "user"
+                    ], 
+                    "isolated": [], 
+                    "own": []
+                }, 
+                "notInitialisable": {
+                    "all": [], 
+                    "common": [
+                        "id", 
+                        "source", 
+                        "description", 
+                        "issuedAt", 
+                        "clientAddress", 
+                        "plugin", 
+                        "user"
+                    ], 
+                    "isolated": [], 
+                    "own": []
+                }, 
+                "public": {
+                    "all": [], 
+                    "common": [
+                        "id", 
+                        "source", 
+                        "description", 
+                        "issuedAt", 
+                        "clientAddress", 
+                        "plugin", 
+                        "user"
+                    ], 
+                    "isolated": [], 
+                    "own": []
+                }, 
+                "sorts": {
+                    "default": {
+                        "order": false, 
+                        "property": "issuedAt"
+                    }, 
+                    "sortable": {
+                        "all": [], 
+                        "common": [
+                            "id", 
+                            "source", 
+                            "description", 
+                            "issuedAt", 
+                            "clientAddress", 
+                            "plugin", 
+                            "user"
+                        ], 
+                        "isolated": [], 
+                        "own": []
+                    }
+                }, 
+                "timeSeries": false, 
+                "unique": []
+            }, 
             "table": {
-                "direct": {},
-                "idReference": {},
+                "direct": {}, 
+                "idReference": {}, 
                 "reference": {}
-            },
+            }, 
             "trigger": []
         }
     }
