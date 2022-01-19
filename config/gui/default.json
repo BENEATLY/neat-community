@@ -560,6 +560,7 @@
                             }, 
                             "editable": false, 
                             "implicit": true, 
+                            "linked": true, 
                             "property": "uploader", 
                             "reference": "User", 
                             "sort": {
@@ -586,9 +587,10 @@
                                 "unit": "kB"
                             }, 
                             "column": false, 
-                            "editable": false, 
-                            "initialisable": false, 
+                            "external": true, 
+                            "filterable": false, 
                             "property": "size", 
+                            "sortable": false, 
                             "value": 0
                         }
                     ], 
@@ -625,6 +627,7 @@
                             }, 
                             "editable": false, 
                             "implicit": true, 
+                            "linked": true, 
                             "property": "uploader", 
                             "reference": "User", 
                             "sort": {
@@ -651,9 +654,10 @@
                                 "unit": "kB"
                             }, 
                             "column": false, 
-                            "editable": false, 
-                            "initialisable": false, 
+                            "external": true, 
+                            "filterable": false, 
                             "property": "size", 
+                            "sortable": false, 
                             "value": 0
                         }
                     ], 
@@ -690,6 +694,7 @@
                             }, 
                             "editable": false, 
                             "implicit": true, 
+                            "linked": true, 
                             "property": "uploader", 
                             "reference": "User", 
                             "value": {
@@ -716,9 +721,10 @@
                                 "unit": "kB"
                             }, 
                             "column": false, 
-                            "editable": false, 
-                            "initialisable": false, 
+                            "external": true, 
+                            "filterable": false, 
                             "property": "size", 
+                            "sortable": false, 
                             "value": 0
                         }
                     ]
