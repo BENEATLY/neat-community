@@ -35,6 +35,10 @@ export class TemplateFooterComponent implements OnInit {
   presentLib = presentLib;
   timeLib = timeLib;
 
+  // Footer Info
+  footerLogo = '/assets/logos/neatly-logo-black.png';
+  footerLogoLink = 'https://neatly.be/';
+
   // Template
   @ViewChild('template', {static: true}) template;
 

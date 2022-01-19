@@ -474,33 +474,6 @@ export function getContactLink(appConfig, pluginConfig) {
   else { return 'https://neatly.be/'; }
 }
 
-// Get Footer Logo
-export function getFooterLogo(config) {
-  if (objLib.lookUpKey(config, 'commonStyle') && objLib.lookUpKey(config.commonStyle, 'footer') && objLib.lookUpKey(config.commonStyle.footer, 'logo')) {
-    if (config.commonStyle.footer.logo) { return config.commonStyle.footer.logo; }
-    else { return null; }
-  }
-  else { return '/assets/logos/neatly-logo-black.png'; }
-}
-
-// Get Footer Logo Link
-export function getFooterLogoLink(config) {
-  if (objLib.lookUpKey(config, 'commonStyle') && objLib.lookUpKey(config.commonStyle, 'footer') && objLib.lookUpKey(config.commonStyle.footer, 'logoLink')) {
-    if (config.commonStyle.footer.logoLink) { return config.commonStyle.footer.logoLink; }
-    else { return null; }
-  }
-  else { return 'https://neatly.be/'; }
-}
-
-// Get Footer Copyright
-export function getFooterCopyright(config) {
-  if (objLib.lookUpKey(config, 'commonStyle') && objLib.lookUpKey(config.commonStyle, 'footer') && objLib.lookUpKey(config.commonStyle.footer, 'copyright')) {
-    if (config.commonStyle.footer.copyright) { return true; }
-    else { return false; }
-  }
-  else { return true; }
-}
-
 // Type Conversion
 export function typeConversion(val, property) {
   if (valLib.isJsonFormat(property) && valLib.isObject(val)) { return beautifyJson(val, true); }

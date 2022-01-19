@@ -12,12 +12,12 @@
   <div class="credit-footer">
 
     <!-- Logo -->
-    <a *ngIf="presentLib.getFooterLogo(appConfig.config)" [attr.href]="presentLib.getFooterLogoLink(appConfig.config)" target="_blank">
-      <img [src]="presentLib.getFooterLogo(appConfig.config)" class="logo">
+    <a [attr.href]="footerLogoLink" target="_blank">
+      <img [src]="footerLogo" class="logo">
     </a>
 
     <!-- Copyright -->
-    <p *ngIf="presentLib.getFooterCopyright(appConfig.config)" class="copyright">Copyright © {{ timeLib.getCurrentYear() }}</p>
+    <p class="copyright">Copyright © {{ timeLib.getCurrentYear() }}</p>
 
     <!-- Contact -->
     <a *ngIf="presentLib.getContactLink(appConfig, pluginConfig)" [attr.href]="presentLib.getContactLink(appConfig, pluginConfig)" target="_blank">
