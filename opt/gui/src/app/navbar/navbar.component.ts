@@ -103,7 +103,7 @@ export class NavbarComponent implements OnInit {
     this.translate.setDefaultLang(lang);
 
     // Get App Logo
-    this.appLogo = presentLib.getAppLogo(this.pluginConfig.plugin, this.appConfig.config);
+    this.appLogo = presentLib.getAppLogo(this.appConfig, this.pluginConfig);
 
     // Get Path & Navigation Info (Default)
     this.data.shortPath.subscribe(

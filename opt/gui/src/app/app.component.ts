@@ -75,10 +75,10 @@ export class AppComponent {
 
     // Set App Icon
     let appIcon = document.querySelector('#app-icon') as HTMLLinkElement;
-    appIcon.href = presentLib.getAppIcon(this.pluginConfig.plugin, this.appConfig.config);
+    appIcon.href = presentLib.getAppIcon(this.appConfig, this.pluginConfig);
 
     // Set App Title
-    this.titleService.setTitle(presentLib.getAppTitle(this.pluginConfig.plugin, this.appConfig.config));
+    this.titleService.setTitle(presentLib.getAppTitle(this.appConfig, this.pluginConfig));
 
     // Get Path & Navigation Info (Default)
     this.data.shortPath.subscribe(

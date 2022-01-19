@@ -381,32 +381,60 @@ export function constructParentProperties(config, userData, translate, objectDef
 }
 
 // Get App Logo
-export function getAppLogo(pluginConfig, appConfig) {
+export function getAppLogo(appConfig, pluginConfig) {
   let plugin = {"id": 16, "name": "Application Look & Feel"};
-  if (pluginLib.isActivePlugin(pluginConfig, plugin['id'])) { return ('/assets/logos/' + pluginLib.getPublicPluginValue(appConfig, plugin, 'UI', 'appLogo')['reference']); }
+  if (pluginLib.isActivePlugin(pluginConfig.plugin, plugin['id'])) {
+
+    // Get Plugin Option Value
+    let value = pluginLib.getPublicPluginValue(appConfig.config, plugin, 'UI', 'appLogo');
+
+    // Return Value if Set
+    if (value) { return ('/assets/objects/' + value['reference']); }
+
+  }
+
+  // Return Default Value
   return '/assets/logos/neatly-logo-white.png';
+
 }
 
 // Get App Title
-export function getAppTitle(pluginConfig, appConfig) {
+export function getAppTitle(appConfig, pluginConfig) {
   let plugin = {"id": 16, "name": "Application Look & Feel"};
-  if (pluginLib.isActivePlugin(pluginConfig, plugin['id'])) { return pluginLib.getPublicPluginValue(appConfig, plugin, 'UI', 'appTitle'); }
+  if (pluginLib.isActivePlugin(pluginConfig.plugin, plugin['id'])) {
+
+    // Get Plugin Option Value
+    let value = pluginLib.getPublicPluginValue(appConfig.config, plugin, 'UI', 'appTitle');
+
+    // Return Value if Set
+    if (value) { return value; }
+
+  }
+
+  // Return Default Value
   return 'NEATLY - Application';
+
 }
 
 // Get App Icon
-export function getAppIcon(pluginConfig, appConfig) {
+export function getAppIcon(appConfig, pluginConfig) {
   let plugin = {"id": 16, "name": "Application Look & Feel"};
-  if (pluginLib.isActivePlugin(pluginConfig, plugin['id'])) { return ('/assets/icons/' + pluginLib.getPublicPluginValue(appConfig, plugin, 'UI', 'appIcon')['reference']); }
-  else {
+  if (pluginLib.isActivePlugin(pluginConfig.plugin, plugin['id'])) {
 
-    // Dark Theme
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { return '/assets/icons/neatly-icon-white.ico'; }
+    // Get Plugin Option Value
+    let value = pluginLib.getPublicPluginValue(appConfig.config, plugin, 'UI', 'appIcon');
 
-    // White Theme
-    else { return '/assets/icons/neatly-icon-gradient.ico'; }
+    // Return Value if Set
+    if (value) { return ('/assets/objects/' + value['reference']); }
 
   }
+
+  // Dark Theme
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { return '/assets/icons/neatly-icon-white.ico'; }
+
+  // White Theme
+  else { return '/assets/icons/neatly-icon-gradient.ico'; }
+
 }
 
 // Slide Panel
@@ -470,8 +498,19 @@ export function getProfilePicture(userData) {
 // Get Contact Link
 export function getContactLink(appConfig, pluginConfig) {
   let plugin = {"id": 16, "name": "Application Look & Feel"};
-  if (pluginLib.isActivePlugin(pluginConfig.plugin, plugin['id'])) { return pluginLib.getPublicPluginValue(appConfig.config, plugin, 'UI', 'contactLink'); }
-  else { return 'https://neatly.be/'; }
+  if (pluginLib.isActivePlugin(pluginConfig.plugin, plugin['id'])) {
+
+    // Get Plugin Option Value
+    let value = pluginLib.getPublicPluginValue(appConfig.config, plugin, 'UI', 'contactLink');
+
+    // Return Value if Set
+    if (value) { return value; }
+
+  }
+
+  // Return Default Value
+  return 'https://neatly.be/';
+
 }
 
 // Type Conversion

@@ -69,7 +69,7 @@ export class LogInComponent implements OnInit {
     this.data.flagNewPath(this.route.snapshot.url);
 
     // Get App Logo
-    this.appLogo = presentLib.getAppLogo(this.pluginConfig.plugin, this.appConfig.config);
+    this.appLogo = presentLib.getAppLogo(this.appConfig, this.pluginConfig);
 
   }
 
