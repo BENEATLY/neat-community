@@ -1363,22 +1363,16 @@ def postPluginUpload(**params):
     removeDir(extractPath)
 
     # Check if already existing
-    matchingPlugins = db.session.query(tables.Plugin).filter(or_(tables.Plugin.id == packageInfo['id'], tables.Plugin.shortName == packageInfo['shortName'])).all()
+    plugin = db.session.query(tables.Plugin).filter_by(id=packageInfo['id']).first()
 
     # Define Exec Parameters
     execParams = {'user': g.user, 'source': 'API', 'description': 'Update plugin package'}
 
     # Plugin Exists Already
-    if (matchingPlugins):
+    if (plugin):
 
         # Not Installed
-        if (not any([plugin.installed for plugin in matchingPlugins])):
-
-            # Remove Existing Plugins
-            for plugin in matchingPlugins:
-
-                # Remove Plugin
-                if (not actions.deleteById(execParams, db.session, tables.Plugin, plugin.id)): return ('', 400 ) # noCoverage
+        if (not plugin.installed):
 
             # Verify Dependencies
             if (packageInfo['required']):
@@ -1387,16 +1381,17 @@ def postPluginUpload(**params):
             else:
                 dependencies = []
 
-            # Add New Plugin
+            # Update Plugin
             noReqPackageInfo = deepcopy(packageInfo)
             noReqPackageInfo.update({'required': []})
-            actions.createByDict(execParams, db.session, tables.Plugin, **noReqPackageInfo, forceId=True)
+            actions.edit(execParams, db.session, tables.Plugin, plugin.id, **noReqPackageInfo)
+
+            # Get Plugin Object
+            plugin = db.session.query(tables.Plugin).filter_by(id=packageInfo['id']).first()
 
             # Add Plugin Dependencies
-            plugin = db.session.query(tables.Plugin).filter_by(id=packageInfo['id']).first()
-            if plugin:
-                plugin.required = dependencies
-                actions.merge(execParams, db.session, plugin)
+            plugin.required = dependencies
+            actions.merge(execParams, db.session, plugin)
 
         # Installed
         else: return ('', 400) # noCoverage
