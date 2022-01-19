@@ -1273,7 +1273,7 @@ def postUploadFile(**params):
     _logger.info('Uploading new file "' + params['files']['file']['fileName'] + '" with reference: ' + fileReference)
     params['files']['file']['file'].save(sys.sharedConfig.location['lib'] + 'objects' + '/' + fileReference)
     actions.manualRegisterAction({'user': g.user, 'source': 'API', 'description': 'Upload file'}, db.session, {}, 'upload-file', meta={'file': {'name': params['files']['file']['fileName'], 'reference': fileReference}})
-    creationData = {'name': params['files']['file']['fileName'], 'reference': fileReference, 'creation': None, 'size': getFileSize(ref=fileReference)}
+    creationData = {'name': params['files']['file']['fileName'], 'reference': fileReference}
     return jsonify(creationData)
 
 

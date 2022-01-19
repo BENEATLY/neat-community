@@ -33,7 +33,7 @@
 
               <!-- Determine Visible Properties -->
               <ng-container *ngFor="let property of definitionsLib.getDefinitionsForPage(appConfig.config, data.userData.right, objectDefinition, objectDefinition, 'Get', model, context.displayOptions)">
-                <ng-container *ngIf="valLib.isVisible(property) && (!valLib.isImplicit(property)) && context.columns[model][property.property]">
+                <ng-container *ngIf="valLib.isVisible(property) && context.columns[model][property.property]">
                   <th *ngIf="valLib.isSortable(property)" class="unsortable-table-header" [ngClass]="{'active': (context.sortingArray[model].attr == property.property)}">
                     <span>{{ translateLib.constructPropertyName(objectDefinition, property) | translate }}</span>
                     <span *ngIf="valLib.hasUnitPresentation(property.value, property)" class="table-header-unit">({{property.accepted.unit}}) </span>

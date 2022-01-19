@@ -1359,7 +1359,7 @@
             "properties": {
                 "filters": {
                     "filterable": {
-                        "common": ["id", "name", "reference", "creation", "size"],
+                        "common": ["id", "name", "reference", "creation"],
                         "all": ["uploader"],
                         "isolated": ["uploader"],
                         "own": []
@@ -1391,7 +1391,7 @@
                         "order": true
                     },
                     "sortable": {
-                        "common": ["id", "name", "creation", "size"],
+                        "common": ["id", "name", "creation"],
                         "all": ["uploader"],
                         "isolated": ["uploader"],
                         "own": []
@@ -1407,13 +1407,13 @@
                 },
                 "finiteBreak": [["uploader", "image"]],
                 "notEditable": {
-                    "common": ["id", "name", "reference", "uploader", "creation", "size"],
+                    "common": ["id", "name", "reference", "uploader", "creation"],
                     "all": [],
                     "isolated": [],
                     "own": []
                 },
                 "notInitialisable": {
-                    "common": ["id", "reference", "creation", "size"],
+                    "common": ["id", "creation"],
                     "all": [],
                     "isolated": [],
                     "own": []
@@ -1421,7 +1421,14 @@
                 "timeSeries": false
             },
             "generated": {
-                "hybrid": {},
+                "hybrid": {
+                    "size": {
+                        "property": {
+                            "name": "fileSize",
+                            "plugin": null
+                        }
+                    }
+                },
                 "column": {}
             },
             "option": {
@@ -1460,11 +1467,6 @@
                             "function": "utcnow"
                         },
                         "doc": "Creation timestamp"
-                    },
-                    "size": {
-                        "type": "Integer",
-                        "nullable": false,
-                        "doc": "Size (in kB)"
                     }
                 },
                 "idReference": {

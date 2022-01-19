@@ -65,8 +65,18 @@ export function isImplicit(property) { return (objLib.lookUpKey(property, 'impli
 
 // Has Implicit Value
 export function hasImplicitValue(property) {
-  if (objLib.lookUpKey(property, 'implicit')) { return property.implicit; }
+
+  // Implicit
+  if (objLib.lookUpKey(property, 'implicit') && property.implicit) {
+
+    // Return Reference
+    return hasReference(property);
+
+  }
+
+  // Not Implicit
   else { return false; }
+
 }
 
 // Has Format
@@ -157,8 +167,13 @@ export function hasStep(property) { return objLib.lookUpKey(property.accepted, '
 
 // Has Reference
 export function hasReference(property) {
+
+  // Reference
   if (property && objLib.lookUpKey(property, 'reference') && property.reference) { return property.reference; }
+
+  // No Reference
   else { return false; }
+
 }
 
 // Has Sorting

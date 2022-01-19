@@ -113,6 +113,11 @@ def pluginServices(self):
     return [services.getServiceStatus(service) for service in services if (service['plugin'] == self.id)]
 
 
+# FUNCTION: File Size Getter (Hybrid Property)
+@log(returnValue=0)
+def fileSize(self): return getFileSize(self.reference)
+
+
 # FUNCTION: Column Property (Example)
 # @selfDecorator
 # def columnPropertyExample(self):

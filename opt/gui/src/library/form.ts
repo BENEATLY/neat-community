@@ -111,11 +111,14 @@ export async function constructSendData(config, userData, properties, meta, opti
         // Has Valid User Data
         if ((userData != null) && (!objLib.isEmptyObject(userData.info))) {
 
+          // Get Implicit Value
+          let implicit = valLib.hasImplicitValue(property);
+
           // Implicit Team
-          if (valLib.hasImplicitValue(property) == 'team') { data[property.property] = +userData.info.team.id; }
+          if (implicit == 'Team') { data[property.property] = +userData.info.team.id; }
 
           // Implicit User
-          else if (valLib.hasImplicitValue(property) == 'user') { data[property.property] = +userData.info.id; }
+          else if (implicit == 'User') { data[property.property] = +userData.info.id; }
 
         }
 

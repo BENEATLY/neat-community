@@ -94,7 +94,7 @@
                     <ng-container *ngFor="let property of sortLib.visuallyOrderProperties(properties[i])">
 
                       <!-- Filter Visible Properties -->
-                      <ng-container *ngIf="valLib.isVisible(property) && (!valLib.isImplicit(property)) && valLib.isSelfOnly(property)">
+                      <ng-container *ngIf="valLib.isVisible(property) && valLib.isSelfOnly(property)">
 
                         <!-- Property Info -->
                         <tr>
@@ -243,7 +243,7 @@
             <ng-container *ngFor="let property of sortLib.visuallyOrderProperties(properties)">
 
               <!-- Filter Visible Properties -->
-              <ng-container *ngIf="valLib.isSelfOnly(property) && (!valLib.isImplicit(property)) && valLib.isVisible(property)">
+              <ng-container *ngIf="valLib.isSelfOnly(property) && valLib.isVisible(property)">
 
                 <!-- Property Info -->
                 <tr>
