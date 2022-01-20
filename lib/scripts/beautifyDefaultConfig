@@ -1,5 +1,13 @@
 #!/usr/local/bin/python
 
+################################################################################
+# Author:     Thomas D'haenens
+# License:    GPL-3.0
+# Link:       https://github.com/BENEATLY/neat-community/
+# Contact:    https://neatly.be/
+################################################################################
+
+
 # IMPORT: Standard Modules
 import sys                                                                                      # System Lib
 import json                                                                                     # JSON Lib
