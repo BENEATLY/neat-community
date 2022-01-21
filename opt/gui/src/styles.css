@@ -790,8 +790,10 @@ select:focus, select.form-control:focus, input:focus, input.form-control:focus, 
 .valid-input:focus{ border-color: #28a745 !important; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #28a745 !important; outline: 0 none !important; }
 .invalid-input:focus{ border-color: #ca4c47 !important; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ca4c47 !important; outline: 0 none !important; }
 .valid-input { border-color: #28a745 !important; }
-.valid-input:not(select):not(table) { background-image: url(/assets/svgs/check-green.svg) !important; background-repeat: no-repeat; background-position: right 6px center; background-size: 14px 14px; }
-table.property-table.valid-input > thead > tr > th > p { background-image: url(/assets/svgs/check-green.svg); background-repeat: no-repeat; background-position: right 0px center; background-size: 14px 14px; padding-right: 19px; }
+.valid-input:not(select):not(table):not([disabled]):not(.disabled) { background-image: url(/assets/svgs/check-green.svg) !important; background-repeat: no-repeat; background-position: right 6px center; background-size: 14px 14px; }
+table.property-table.valid-input:not([disabled]):not(.disabled) > thead > tr > th > p { background-image: url(/assets/svgs/check-green.svg); background-repeat: no-repeat; background-position: right 0px center; background-size: 14px 14px; padding-right: 19px; }
+.valid-input.disabled:not(select):not(table), .valid-input:disabled:not(select):not(table) { background-image: url(/assets/svgs/lock-closed-green.svg) !important; background-repeat: no-repeat; background-position: right 6px center; background-size: 14px 14px; }
+table.property-table.valid-input.disabled > thead > tr > th > p, table.property-table.valid-input:disabled > thead > tr > th > p { background-image: url(/assets/svgs/lock-closed-green.svg); background-repeat: no-repeat; background-position: right 0px center; background-size: 14px 14px; padding-right: 19px; }
 .invalid-input { border-color: #ca4c47 !important; }
 .invalid-input:not(select):not(table):not([type=password]) { background-image: url(/assets/svgs/cross-red.svg) !important; background-repeat: no-repeat; background-position: right 5px center; background-size: 14px 14px; }
 table.property-table.invalid-input > thead > tr > th > p { background-image: url(/assets/svgs/cross-red.svg); background-repeat: no-repeat; background-position: right 0px center; background-size: 14px 14px; padding-right: 19px; }
