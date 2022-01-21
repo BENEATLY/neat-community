@@ -888,8 +888,8 @@ def getChildClass(specifiedClass, child):
 
 # FUNCTION: Return JSON Response
 @log(returnValue=(None, 500))
-def jsonify(obj):
-    return (orjson.dumps(obj).decode('utf-8'), 200, {'Content-Type': 'application/json'})
+def jsonify(obj, code=200):
+    return (orjson.dumps(obj).decode('utf-8'), code, {'Content-Type': 'application/json'})
 
 
 # FUNCTION: Serialize List

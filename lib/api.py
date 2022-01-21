@@ -909,7 +909,7 @@ def basicAuthSuccess():
 # CALL: Basic Auth Error Message
 @basicAuth.error_handler
 def basicAuthError():
-    return jsonify({'authentication': False})
+    return jsonify({'authentication': False}, 403)
 
 
 # CALL: Token Auth Success Result
@@ -922,7 +922,7 @@ def tokenAuthSuccess():
 # CALL: Token Auth Error Message
 @tokenAuth.error_handler
 def tokenAuthError():
-    return jsonify({'authentication': False})
+    return jsonify({'authentication': False}, 403)
 
 
 # PUT: Expire Active Session
