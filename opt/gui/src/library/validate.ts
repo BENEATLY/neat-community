@@ -188,6 +188,20 @@ export function isIconOnly(property) { return (objLib.lookUpKey(property, 'icon-
 // Is Compressed
 export function isCompressed(property) { return (objLib.lookUpKey(property, 'compressed') && property.compressed); }
 
+// Has Maximum Display List
+export function hasMaxDisplayList(property) {
+
+  // Has Value
+  if (objLib.lookUpKey(property, 'maxDisplayList')) { return property.maxDisplayList; }
+
+  // Return Default Value
+  return -1;
+
+}
+
+// Is Link Only
+export function isLinkOnly(property) { return (objLib.lookUpKey(property, 'linkOnly') && property.linkOnly); }
+
 // Is Nullable
 export function isNullable(property) { return ((!objLib.lookUpKey(property.accepted, 'nullable')) || property.accepted.nullable); }
 
@@ -244,13 +258,13 @@ export function isFixed(meta, property) {
 export function hasAccuracy(property) { return (objLib.lookUpKey(property.accepted, 'accuracy')); }
 
 // Value Presentation?
-export function hasValuePresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && (!isBoolean(val)) && (!isArray(val)) && (!isObject(val))); }
+export function hasValuePresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && (!isBoolean(val)) && (!isArray(val)) && (!isObject(val)) && (!isDefinedList(property))); }
 
 // Custom Presentation?
-export function hasCustomPresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && (!isBoolean(val)) && (!isArray(val)) && isObject(val)); }
+export function hasCustomPresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && (!isBoolean(val)) && (!isArray(val)) && isObject(val) && (!isDefinedList(property))); }
 
 // List Presentation?
-export function hasListPresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && isArray(val) && (val.length > 0)); }
+export function hasListPresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && isDefinedList(property) && ((isArray(val) && (val.length > 0)) || isLinkOnly(property))); }
 
 // Any Presentation?
 export function hasAnyPresentation(val, property, filters = null) { return (isVisible(property) && (!isFilteredProperty(property, filters)) && isArray(val) && (val.length == 0) && (objLib.lookUpKey(property, 'any') && property.any)); }
@@ -265,7 +279,7 @@ export function hasInvisiblePresentation(val, property, filters = null) { return
 export function hasPresentableValue(val, property) {
   if ((isDefinedString(property) || isDefinedBoolean(property) || isDefinedFile(property) || isDefinedNumber(property) || isTimeDependent(property)) && (val == null)) { return false; }
   else if (isDefinedId(property) && ((val == null) || (val.id == null))) { return false; }
-  else if (isDefinedList(property) && isArray(val) && (val.length == 0) && (!hasAnyPresentation(val, property))) { return false; }
+  else if (isDefinedList(property) && isArray(val) && (val.length == 0) && (!isLinkOnly(property)) && (!hasAnyPresentation(val, property))) { return false; }
   else { return true; }
 }
 

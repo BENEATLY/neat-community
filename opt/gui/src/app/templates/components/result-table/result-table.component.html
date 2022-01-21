@@ -81,15 +81,15 @@
                   </td>
 
                   <!-- List Presentation -->
-                  <td *ngIf="context.columns.model[property.property] && valLib.hasListPresentation(modelValue, property)" [ngClass]="{'table-icon': (valLib.isCompressed(property) && (modelValue.length > 1))}">
-                    <ng-container *ngIf="!valLib.isCompressed(property) || (modelValue.length <= 1)">
+                  <td *ngIf="context.columns.model[property.property] && valLib.hasListPresentation(modelValue, property)" [ngClass]="{'table-icon': (valLib.isLinkOnly(property) || (valLib.isCompressed(property) && valLib.isArray(modelValue) && (modelValue.length > valLib.hasMaxDisplayList(property))))}">
+                    <ng-container *ngIf="!valLib.isCompressed(property) || (valLib.isArray(modelValue) && (modelValue.length <= valLib.hasMaxDisplayList(property)))">
                       <div class="html-present" *ngFor="let val of modelValue">
                         <span *ngIf="(!valLib.isLinked(property))" class="nomargin">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
                         <span *ngIf="valLib.isLinked(property)" class="nomargin linked" (click)="navigationLib.subNav(router, route.snapshot.url, context.objectDefinition, item, property, val)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
                         <br>
                       </div>
                     </ng-container>
-                    <img *ngIf="valLib.isCompressed(property) && (modelValue.length > 1)" (click)="navigationLib.subNav(router, route.snapshot.url, context.objectDefinition, item, property, null)" [src]="'/assets/svgs/list-gradient.svg'">
+                    <img *ngIf="valLib.isLinkOnly(property) || (valLib.isCompressed(property) && (valLib.isArray(modelValue) && (modelValue.length > valLib.hasMaxDisplayList(property))))" (click)="navigationLib.subNav(router, route.snapshot.url, context.objectDefinition, item, property, null)" [src]="'/assets/svgs/list-gradient.svg'">
                   </td>
 
                   <!-- 'Any' Presentation -->

@@ -61,15 +61,18 @@
                     </p>
 
                     <!-- List Presentation -->
-                    <p *ngIf="valLib.hasListPresentation(modelValue, property)" class="line-property-value html-present">
-                      <span class="value-present">
-                        <ng-container *ngFor="let val of modelValue; let index = index; let count = count;">
-                          <span *ngIf="valLib.isLinked(property)" class="linked" (click)="navigationLib.subNav(router, route.snapshot.url, objectDefinition, item, property, val)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
-                          <span *ngIf="(!valLib.isLinked(property))" class="text">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
-                          <span *ngIf="(index < (count-2))" class="text comma">,</span>
-                          <span *ngIf="(index == (count-2))" class="text ampersand">&</span>
-                        </ng-container>
-                      </span>
+                    <p class="line-property-value html-present" *ngIf="valLib.hasListPresentation(modelValue, property)" [ngClass]="{'table-icon': (valLib.isLinkOnly(property) || (valLib.isCompressed(property) && valLib.isArray(modelValue) && (modelValue.length > valLib.hasMaxDisplayList(property))))}">
+                      <ng-container *ngIf="!valLib.isCompressed(property) || (valLib.isArray(modelValue) && (modelValue.length <= valLib.hasMaxDisplayList(property)))">
+                        <span class="value-present">
+                          <ng-container *ngFor="let val of modelValue; let index = index; let count = count;">
+                            <span *ngIf="valLib.isLinked(property)" class="linked" (click)="navigationLib.subNav(router, route.snapshot.url, objectDefinition, item, property, val)">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                            <span *ngIf="(!valLib.isLinked(property))" class="text">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, val, property) }}</span>
+                            <span *ngIf="(index < (count-2))" class="text comma">,</span>
+                            <span *ngIf="(index == (count-2))" class="text ampersand">&</span>
+                          </ng-container>
+                        </span>
+                      </ng-container>
+                      <img *ngIf="valLib.isLinkOnly(property) || (valLib.isCompressed(property) && (valLib.isArray(modelValue) && (modelValue.length > valLib.hasMaxDisplayList(property))))" (click)="navigationLib.subNav(router, route.snapshot.url, objectDefinition, item, property, null)" [src]="'/assets/svgs/list-gradient.svg'">
                     </p>
 
                     <!-- 'Any' Presentation -->
