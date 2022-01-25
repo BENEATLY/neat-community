@@ -97,11 +97,14 @@ def constructTimeZoneLinkFile(timezones, backwards):
         # Uses DST?
         useDST = (standardZone != savingsZone)
 
+        # Zone Name
+        zoneName = (standardZone + ('' if (('+' in standardZone) or ('-' in standardZone)) else standardUTCOffset))
+
         # Log Message
-        logPrint('INFO', 'Detected ' + timezone + ' -> ' + standardZone + ' (' + str(standardUTCOffset) + ') -> ' + savingsZone + ' (' + str(savingsUTCOffset) + ') -> ' + str(useDST))
+        logPrint('INFO', 'Detected ' + timezone + ' -> ' + zoneName + ' -> ' + standardZone + ' (' + str(standardUTCOffset) + ') -> ' + savingsZone + ' (' + str(savingsUTCOffset) + ') -> ' + str(useDST))
 
         # Search Export
-        tzExport = [exp for exp in export if (standardZone == exp['timeZone'])]
+        tzExport = [exp for exp in export if (zoneName == exp['timeZone'])]
 
         # Existing Export
         if (tzExport):
@@ -112,7 +115,7 @@ def constructTimeZoneLinkFile(timezones, backwards):
         # New Export
         else:
 
-            export.append({'timeZone': standardZone, 'utcOffset': str(standardUTCOffset), 'dst': ({'timeZone': savingsZone, 'utcOffset': str(savingsUTCOffset)} if (useDST) else None), 'locations': [timezone]})
+            export.append({'timeZone': zoneName, 'utcOffset': str(standardUTCOffset), 'standardZone': standardZone, 'dst': ({'timeZone': savingsZone, 'utcOffset': str(savingsUTCOffset)} if (useDST) else None), 'locations': [timezone]})
 
     # Write JSON File
     writeCleanJSONFile('timezoneLink.json', export)
