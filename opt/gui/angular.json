@@ -23,7 +23,7 @@
               "src/styles.css",
               "src/justify.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+              "src/datepicker/datepicker.min.css",
               "node_modules/flag-icon-css/css/flag-icon.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
@@ -36,7 +36,7 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/moment/min/moment-with-locales.js",
               "node_modules/moment-timezone/builds/moment-timezone.min.js",
-              "node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"
+              "src/datepicker/datepicker.min.js"
             ]
           },
           "configurations": {
