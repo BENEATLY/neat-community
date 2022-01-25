@@ -41,7 +41,7 @@
     "mathjs": "7.0.1",
     "messageformat": "^2.3.0",
     "moment": "2.29.1",
-    "moment-timezone": "0.5.32",
+    "moment-timezone": "0.5.34",
     "ng-bootstrap-modal": "1.1.19",
     "ngx-cookie-service": "3.0.4",
     "ngx-mapbox-gl": "4.6.0",
