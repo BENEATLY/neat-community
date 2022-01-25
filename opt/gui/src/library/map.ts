@@ -5,6 +5,7 @@
 
 
 // Imports: Libraries
+import * as objLib from '@library/object';
 import * as valLib from '@library/validate';
 
 // Imports: Files
