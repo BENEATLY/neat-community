@@ -11,6 +11,9 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import 'moment-timezone';
 
+// Imports: Files
+import backwardLink from '@assets/geojson/timezone/backward.json';
+
 
 // Class Export Definition
 @Injectable()
@@ -30,6 +33,17 @@ export class TimezoneService {
   constructor() {}
 
 
+  // Convert Location
+  convertLocation(location) {
+
+    // Has Backward Link
+    if (location in backwardLink) { return backwardLink[location]; }
+
+    // No Backward Link
+    else { return location; }
+
+  }
+
   // Load Timezone Info
   loadTimezone() {
     return new Promise(
@@ -43,6 +57,7 @@ export class TimezoneService {
 
         // Get Location
         let location = moment.tz.guess();
+        location = this.convertLocation(location);
         this.location = location;
 
         // Get Timezone

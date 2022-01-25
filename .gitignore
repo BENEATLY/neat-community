@@ -4,6 +4,7 @@ opt/gui/node_modules/
 __pycache__/
 opt/gui/src/assets/geojson/timezone/files/high-res/
 opt/gui/src/assets/geojson/timezone/files/low-res/
+opt/gui/src/assets/geojson/timezone/files/mid-res/
 opt/gui/src/assets/translations
 opt/gui/dist/
 opt/gui/package-lock.json

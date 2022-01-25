@@ -5,28 +5,28 @@
 
 
 // Imports: Libraries
-import * as objLib from '@library/object';
+import * as valLib from '@library/validate';
 
 // Imports: Files
-import timezoneLink from '@assets/geojson/timezone/timezone-link.json';
+import timezoneLink from '@assets/geojson/timezone/timezoneLink.json';
 
 // Imports: Tools
 import * as math from 'mathjs';
 
 
-// Determine Timezone File By Location
-export async function determineTimezoneContoursByLocation(location, httpModule, exclude = null) {
+// Get Contours By Location
+export async function getContoursByLocation(location, httpModule) {
   for (let timezone of timezoneLink) {
-    if (timezone['utc'].includes(location)) { return await getTimezoneContoursByFile(location, (timezone['abbr'].toLowerCase() + '.json'), httpModule, exclude); }
+    if (timezone['locations'].includes(location)) { return await getTimezoneContours((timezone['timeZone'].toLowerCase() + '.json'), httpModule); }
   }
   return null;
 }
 
-// Get Timezone Contours By File
-export async function getTimezoneContoursByFile(location, file, httpModule, exclude = null) {
+// Get Timezone Contours
+export async function getTimezoneContours(file, httpModule) {
 
-  // Get File Content
-  let result = await httpModule.get('./assets/geojson/timezone/files/low-res/' + file).toPromise().then(
+  // Return File Content
+  return await httpModule.get('./assets/geojson/timezone/files/low-res/' + file).toPromise().then(
 
     // Success
     res => { return res; },
@@ -36,24 +36,29 @@ export async function getTimezoneContoursByFile(location, file, httpModule, excl
 
   );
 
-  // Filter File Content
-  if (result == null) { return null; }
-  if (exclude == null) { return result; }
-  else { return filterOriginalTimezone(location, result, exclude); }
-
 }
 
 // Filter Out Original Timezone
 export function filterOriginalTimezone(location, contours, exclude) {
-  contours.features = contours.features.filter(feature => (exclude?(feature.properties.tzid != location):(feature.properties.tzid == location)));
-  return contours;
+  let features = contours.features.filter(feature => (exclude?(feature.properties.tzid != location):(feature.properties.tzid == location)));
+  return {features: features, type: 'FeatureCollection'};
 }
 
-// Find Location Center Point
-export async function findLocationCenterPoint(location, httpModule) {
-  let contours = await determineTimezoneContoursByLocation(location, httpModule, false);
-  if (contours != null) { return [math.mean(contours['features'][0]['geometry']['coordinates'].map(region => [].concat.apply([], region.map(coordinates => [].concat.apply([], coordinates.map(coordinate => coordinate[0])))))), math.mean(contours['features'][0]['geometry']['coordinates'].map(region => [].concat.apply([], region.map(coordinates => [].concat.apply([], coordinates.map(coordinate => coordinate[1]))))))]; }
-  else { return [0, 0]; }
+
+// Get All Sub Coordinates
+export function getSubCoordinates(contours, index, coordinates: any[] = []) {
+  for (let contour of contours) {
+    if ((contour[0].length == 2) && valLib.isNumber(contour[0][0])) { coordinates = coordinates.concat(contour.map(coordinate => coordinate[index])); }
+    else { coordinates = getSubCoordinates(contour, index, coordinates); }
+  }
+  return coordinates;
+}
+
+// Find Contour Center Point
+export function findContourCenterPoint(contours) {
+  let xCoordinates = getSubCoordinates(contours.features[0].geometry.coordinates, 0);
+  let yCoordinates = getSubCoordinates(contours.features[0].geometry.coordinates, 1);
+  return [math.mean(xCoordinates), math.mean(yCoordinates)];
 }
 
 // Add Map Load

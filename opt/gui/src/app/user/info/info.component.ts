@@ -104,36 +104,53 @@ export class UserInfoComponent implements OnInit {
     // Get Page Info
     dataLib.getPageInfo(this.appConfig.config, this.data.userData, 'activesession', 'ActiveSession', dataLib.defaultColumns('activesession'), dataLib.defaultPageInfo('activesession', 21), this.resultInfo, null, dataLib.defaultSortingArray('activesession'), dataLib.defaultFilterArray('activesession', this.objectDefinition), dataLib.defaultFilterState(), {'activesession': {'level': 'own'}}, null, this.translate, this.timezone, this.snackBar, this.cookieService, this.http);
 
-    // Set Map Config
-    this.mapConfig = {
-      "style": "mapbox://styles/tdha/ckc29zf7o25yg1imnuaqzhsq5",
-      "zoom": 2,
-      "center": await mapLib.findLocationCenterPoint(this.timezone.location, this.http),
-      "minzoom": 1,
-      "maxzoom": 10,
-      "layer": [
-        {
-          "name": "timezone",
-          "type": "fill",
-          "layout": {},
-          "paint": {"fill-color": "#222", "fill-opacity": 0.5},
-          "source": {
-            "type": "geojson",
-            "data": await mapLib.determineTimezoneContoursByLocation(this.timezone.location, this.http, true)
+    // Get Contour File
+    let contours = await mapLib.getContoursByLocation(this.timezone.location, this.http);
+
+    // Valid Contours
+    if (contours) {
+
+      // Location Contours
+      let locationContours = mapLib.filterOriginalTimezone(this.timezone.location, contours, false);
+
+      // Location Contours
+      let zoneContours = mapLib.filterOriginalTimezone(this.timezone.location, contours, true);
+
+      // Center Point
+      let center = mapLib.findContourCenterPoint(locationContours);
+
+      // Set Map Config
+      this.mapConfig = {
+        style: 'mapbox://styles/tdha/ckc29zf7o25yg1imnuaqzhsq5',
+        zoom: 2,
+        center: center,
+        minzoom: 1,
+        maxzoom: 10,
+        layer: [
+          {
+            name: 'timezone',
+            type: 'fill',
+            layout: {},
+            paint: {'fill-color': '#222', 'fill-opacity': 0.5},
+            source: {
+              type: 'geojson',
+              data: zoneContours
+            }
+          },
+          {
+            name: 'current-location',
+            type: 'fill',
+            layout: {},
+            paint: {'fill-color': '#272e64', 'fill-opacity': 0.8},
+            source: {
+              type: 'geojson',
+              data: locationContours
+            }
           }
-        },
-        {
-          "name": "current-location",
-          "type": "fill",
-          "layout": {},
-          "paint": {"fill-color": "#272e64", "fill-opacity": 0.8},
-          "source": {
-            "type": "geojson",
-            "data": await mapLib.determineTimezoneContoursByLocation(this.timezone.location, this.http, false)
-          }
-        }
-      ]
-    };
+        ]
+      };
+
+    }
 
   }
 
