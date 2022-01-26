@@ -991,6 +991,7 @@ def splitArrayInEqualParts(arr, size):
 # FUNCTION: Add Sync Dicts
 @log(returnValue=(lambda x,y: x[0][0]))
 def addSyncDicts(dicts):
+    if (not dicts): return {}
     base = dicts[0]
     for dic in dicts[1:]:
         if isinstance(dic, dict):
@@ -1002,6 +1003,7 @@ def addSyncDicts(dicts):
 # FUNCTION: Add Sync Config
 @log(returnValue=(lambda x,y: x[0][0]))
 def addSyncConfig(dicts):
+    if (not dicts): return {}
     base = dicts[0]
     for dic in dicts[1:]:
         if isinstance(dic, dict):
