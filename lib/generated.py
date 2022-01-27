@@ -109,8 +109,8 @@ def pluginLogs(self):
 # FUNCTION: Plugin Services Getter (Hybrid Property)
 @log(returnValue=[])
 def pluginServices(self):
-    services = readJSONFile('/etc/neatly/base/service/service.json')
-    return [services.getServiceStatus(service) for service in services if (service['plugin'] == self.id)]
+    serviceList = readJSONFile('/etc/neatly/base/service/service.json')
+    return [services.getServiceStatus(service) for service in serviceList if (service['plugin'] == self.id)]
 
 
 # FUNCTION: File Size Getter (Hybrid Property)
