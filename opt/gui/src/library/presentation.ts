@@ -16,6 +16,7 @@ import * as numberLib from '@library/number';
 import * as formatLib from '@library/format';
 import * as pageLib from '@library/page';
 import * as pluginLib from '@library/plugin';
+import * as sortLib from '@library/sort';
 
 
 // Declarations: JQuery
@@ -523,4 +524,15 @@ export function typeConversion(val, property) {
 export function getModelValue(item, property) {
   let subProperty = objLib.getSubProperty(item, property.property);
   return typeConversion(subProperty, property);
+}
+
+// Apply Select Presentation
+export function applySelectPresentation(config, data, translate, items, property) {
+
+  // Add Presentation Value
+  let modItems = items.map(item => ({ ...item, _presentationValue: customPresentation(config.config, data.userData, translate, item, property) }));
+
+  // Sort According to Presentation Value & Return
+  return sortLib.sortBy(modItems, '_presentationValue', true);
+
 }

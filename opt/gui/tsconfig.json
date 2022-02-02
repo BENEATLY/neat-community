@@ -29,6 +29,7 @@
       "@app/*": ["app/*"],
       "@focus/*": ["focus/*"],
       "@modal/*": ["modal/*"],
+      "@select-filter/*": ["select-filter/*"],
       "@environments/*": ["environments/*"],
       "@focuses/*": ["app/focuses/*"],
       "@modals/*": ["app/modals/*"],

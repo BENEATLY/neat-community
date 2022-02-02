@@ -19,14 +19,17 @@ import { RouterModalModule } from '@modal/router-modal.module';
 import { RouterFocusModule } from '@focus/router-focus.module';
 import { SafePipe } from '@app/safe.pipe';
 import { VarDirective } from '@app/ngvar.directive';
+import { SelectDirective } from '@app/select.directive';
 
 // Imports: Visualisation
 import { AmChartsService } from "@amcharts/amcharts3-angular";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { SelectFilterModule } from '@select-filter/select-filter.module';
 
 // Imports: Translation
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -65,6 +68,7 @@ import { PluginConfig } from '@app/plugin.config';
     // Dependents
     SafePipe,
     VarDirective,
+    SelectDirective,
 
     // Default
     AppComponent,
@@ -105,6 +109,8 @@ import { PluginConfig } from '@app/plugin.config';
     FormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    SelectFilterModule,
     NgxMapboxGLModule.withConfig({
       accessToken: null,
       geocoderAccessToken: null

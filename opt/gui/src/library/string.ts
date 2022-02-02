@@ -17,3 +17,8 @@ export function convertStringToJSON(val) { return JSON.parse(val); }
 
 // Convert JSON To String
 export function convertJSONToString(val) { return JSON.stringify(val); }
+
+// Convert to Title Case
+export function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); } );
+}

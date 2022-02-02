@@ -1,0 +1,11 @@
+<!--
+    Author:     Thomas D'haenens
+    License:    GPL-3.0
+    Link:       https://github.com/BENEATLY/neat-community/
+    Contact:    https://neatly.be/
+-->
+
+
+<div>
+  <input #input matInput [placeholder]="searchPlaceHolder" [ngModel]="inputValue" (keydown)="handleKeydown($event)" (ngModelChange)="valueChange($event)" (reset)="resetValue($event)">
+</div>

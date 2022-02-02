@@ -28,3 +28,24 @@ export function removeClassbyClass(name, ref) { $('.' + name).removeClass(ref); 
 
 // Get Class List
 export function getClassListByClass(name) { return $('.' + name).attr('class').split(/\s+/); }
+
+// Clear Overlay Container
+export function clearOverlayContainer() {
+
+  // Check if Overlay Exists
+  if (classExists('cdk-overlay-container')) {
+
+    // Get Overlay Class List
+    let classList = getClassListByClass('cdk-overlay-container');
+
+    // Remove Other Classes
+    for (let cla of classList) {
+      if (cla != 'cdk-overlay-container') { removeClassbyClass('cdk-overlay-container', cla); }
+    }
+
+  }
+
+}
+
+// Add Overlay Class
+export function addOverlayClass(name) { addClassbyClass('cdk-overlay-container', name); }

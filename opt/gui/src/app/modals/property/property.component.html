@@ -145,11 +145,14 @@
                 </ng-container>
 
                 <!-- Select Presentation -->
-                <select *ngIf="valLib.isDefinedId(property)" class="form-control modalfield" id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" id="select" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
-                  <ng-container *ngFor="let j of acceptedList[property.property]">
-                    <option [value]="j.id">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, j, property) }}</option>
-                  </ng-container>
-                </select>
+                <mat-form-field *ngIf="valLib.isDefinedId(property)" class="form-control modalfield" [ngClass]="{'disabled': formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)}">
+                  <mat-select selectDir id="{{ property.property.toLowerCase() }}-input" [(ngModel)]="property.value" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property) || ((meta.type == 'Edit') && (!valLib.isEditable(property)))">
+                    <select-filter [searchPlaceHolder]="translate.instant('common.table.search')" [fullList]="acceptedList[property.property]" [searchAttribute]="'_presentationValue'" (searchResult)="filterList[property.property] = $event"></select-filter>
+                    <mat-option *ngFor="let j of filterList[property.property]" [value]="j.id">
+                      {{ j._presentationValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
 
                 <!-- List Presentation -->
                 <table *ngIf="valLib.isDefinedList(property)" class="table property-table nomargin" id="{{ property.property.toLowerCase() }}-input" cellspacing="0">
@@ -199,9 +202,14 @@
 
                       <!-- Name Presentation -->
                       <td class="addition">
-                        <select class="form-control modalfield" [(ngModel)]="additionList[property.property]" id="select" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)">
-                          <option *ngFor="let j of searchLib.filterNotSelected(acceptedList[property.property], property.value)" [value]="j.id">{{ presentLib.customPresentation(appConfig.config, data.userData, translate, j, property) }}</option>
-                        </select>
+                        <mat-form-field class="form-control modalfield" [ngClass]="{'disabled': formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)}">
+                        	<mat-select selectDir [(ngModel)]="additionList[property.property]" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)">
+                            <select-filter [searchPlaceHolder]="translate.instant('common.table.search')" [fullList]="searchLib.filterNotSelected(acceptedList[property.property], property.value)" [searchAttribute]="'_presentationValue'" (searchResult)="filterList[property.property] = searchLib.filterNotSelected($event, property.value)"></select-filter>
+                        		<mat-option *ngFor="let j of searchLib.filterNotSelected(filterList[property.property], property.value)" [value]="j.id">
+                        			{{ j._presentationValue }}
+                        		</mat-option>
+                        	</mat-select>
+                        </mat-form-field>
                       </td>
 
                       <!-- Add Button -->

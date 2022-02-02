@@ -5,6 +5,9 @@ import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl
 
 // Class Export Definition
 @Pipe({name: 'safe'})
+
+
+// Component Export Definition
 export class SafePipe implements PipeTransform {
 
   // Constructor

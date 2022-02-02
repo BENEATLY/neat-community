@@ -36,24 +36,6 @@ export class SnackBarService {
   }
 
 
-  // Clear Overlay Container
-  clearOverlayContainer() {
-
-    // Check if Overlay Exists
-    if (classLib.classExists('cdk-overlay-container')) {
-
-      // Get Overlay Class List
-      let classList = classLib.getClassListByClass('cdk-overlay-container');
-
-      // Remove Other Classes
-      for (let cla of classList) {
-        if (cla != 'cdk-overlay-container') { classLib.removeClassbyClass('cdk-overlay-container', cla); }
-      }
-
-    }
-
-  }
-
   // Split Snackbar Content
   splitSnackbarContent(content) {
     let maxLength = 24;
@@ -96,13 +78,16 @@ export class SnackBarService {
     // Snack Bar Exists
     if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
 
+    // Clear
+    classLib.clearOverlayContainer();
+
   }
 
   // HTTP Error Occurred Snack Bar
   httpErrorOccurred(error, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
@@ -128,13 +113,19 @@ export class SnackBarService {
     }
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open('ERROR:' + ' ' + 'HTTP' + ' ' + error.status.toString() + "\n" + this.splitSnackbarContent(content), 'CLOSE', snackBarConfig);
 
+    // Clear Overlay when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => { classLib.clearOverlayContainer(); });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
+
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
     // Token Check (on Authentication failure only)
     if (error.status == 401) { $('#update-required').trigger("token-check"); }
@@ -144,132 +135,178 @@ export class SnackBarService {
   // Invalid Credentials
   invalidCredentials(translate, routerModule, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
     snackBarConfig.panelClass = ['snackbar-text'];
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open(translate.instant('common.snackbar.message.invalidCredentials'), translate.instant('common.snackbar.button.close').toUpperCase(), snackBarConfig);
 
+    // Clear Overlay when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => { classLib.clearOverlayContainer(); });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
+
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
   }
 
   // Logon Error
   logonError(translate, routerModule, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
     snackBarConfig.panelClass = ['snackbar-text'];
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open(translate.instant('common.snackbar.message.logonError'), translate.instant('common.snackbar.button.close').toUpperCase(), snackBarConfig);
 
+    // Clear Overlay when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => { classLib.clearOverlayContainer(); });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
+
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
   }
 
   // Manual Log Out
   manualLogOut(translate, routerModule, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
     snackBarConfig.panelClass = ['snackbar-header-text'];
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open(translate.instant('common.snackbar.message.manualLogOut.title').toUpperCase() + "\n" + translate.instant('common.snackbar.message.manualLogOut.content'), translate.instant('common.snackbar.button.close').toUpperCase(), snackBarConfig);
 
+    // Clear Overlay when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => { classLib.clearOverlayContainer(); });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
+
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
   }
 
   // Expired Log Out
   expiredLogOut(translate, routerModule, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
     snackBarConfig.panelClass = ['snackbar-header-text'];
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open(translate.instant('common.snackbar.message.expiredLogOut.title').toUpperCase() + "\n" + translate.instant('common.snackbar.message.expiredLogOut.content'), translate.instant('common.snackbar.button.close').toUpperCase(), snackBarConfig);
 
+    // Clear Overlay when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => { classLib.clearOverlayContainer(); });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
+
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
   }
 
   // SSL Expire Soon Snack Bar
   sslExpireSoon(translate, routerModule, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
     snackBarConfig.panelClass = ['snackbar-text'];
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open(translate.instant('common.snackbar.message.sslExpireSoon'), translate.instant('common.snackbar.button.show').toUpperCase(), snackBarConfig);
 
-    // Reload Screen when Dismissed
-    this.snackBarRef.afterDismissed().subscribe(() => { routerModule.navigate(['settings/ssl']); });
+    // Clear Overlay & Navigate when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => {
+
+      // Clear
+      classLib.clearOverlayContainer();
+
+      // Navigate to SSL Page
+      routerModule.navigate(['settings/ssl']);
+
+    });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
 
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
   }
 
   // SSL Expired Snack Bar
   sslExpired(translate, routerModule, position = null) {
 
-    // Snack Bar Exists
-    if (this.snackBarRef != null) { this.snackBarRef.dismiss(); }
+    // Dismiss Existing Snack Bar
+    this.dismiss();
 
     // Set Config of Snack Bar
     const snackBarConfig = new MatSnackBarConfig();
     snackBarConfig.panelClass = ['snackbar-text'];
 
     // Clear
-    this.clearOverlayContainer();
+    classLib.clearOverlayContainer();
 
     // Open Snack Bar
     this.snackBarRef = this.snackBar.open(translate.instant('common.snackbar.message.sslExpired'), translate.instant('common.snackbar.button.show').toUpperCase(), snackBarConfig);
 
-    // Reload Screen when Dismissed
-    this.snackBarRef.afterDismissed().subscribe(() => { routerModule.navigate(['settings/ssl']); });
+    // Clear Overlay & Navigate when Dismissed
+    this.snackBarRef.afterDismissed().subscribe(() => {
+
+      // Clear
+      classLib.clearOverlayContainer();
+
+      // Navigate to SSL Page
+      routerModule.navigate(['settings/ssl']);
+
+    });
+
+    // Set Snackbar Overlay
+    classLib.addOverlayClass('snackbar');
 
     // Set Overlay Container
-    if (position) { classLib.addClassbyClass('cdk-overlay-container', position); }
+    if (position) { classLib.addOverlayClass(position); }
 
   }
 

@@ -4,6 +4,9 @@ import { Input, Directive, ViewContainerRef, TemplateRef } from '@angular/core';
 
 // Class Export Definition
 @Directive({selector: '[ngVar]'})
+
+
+// Component Export Definition
 export class VarDirective {
 
   // Directive Defintion
