@@ -203,8 +203,8 @@
                       <!-- Name Presentation -->
                       <td class="addition">
                         <mat-form-field class="form-control modalfield" [ngClass]="{'disabled': formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)}">
-                        	<mat-select selectDir [(ngModel)]="additionList[property.property]" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)">
-                            <select-filter [searchPlaceHolder]="translate.instant('common.table.search')" [fullList]="searchLib.filterNotSelected(acceptedList[property.property], property.value)" [searchAttribute]="'_presentationValue'" (searchResult)="filterList[property.property] = searchLib.filterNotSelected($event, property.value)"></select-filter>
+                        	<mat-select selectDir [(ngModel)]="additionList[property.property]" (selectionChange)="listLib.addToList(properties, property.property, acceptedList, additionList)" [disabled]="formLib.disabledProperty(meta, property) || objLib.lookUpKey(fixedList, property.property)">
+                            <select-filter [searchPlaceHolder]="translate.instant('common.table.search')" [fullList]="searchLib.filterNotSelected(acceptedList[property.property], property.value)" [searchAttribute]="'_presentationValue'" (searchResult)="filterList[property.property] = $event"></select-filter>
                         		<mat-option *ngFor="let j of searchLib.filterNotSelected(filterList[property.property], property.value)" [value]="j.id">
                         			{{ j._presentationValue }}
                         		</mat-option>
@@ -212,10 +212,8 @@
                         </mat-form-field>
                       </td>
 
-                      <!-- Add Button -->
-                      <td>
-                        <img (click)="listLib.addToList(properties, property.property, acceptedList, additionList)" src="/assets/svgs/plus-square-gradient.svg">
-                      </td>
+                      <!-- Empty -->
+                      <td></td>
 
                     </tr>
 
