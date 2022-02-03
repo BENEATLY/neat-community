@@ -39,6 +39,9 @@ import * as ttLib from '@library/tooltip';
 import * as timeLib from '@library/time';
 import * as translateLib from '@library/translate';
 
+// Imports: Tools
+import * as cloneDeep from 'lodash/cloneDeep';
+
 
 // Declarations: JQuery
 declare var $: any;
@@ -74,6 +77,7 @@ export class PluginOptionModalComponent implements OnInit {
   activeToolTips = {};
   existingList = {};
   acceptedList = {};
+  filterList = {};
   currentList = [];
   additionList = {};
   optionalList = {};
@@ -326,13 +330,21 @@ export class PluginOptionModalComponent implements OnInit {
                 // Has Filter
                 if (valLib.hasFilter(property) && (!valLib.isFixed(this.meta, this.properties[i]))) {
 
-                  // Filter Accepted List
-                  this.acceptedList[property.property] = searchLib.applyFiltersOnList(res, property.accepted.filter);
+                  // Filter Lists
+                  let filteredList = presentLib.applySelectPresentation(this.appConfig, this.data, this.translate, searchLib.applyFiltersOnList(res, property.accepted.filter), property);
+                  this.acceptedList[property.property] = filteredList;
+                  this.filterList[property.property] = cloneDeep(filteredList);
 
                 }
 
                 // No Filter
-                else { this.acceptedList[property.property] = res; }
+                else {
+
+                  let filteredList = presentLib.applySelectPresentation(this.appConfig, this.data, this.translate, res, property);
+                  this.acceptedList[property.property] = filteredList;
+                  this.filterList[property.property] = cloneDeep(filteredList);
+
+                }
 
               }.bind(this, this.properties[i]),
 
@@ -373,13 +385,21 @@ export class PluginOptionModalComponent implements OnInit {
                 // Has Filter
                 if (valLib.hasFilter(property) && (!valLib.isFixed(this.meta, this.properties[i]))) {
 
-                  // Filter Accepted List
-                  this.acceptedList[property.property] = searchLib.applyFiltersOnList(res, property.accepted.filter);
+                  // Filter Lists
+                  let filteredList = presentLib.applySelectPresentation(this.appConfig, this.data, this.translate, searchLib.applyFiltersOnList(res, property.accepted.filter), property);
+                  this.acceptedList[property.property] = filteredList;
+                  this.filterList[property.property] = cloneDeep(filteredList);
 
                 }
 
                 // No Filter
-                else { this.acceptedList[property.property] = res; }
+                else {
+
+                  let filteredList = presentLib.applySelectPresentation(this.appConfig, this.data, this.translate, res, property);
+                  this.acceptedList[property.property] = filteredList;
+                  this.filterList[property.property] = cloneDeep(filteredList);
+
+                }
 
               }.bind(this, this.properties[i]),
 
@@ -427,8 +447,9 @@ export class PluginOptionModalComponent implements OnInit {
       // Other Property
       else {
 
-        // Empty Accepted List
+        // Empty Lists
         this.acceptedList[this.properties[i].property] = [];
+        this.filterList[this.properties[i].property] = [];
 
         // Set Value: Fixed
         if (valLib.isFixed(this.meta, this.properties[i])) { this.properties[i].value = formLib.getFixedValue(this.meta, this.properties[i]); }
