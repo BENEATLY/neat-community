@@ -169,7 +169,7 @@
                         <p *ngIf="(!property.value) || (property.value.length == 0)" [translate]="'common.table.empty-list'"></p>
 
                         <!-- Addition Button -->
-                        <button *ngIf="(!((meta.type == 'Edit') && (!valLib.isEditable(property))))" class="list-add-button no-text-transform" (click)="additionList[property.property] = true;">
+                        <button *ngIf="(!((meta.type == 'Edit') && (!valLib.isEditable(property))))" class="list-add-button no-text-transform" (click)="additionList[property.property] = true;" [disabled]="searchLib.filterNotSelected(filterList[property.property], property.value).length == 0">
                           <img src="/assets/svgs/plus-gradient.svg">
                           <p [translate]="'common.table.add-item'"></p>
                         </button>
