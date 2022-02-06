@@ -41,5 +41,5 @@ export function resultSegment(pageInfo) {
     if (pageInfo.model['page'] < pageInfo.model['maxPage']) { end = pageInfo.model['page'] * pageInfo.model['perPage']; }
     else { end = pageInfo.model['total']; }
   }
-  return { 'start': start, 'end': end, 'results': pageInfo.model['total'] };
+  return { 'start': start, 'end': end, 'results': pageInfo.model['exist'] };
 }

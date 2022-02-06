@@ -16,7 +16,8 @@ def pluginGetLogContent(self, options):
     foundLogs = [log for log in self.logs if (log['uid'] == options['uid'])]
     if (len(foundLogs) == 1):
         foundLogs = foundLogs[0]
-        return send_file(dir + foundLogs['fullPath'], attachment_filename=foundLogs['file'])
+        baseFolder = sys.sharedConfig.logging['loggers']['plugin']['path'] + str(self.id) + '/'
+        return send_file(baseFolder + foundLogs['fullPath'], attachment_filename=foundLogs['file'])
     return ('', 404)
 
 

@@ -26,8 +26,10 @@ def getServiceStatus(service):
         [pidOut, pidStatus] = shHandler()(sys.executables.systemctl)('show', service['service'], '--property=MainPID')
         mainPID = int(pidOut.replace('MainPID=', '').replace('\n', ''))
         service['upTime'] = Process(mainPID).create_time()
+        service['status'] = True
     else:
         service['upTime'] = None # noCoverage
+        service['status'] = False # noCoverage
     return service
 
 
