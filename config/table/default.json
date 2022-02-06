@@ -1100,7 +1100,7 @@
                     "name": {
                         "doc": "Name", 
                         "nullable": false, 
-                        "parameter": 30, 
+                        "parameter": 80, 
                         "type": "String", 
                         "unique": true
                     }
@@ -2840,7 +2840,7 @@
                     "name": {
                         "doc": "Name", 
                         "nullable": false, 
-                        "parameter": 30, 
+                        "parameter": 80, 
                         "type": "String", 
                         "unique": true
                     }

@@ -1,1000 +1,1000 @@
 {
     "common": {
         "button": {
-            "back": "terug",
-            "backto": "{item}",
-            "cancel": "annuleer",
-            "close": "sluit",
-            "contact": "contact",
-            "create": "cre\u00eber",
-            "delete": "verwijder",
-            "display": "weergave",
-            "download": "download",
-            "edit": "wijzig",
-            "filter": "filter",
-            "legend": "legende",
-            "page": "pagina",
-            "result-segment": "Weergave {start} - {end} van {results}",
-            "save": "opslaan",
+            "back": "terug", 
+            "backto": "{item}", 
+            "cancel": "annuleer", 
+            "close": "sluit", 
+            "contact": "contact", 
+            "create": "cre\u00eber", 
+            "delete": "verwijder", 
+            "display": "weergave", 
+            "download": "download", 
+            "edit": "wijzig", 
+            "filter": "filter", 
+            "legend": "legende", 
+            "page": "pagina", 
+            "result-segment": "Weergave {start} - {end} van {results}", 
+            "save": "opslaan", 
             "terminate": "be\u00ebindigen"
-        },
+        }, 
         "comparator": {
-            "!=": "is niet gelijk aan",
-            "!=null": "is bestaande",
-            "!~=": "bevat niet",
-            "<": "is < dan",
-            "<=": "is <= dan",
-            "=": "is gelijk aan",
-            "=false": "is onwaar",
-            "=null": "is onbestaande",
-            "=true": "is waar",
-            ">": "is > dan",
-            ">=": "is >= dan",
+            "!=": "is niet gelijk aan", 
+            "!=null": "is bestaande", 
+            "!~=": "bevat niet", 
+            "<": "is < dan", 
+            "<=": "is <= dan", 
+            "=": "is gelijk aan", 
+            "=false": "is onwaar", 
+            "=null": "is onbestaande", 
+            "=true": "is waar", 
+            ">": "is > dan", 
+            ">=": "is >= dan", 
             "~=": "bevat"
-        },
+        }, 
         "filter": {
-            "filter-applied": "filter toegepast",
-            "filter-apply": "filter toepassen",
-            "filter-fixed": "vast",
-            "filter-incomplete": "onvolledig",
-            "filter-invalid": "ongeldige filter",
-            "select-comparator": "selecteer comparator",
+            "filter-applied": "filter toegepast", 
+            "filter-apply": "filter toepassen", 
+            "filter-fixed": "vast", 
+            "filter-incomplete": "onvolledig", 
+            "filter-invalid": "ongeldige filter", 
+            "select-comparator": "selecteer comparator", 
             "select-property": "selecteer eigenschap"
-        },
+        }, 
         "greetings": {
             "funny": {
                 "regular": {
-                    "0": "Turbo turbo, {info, property, firstName}!",
-                    "1": "Hallo {info, property, firstName}, nog een fijne dag!",
-                    "2": "Bonjour, {info, property, firstName}.",
-                    "3": "Arrrrrghh mah matey {info, property, firstName}!",
-                    "4": "Nihao {info, property, firstName}.",
-                    "5": "Het is leuk om je opnieuw te zien, {info, property, firstName}!",
-                    "6": "{info, property, firstName}, ik hoop dat je nog een werkweek overleeft.",
-                    "7": "Helloooo from the other side!!",
+                    "0": "Turbo turbo, {info, property, firstName}!", 
+                    "1": "Hallo {info, property, firstName}, nog een fijne dag!", 
+                    "2": "Bonjour, {info, property, firstName}.", 
+                    "3": "Arrrrrghh mah matey {info, property, firstName}!", 
+                    "4": "Nihao {info, property, firstName}.", 
+                    "5": "Het is leuk om je opnieuw te zien, {info, property, firstName}!", 
+                    "6": "{info, property, firstName}, ik hoop dat je nog een werkweek overleeft.", 
+                    "7": "Helloooo from the other side!!", 
                     "8": "{info, property, firstName}, aai me. Purrrrrr."
-                },
+                }, 
                 "time-based": {
                     "day": {
-                        "11": "Wat eten we vandaag, {info, property, firstName}?",
-                        "12": "Smakelijk, {info, property, firstName}!",
-                        "13": "{info, property, firstName}, alles goed?",
-                        "18": "Ik wens je een fijne avond, {info, property, firstName}!",
-                        "22": "{info, property, firstName}, moet je nog niet slapen?",
-                        "23": "{info, property, firstName}, je bent een nachtdier!",
-                        "4": "{info, property, firstName}, slaap je weleens?",
+                        "11": "Wat eten we vandaag, {info, property, firstName}?", 
+                        "12": "Smakelijk, {info, property, firstName}!", 
+                        "13": "{info, property, firstName}, alles goed?", 
+                        "18": "Ik wens je een fijne avond, {info, property, firstName}!", 
+                        "22": "{info, property, firstName}, moet je nog niet slapen?", 
+                        "23": "{info, property, firstName}, je bent een nachtdier!", 
+                        "4": "{info, property, firstName}, slaap je weleens?", 
                         "7": "{info, property, firstName}, ik hoop dat je al koffie hebt gehad."
-                    },
+                    }, 
                     "week": {
-                        "0": "{info, property, firstName}, geniet van je weekend!",
-                        "1": "{info, property, firstName}, hoe was je weekend?",
-                        "2": "{info, property, firstName}, gelukkige \"niet vrijdag\"",
-                        "3": "Goed nieuws, {info, property, firstName}: Nog 2 dagen en het is vrijdag!",
-                        "4": "Goed nieuws, {info, property, firstName}: Morgen is het vrijdag!",
-                        "5": "{info, property, firstName}, het is bijna weekendddd!!",
+                        "0": "{info, property, firstName}, geniet van je weekend!", 
+                        "1": "{info, property, firstName}, hoe was je weekend?", 
+                        "2": "{info, property, firstName}, gelukkige \"niet vrijdag\"", 
+                        "3": "Goed nieuws, {info, property, firstName}: Nog 2 dagen en het is vrijdag!", 
+                        "4": "Goed nieuws, {info, property, firstName}: Morgen is het vrijdag!", 
+                        "5": "{info, property, firstName}, het is bijna weekendddd!!", 
                         "6": "{info, property, firstName}, geniet van je weekend!"
                     }
                 }
-            },
+            }, 
             "license": {
-                "none": "Hey {info, property, firstName}, gelieve eerst een geldige licentie toe te voegen.",
+                "none": "Hey {info, property, firstName}, gelieve eerst een geldige licentie toe te voegen.", 
                 "valid": "Open Source!"
-            },
+            }, 
             "polite": {
                 "regular": {
-                    "0": "Hallo {info, property, firstName}.",
-                    "1": "Fijne dag {info, property, firstName}!",
-                    "2": "Het is leuk om je opnieuw te zien, {info, property, firstName}!",
-                    "3": "Hey {info, property, firstName}, ik hoop dat het goed met je gaat.",
-                    "4": "Hey {info, property, firstName}.",
+                    "0": "Hallo {info, property, firstName}.", 
+                    "1": "Fijne dag {info, property, firstName}!", 
+                    "2": "Het is leuk om je opnieuw te zien, {info, property, firstName}!", 
+                    "3": "Hey {info, property, firstName}, ik hoop dat het goed met je gaat.", 
+                    "4": "Hey {info, property, firstName}.", 
                     "5": "Goeiedag {info, property, firstName}!"
-                },
+                }, 
                 "time-based": {
                     "day": {
-                        "12": "Goedemiddag, {info, property, firstName}!",
-                        "13": "Goedenamiddag, {info, property, firstName}!",
-                        "18": "Goedenavond, {info, property, firstName}!",
-                        "22": "Goedenacht, {info, property, firstName}.",
+                        "12": "Goedemiddag, {info, property, firstName}!", 
+                        "13": "Goedenamiddag, {info, property, firstName}!", 
+                        "18": "Goedenavond, {info, property, firstName}!", 
+                        "22": "Goedenacht, {info, property, firstName}.", 
                         "6": "Goedemorgen, {info, property, firstName}."
-                    },
+                    }, 
                     "week": {
-                        "0": "{info, property, firstName}, geniet van je weekend!",
-                        "1": "Geniet van je weeksbegin, {info, property, firstName}.",
-                        "5": "Hey {info, property, firstName}, het is bijna weekend!",
+                        "0": "{info, property, firstName}, geniet van je weekend!", 
+                        "1": "Geniet van je weeksbegin, {info, property, firstName}.", 
+                        "5": "Hey {info, property, firstName}, het is bijna weekend!", 
                         "6": "{info, property, firstName}, geniet van je weekend!"
                     }
                 }
-            },
+            }, 
             "ssl": {
-                "expired": "Oh oh {info, property, firstName}, het lijkt erop dat je SSL certificaat vervallen is.",
-                "none": "Hey {info, property, firstName}, gelieve je applicatie te beveiligen met een SSL configuratie.",
-                "soon-expire": "Hey {info, property, firstName}, het ziet er naar uit dat je SSL certificaat binnenkort vervalt.",
+                "expired": "Oh oh {info, property, firstName}, het lijkt erop dat je SSL certificaat vervallen is.", 
+                "none": "Hey {info, property, firstName}, gelieve je applicatie te beveiligen met een SSL configuratie.", 
+                "soon-expire": "Hey {info, property, firstName}, het ziet er naar uit dat je SSL certificaat binnenkort vervalt.", 
                 "valid": "Je applicatie is beveiligd, {info, property, firstName}. Top!"
             }
-        },
+        }, 
         "label": {
-            "attributes": "attributen",
-            "columns": "kolommen",
-            "description": "beschrijving",
-            "help": "toelichting bij \"{propertyName}\"",
-            "no-description": "Er is geen beschrijving beschikbaar.",
-            "reenter": "confirmeer {propertyName}",
+            "attributes": "attributen", 
+            "columns": "kolommen", 
+            "description": "beschrijving", 
+            "help": "toelichting bij \"{propertyName}\"", 
+            "no-description": "Er is geen beschrijving beschikbaar.", 
+            "reenter": "confirmeer {propertyName}", 
             "set": "{propertyName} instellen?"
-        },
+        }, 
         "legal": {
             "info": {
                 "license": "Alle informatie over de huidige licentie staat hier weergegeven."
-            },
-            "licensed": "gelicentieerd",
-            "opensource": "GNU General Public License v3.0",
+            }, 
+            "licensed": "gelicentieerd", 
+            "opensource": "GNU General Public License v3.0", 
             "type": "licentietype"
-        },
+        }, 
         "legend": {
-            "disabled": "niet toegestaan",
-            "empty": "leeg",
-            "excluded": "uitgesloten",
-            "free": "vrij",
-            "occupied": "bezet",
+            "disabled": "niet toegestaan", 
+            "empty": "leeg", 
+            "excluded": "uitgesloten", 
+            "free": "vrij", 
+            "occupied": "bezet", 
             "undefined": "niet gedefinieerd"
-        },
+        }, 
         "login": {
-            "password": "Wachtwoord",
-            "submit": "Inloggen",
+            "password": "Wachtwoord", 
+            "submit": "Inloggen", 
             "username": "Gebruikersnaam"
-        },
+        }, 
         "logs": {
-            "creation": "aangemaakt",
-            "download": "download",
-            "file": "logbestand",
-            "lastentry": "laatste update",
-            "path": "pad",
+            "creation": "aangemaakt", 
+            "download": "download", 
+            "file": "logbestand", 
+            "lastentry": "laatste update", 
+            "path": "pad", 
             "size": "grootte"
-        },
+        }, 
         "map": {
-            "initialisingmap": "kaart initialiseren...",
-            "loadinglayers": "lagen laden...",
-            "loadingmap": "kaart laden...",
+            "initialisingmap": "kaart initialiseren...", 
+            "loadinglayers": "lagen laden...", 
+            "loadingmap": "kaart laden...", 
             "ready": "klaar"
-        },
+        }, 
         "plugin": {
-            "activate": "activeer",
-            "activated": "geactiveerd",
-            "activating": "aan het activeren",
-            "deactivate": "de-activeer",
-            "deactivating": "aan het de-activeren",
-            "install": "installeer",
-            "installed": "ge\u00efnstalleerd",
-            "installing": "aan het installeren",
-            "no-logs": "Er zijn geen log bestanden gevonden.",
-            "not-installed": "niet ge\u00efnstalleerd",
+            "activate": "activeer", 
+            "activated": "geactiveerd", 
+            "activating": "aan het activeren", 
+            "deactivate": "de-activeer", 
+            "deactivating": "aan het de-activeren", 
+            "install": "installeer", 
+            "installed": "ge\u00efnstalleerd", 
+            "installing": "aan het installeren", 
+            "no-logs": "Er zijn geen log bestanden gevonden.", 
+            "not-installed": "niet ge\u00efnstalleerd", 
             "option": {
                 "edit": "Wijzig {plugin, property, name}"
-            },
-            "uninstall": "de-installeer",
+            }, 
+            "uninstall": "de-installeer", 
             "uninstalling": "aan het de-installeren"
-        },
+        }, 
         "service": {
-            "description": "beschrijving",
-            "name": "servicenaam",
-            "status": "status",
+            "description": "beschrijving", 
+            "name": "servicenaam", 
+            "status": "status", 
             "uptime": "uptime"
-        },
+        }, 
         "snackbar": {
             "button": {
-                "close": "sluit",
+                "close": "sluit", 
                 "show": "toon"
-            },
+            }, 
             "message": {
                 "expiredLogOut": {
-                    "content": "Probeer opnieuw in te loggen.",
+                    "content": "Probeer opnieuw in te loggen.", 
                     "title": "Je sessie is verlopen"
-                },
-                "invalidCredentials": "De ingevoerde gebruikersnaam & wachtwoord combinatie is ongeldig.",
-                "licenseUpload": "Upload een licentie om dit systeem te kunnen gebruiken.",
-                "logonError": "Er is iets fout gegaan tijdens het aanmelden. Probeer het later opnieuw.",
+                }, 
+                "invalidCredentials": "De ingevoerde gebruikersnaam & wachtwoord combinatie is ongeldig.", 
+                "licenseUpload": "Upload een licentie om dit systeem te kunnen gebruiken.", 
+                "logonError": "Er is iets fout gegaan tijdens het aanmelden. Probeer het later opnieuw.", 
                 "manualLogOut": {
-                    "content": "Tot later!",
+                    "content": "Tot later!", 
                     "title": "Je bent afgemeld"
-                },
-                "sslExpireSoon": "Je SSL certificaat zal binnenkort vervallen. Upload een nieuwe certificaat/sleutel combinatie.",
+                }, 
+                "sslExpireSoon": "Je SSL certificaat zal binnenkort vervallen. Upload een nieuwe certificaat/sleutel combinatie.", 
                 "sslExpired": "Je SSL certificaat is vervallen. Upload een nieuwe certificaat/sleutel combinatie."
             }
-        },
+        }, 
         "ssl": {
             "activeprotocol": {
-                "api": "huidig api protocol",
+                "api": "huidig api protocol", 
                 "gui": "huidig gui protocol"
-            },
-            "certificate": "certificaat",
-            "expirydate": "vervaldag",
-            "hasssl": "ssl beschikbaar",
+            }, 
+            "certificate": "certificaat", 
+            "expirydate": "vervaldag", 
+            "hasssl": "ssl beschikbaar", 
             "info": {
-                "certificate": "Dit kader bevat informatie over het geuploade SSL certificaat. Hier zijn de belangrijkste aspecten:<br><li>Is jouw certificaat gesigneerd door een trusted certificate authority (CA)?</li><li>Is jouw certificaat nog altijd geldig? Dit kan je ontdekken bij \"vervaldag\". Zorg ervoor dat je een nieuw geldig SSL certificaat en sleutel upload alvorens het verstrijken van de vervaldag. Indien je SSL certificaat verstrijkt, dan zal alle interactie met de applicatie gelabeled worden als \"onveilig\". In dit geval kunnen services en browsers weigeren om te communiceren met de applicatie.</li>",
-                "security": "Dit kader geeft de huidige beveiligingsstatus weer met betrekking tot SSL encryptie. Het is belangrijk om een geldige, trusted CA gesigneerd SSL certificaat (en sleutel) te voorzien om de communicatie met de applicatie te encrypteren. Zonder SSL encryptie is jouw applicatie veel kwetsbaarder voor beveiligingsgevaren. Na het uploaden van een geldig certificaat en sleutel verander je best het API protocol en het GUI protocol naar HTTPS (beide!) voor een optimale SSL encryptie bescherming.",
+                "certificate": "Dit kader bevat informatie over het geuploade SSL certificaat. Hier zijn de belangrijkste aspecten:<br><li>Is jouw certificaat gesigneerd door een trusted certificate authority (CA)?</li><li>Is jouw certificaat nog altijd geldig? Dit kan je ontdekken bij \"vervaldag\". Zorg ervoor dat je een nieuw geldig SSL certificaat en sleutel upload alvorens het verstrijken van de vervaldag. Indien je SSL certificaat verstrijkt, dan zal alle interactie met de applicatie gelabeled worden als \"onveilig\". In dit geval kunnen services en browsers weigeren om te communiceren met de applicatie.</li>", 
+                "security": "Dit kader geeft de huidige beveiligingsstatus weer met betrekking tot SSL encryptie. Het is belangrijk om een geldige, trusted CA gesigneerd SSL certificaat (en sleutel) te voorzien om de communicatie met de applicatie te encrypteren. Zonder SSL encryptie is jouw applicatie veel kwetsbaarder voor beveiligingsgevaren. Na het uploaden van een geldig certificaat en sleutel verander je best het API protocol en het GUI protocol naar HTTPS (beide!) voor een optimale SSL encryptie bescherming.", 
                 "switchprotocol": {
-                    "api": "Je kan gebruik maken van de knop in dit kader om het API protocol te wijzigen.<br><br>De volgende opties zijn mogelijk:<br><li>HTTP: Onveilig</li><li>HTTPS: Veilig</li>",
+                    "api": "Je kan gebruik maken van de knop in dit kader om het API protocol te wijzigen.<br><br>De volgende opties zijn mogelijk:<br><li>HTTP: Onveilig</li><li>HTTPS: Veilig</li>", 
                     "gui": "Je kan gebruik maken van de knop in dit kader om het GUI protocol te wijzigen.<br><br>De volgende opties zijn mogelijk:<br><li>HTTP: Onveilig</li><li>HTTPS: Veilig</li>"
-                },
+                }, 
                 "upload": {
-                    "certificate": "Elke SSL configuratie bestaat uit een certificaat en een sleutel. Door gebruik te maken van de knop in dit kader kan je een nieuw certificaat uploaden. De extensie van het certificaat moet \".crt\" zijn.",
+                    "certificate": "Elke SSL configuratie bestaat uit een certificaat en een sleutel. Door gebruik te maken van de knop in dit kader kan je een nieuw certificaat uploaden. De extensie van het certificaat moet \".crt\" zijn.", 
                     "key": "Elke SSL configuratie bestaat uit een certificaat en een sleutel. Door gebruik te maken van de knop in dit kader kan je een nieuwe sleutel uploaden. De extensie van de sleutel moet \".key\" zijn."
                 }
-            },
+            }, 
             "issuer": {
-                "location": "uitgever (locatie)",
+                "location": "uitgever (locatie)", 
                 "organisation": "uitgever (organisatie)"
-            },
-            "key": "sleutel",
+            }, 
+            "key": "sleutel", 
             "secure": {
-                "api": "Beveilig API",
+                "api": "Beveilig API", 
                 "gui": "Beveilig GUI"
-            },
+            }, 
             "switchprotocol": {
-                "api": "Verander API protocol",
-                "gui": "Verander GUI protocol",
+                "api": "Verander API protocol", 
+                "gui": "Verander GUI protocol", 
                 "to": "Schakel over naar {protocol}"
-            },
+            }, 
             "upload": {
-                "certificate": "upload nieuw certificaat",
+                "certificate": "upload nieuw certificaat", 
                 "key": "upload nieuwe sleutel"
             }
-        },
+        }, 
         "statistics": {
-            "average": "gemiddelde",
-            "median": "mediaan",
-            "passrate": "slag. perc.",
+            "average": "gemiddelde", 
+            "median": "mediaan", 
+            "passrate": "slag. perc.", 
             "stddev": "std. dev."
-        },
+        }, 
         "table": {
-            "actions": "acties",
-            "search": "Zoek...",
-            "add-item": "Voeg item toe",
-            "empty-list": "lege lijst",
-            "info": "info",
-            "list": "lijst",
-            "multi": "...",
-            "notavailable": "N/B",
-            "notfound": "Geen {objectName} gevonden...",
+            "actions": "acties", 
+            "add-item": "Voeg item toe", 
+            "empty-list": "lege lijst", 
+            "info": "info", 
+            "list": "lijst", 
+            "multi": "...", 
+            "notavailable": "N/B", 
+            "notfound": "Geen {objectName} gevonden...", 
+            "search": "Zoek...", 
             "unknown": "onbekend"
-        },
+        }, 
         "validate": {
-            "combinationExists": "Combinatie bestaat reeds",
-            "doubleQuote": "Dubbele aanhalingstekens zijn niet toegestaan",
-            "doubleSpace": "Dubbele spaties zijn niet toegestaan",
-            "emptyInput": "Input mag niet leeg zijn",
-            "emptyList": "Lijst mag niet leeg zijn",
-            "emptySelection": "Selectie mag niet leeg zijn",
-            "exists": "Dit bestaat reeds",
-            "invalidHexColor": "Ongeldige hexadecimale kleur",
-            "invalidIP": "Ongeldig IP-adres",
-            "invalidJSON": "Ongeldige JSON-input",
-            "invalidMAC": "Ongeldig MAC-adres",
-            "invalidMail": "Ongeldig e-mailadres",
-            "invalidNumber": "Ongeldig nummer",
-            "invalidPhone": "Ongeldig telefoonnummer",
-            "lowerCaseOnly": "Enkel kleine letters zijn toegestaan",
-            "matching": "Komt niet overeen",
-            "maxChar": "Maximum {chars} karakters toegestaan",
-            "maxNumber": "Hoogst mogelijke nummer is {number}",
-            "minChar": "Moet minstens uit {chars} karakters bestaan",
-            "minNumber": "Laagst mogelijke nummer is {number}",
-            "notInPossibilities": "Is geen selectie uit de lijst van mogelijkheden",
-            "oneNumberChar": "Moet een nummer bevatten",
-            "oneSpecialChar": "Moet een speciaal karakter bevatten",
-            "oneUpperCaseChar": "Moet een grote letter bevatten",
-            "plainCharOnly": "Enkel gewone karakters zijn toegestaan",
-            "precisionNumber": "Nummer moet afgerond worden op een precisie van {precision}",
-            "secureFileName": "Onveilige bestandsnaam",
-            "upperCaseOnly": "Enkel grote letters zijn toegestaan",
+            "combinationExists": "Combinatie bestaat reeds", 
+            "doubleQuote": "Dubbele aanhalingstekens zijn niet toegestaan", 
+            "doubleSpace": "Dubbele spaties zijn niet toegestaan", 
+            "emptyInput": "Input mag niet leeg zijn", 
+            "emptyList": "Lijst mag niet leeg zijn", 
+            "emptySelection": "Selectie mag niet leeg zijn", 
+            "exists": "Dit bestaat reeds", 
+            "invalidHexColor": "Ongeldige hexadecimale kleur", 
+            "invalidIP": "Ongeldig IP-adres", 
+            "invalidJSON": "Ongeldige JSON-input", 
+            "invalidMAC": "Ongeldig MAC-adres", 
+            "invalidMail": "Ongeldig e-mailadres", 
+            "invalidNumber": "Ongeldig nummer", 
+            "invalidPhone": "Ongeldig telefoonnummer", 
+            "lowerCaseOnly": "Enkel kleine letters zijn toegestaan", 
+            "matching": "Komt niet overeen", 
+            "maxChar": "Maximum {chars} karakters toegestaan", 
+            "maxNumber": "Hoogst mogelijke nummer is {number}", 
+            "minChar": "Moet minstens uit {chars} karakters bestaan", 
+            "minNumber": "Laagst mogelijke nummer is {number}", 
+            "notInPossibilities": "Is geen selectie uit de lijst van mogelijkheden", 
+            "oneNumberChar": "Moet een nummer bevatten", 
+            "oneSpecialChar": "Moet een speciaal karakter bevatten", 
+            "oneUpperCaseChar": "Moet een grote letter bevatten", 
+            "plainCharOnly": "Enkel gewone karakters zijn toegestaan", 
+            "precisionNumber": "Nummer moet afgerond worden op een precisie van {precision}", 
+            "secureFileName": "Onveilige bestandsnaam", 
+            "upperCaseOnly": "Enkel grote letters zijn toegestaan", 
             "whitespace": "Spaties zijn niet toegestaan"
-        },
+        }, 
         "version": {
-            "angular": "angular",
-            "api": "API",
-            "database": "databank",
-            "gui": "GUI",
-            "messaging": "messaging",
-            "python": "python",
+            "angular": "angular", 
+            "api": "API", 
+            "database": "databank", 
+            "gui": "GUI", 
+            "messaging": "messaging", 
+            "python": "python", 
             "webserver": "web server"
-        },
+        }, 
         "view": {
-            "all": "volledig overzicht",
-            "isolated": "groep overzicht",
+            "all": "volledig overzicht", 
+            "isolated": "groep overzicht", 
             "own": "eigen overzicht"
         }
-    },
+    }, 
     "consumer": {
         "default": {
             "eventlogging": "interne event logging consument"
         }
-    },
+    }, 
     "dashboard": {
         "pagetitle": "Overzicht"
-    },
+    }, 
     "leftbar": {
         "settings": {
-            "functions": "Functies",
-            "languages": "Vertalingen",
-            "legal": "Legaal",
+            "functions": "Functies", 
+            "languages": "Vertalingen", 
+            "legal": "Legaal", 
             "plugin": {
-                "configuration": "Configuratie",
+                "configuration": "Configuratie", 
                 "overview": "Overzicht"
-            },
-            "plugins": "Extensies",
+            }, 
+            "plugins": "Extensies", 
             "rights": {
-                "object": "Objecten",
-                "plugin": "Extensie Acties",
-                "pluginoption": "Extensie Opties",
+                "object": "Objecten", 
+                "plugin": "Extensie Acties", 
+                "pluginoption": "Extensie Opties", 
                 "rights": "Rechten"
-            },
-            "ssl": "SSL",
-            "teams": "Groepen",
-            "users": "Gebruikers",
+            }, 
+            "ssl": "SSL", 
+            "teams": "Groepen", 
+            "users": "Gebruikers", 
             "version": "Versie"
-        },
+        }, 
         "user": {
-            "info": "Gebruikersinfo",
-            "language": "Taal",
-            "logout": "Afmelden",
-            "sessions": "Sessies",
+            "info": "Gebruikersinfo", 
+            "language": "Taal", 
+            "logout": "Afmelden", 
+            "sessions": "Sessies", 
             "timezone": "Tijdszone"
         }
-    },
+    }, 
     "modal": {
         "eula": {
             "title": "Licentieovereenkomst voor eindgebruikers"
-        },
+        }, 
         "log": {
             "title": "{item, property, name} - log bestanden"
-        },
+        }, 
         "service": {
             "status": {
-                "dead": "gestopt",
+                "dead": "gestopt", 
                 "running": "actief"
-            },
+            }, 
             "title": "{item, property, name} - services"
         }
-    },
+    }, 
     "navbar": {
-        "dashboard": "Overzicht",
-        "login": "Inloggen",
-        "settings": "Instellingen",
-        "switch-language": "Wijzig Taal",
+        "dashboard": "Overzicht", 
+        "login": "Inloggen", 
+        "settings": "Instellingen", 
+        "switch-language": "Wijzig Taal", 
         "user": "Gebruikersprofiel"
-    },
+    }, 
     "object": {
         "ActiveSession": {
             "help": {
-                "intro": "{right, select, own{Je eigen} isolated{Je groep's} other{alle}} actieve sessies worden hier weergegeven. Een actieve sessie wordt opgezet als een gebruiker succesvol inlogt.",
+                "intro": "{right, select, own{Je eigen} isolated{Je groep's} other{alle}} actieve sessies worden hier weergegeven. Een actieve sessie wordt opgezet als een gebruiker succesvol inlogt.", 
                 "properties": {
-                    "client": "De gebruikte web client (browser)",
-                    "creation": "Het tijdstip van de eerste succesvolle login met deze sessie",
-                    "expired": "De vervalstatus van de sessie",
-                    "ip": "Het IP-adres van de gebruiker",
-                    "lastActive": "Het tijdstip van het laatste gebruik met deze sessie",
-                    "static": "Laat de sessie nooit vervallen",
-                    "token": "Het authenticatietoken dat gebruikt wordt voor deze sessie",
+                    "client": "De gebruikte web client (browser)", 
+                    "creation": "Het tijdstip van de eerste succesvolle login met deze sessie", 
+                    "expired": "De vervalstatus van de sessie", 
+                    "ip": "Het IP-adres van de gebruiker", 
+                    "lastActive": "Het tijdstip van het laatste gebruik met deze sessie", 
+                    "static": "Laat de sessie nooit vervallen", 
+                    "token": "Het authenticatietoken dat gebruikt wordt voor deze sessie", 
                     "user": "De gebruiker van de sessie"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber actieve sessie"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je deze actieve sessie wil be\u00ebindigen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig actieve sessie: {item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})"
-                },
+                }, 
                 "info": {
                     "title": "actieve sessie: {item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Actieve Sessies",
+                "plural": "Actieve Sessies", 
                 "singular": "Actieve Sessie"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})",
-                "isolated": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})",
+                "all": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})", 
+                "isolated": "{item, property, user.firstName} {item, property, user.lastName} ({item, property, ip})", 
                 "own": "{item, property, ip}"
-            },
+            }, 
             "properties": {
-                "client": "client",
-                "creation": "eerste aanmelding",
-                "expired": "vervallen",
-                "id": "identificatie",
-                "ip": "IP-adres",
-                "lastActive": "laatst actief",
-                "static": "statisch",
-                "token": "token",
+                "client": "client", 
+                "creation": "eerste aanmelding", 
+                "expired": "vervallen", 
+                "id": "identificatie", 
+                "ip": "IP-adres", 
+                "lastActive": "laatst actief", 
+                "static": "statisch", 
+                "token": "token", 
                 "user": "gebruiker"
             }
-        },
+        }, 
         "ApiAction": {
             "help": {
-                "intro": "\"Acties\" zijn operaties die uitgevoerd kunnen worden op objecten via de API. De meest voorkomende acties zijn: cre\u00ebren (create), verwijderen (delete) en bewerken (edit).",
+                "intro": "\"Acties\" zijn operaties die uitgevoerd kunnen worden op objecten via de API. De meest voorkomende acties zijn: cre\u00ebren (create), verwijderen (delete) en bewerken (edit).", 
                 "properties": {
                     "name": "De naam van de actie"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Acties",
+                "plural": "Acties", 
                 "singular": "Actie"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identificatie",
+                "id": "identificatie", 
                 "name": "naam"
             }
-        },
+        }, 
         "ApiObject": {
             "help": {
-                "intro": "Een \"Object\" is een groepering van data dat een bepaald ding representeert. Dit kan een fysisch of virtueel element zijn. Object data kan opgevraagd worden via de API.",
+                "intro": "Een \"Object\" is een groepering van data dat een bepaald ding representeert. Dit kan een fysisch of virtueel element zijn. Object data kan opgevraagd worden via de API.", 
                 "properties": {
                     "name": "De naam van het object"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Objecten",
+                "plural": "Objecten", 
                 "singular": "Object"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identificatie",
+                "id": "identificatie", 
                 "name": "naam"
             }
-        },
+        }, 
         "AuthenticationMethod": {
             "help": {
-                "intro": "{right, select, own{Je eigen authenticatiemethode wordt} isolated{Je groeps' authenticatiemethodes worden} other{Alle authenticatiemethodes worden}} hier weergegeven. Een authenticatiemethode is een methode die gebruikt wordt om de geldigheid van een gebruiker zijn inloggegevens te evalueren tijdens het aanmelden. Indien de inloggegevens geldig zijn wordt er een actieve sessie aangemaakt voor die gebruiker. Er is een \"Default\" (standaard) authenticatiemethode, wanneer deze geselecteerd is zullen de inloggegevens van de gebruiker vergeleken worden met de gebruikersgegevens die aanwezig zijn in de databank van de applicatie. Je kan ook gebruik maken van een extensie die extra (externe) authenticatiemethodes voorziet (v.b. de LDAP extensie).{right, select, own{} isolated{} other{ Wanneer je gebruik maakt van een authenticatiemethode die voorzien is door een extensie, raden we aan om ten minste een gebruiker met administrator rechten te behouden op de \"Default\" (standaard) authenticatiemethode. Dit verkleint het risico op mogelijke lock-outs.}}",
+                "intro": "{right, select, own{Je eigen authenticatiemethode wordt} isolated{Je groeps' authenticatiemethodes worden} other{Alle authenticatiemethodes worden}} hier weergegeven. Een authenticatiemethode is een methode die gebruikt wordt om de geldigheid van een gebruiker zijn inloggegevens te evalueren tijdens het aanmelden. Indien de inloggegevens geldig zijn wordt er een actieve sessie aangemaakt voor die gebruiker. Er is een \"Default\" (standaard) authenticatiemethode, wanneer deze geselecteerd is zullen de inloggegevens van de gebruiker vergeleken worden met de gebruikersgegevens die aanwezig zijn in de databank van de applicatie. Je kan ook gebruik maken van een extensie die extra (externe) authenticatiemethodes voorziet (v.b. de LDAP extensie).{right, select, own{} isolated{} other{ Wanneer je gebruik maakt van een authenticatiemethode die voorzien is door een extensie, raden we aan om ten minste een gebruiker met administrator rechten te behouden op de \"Default\" (standaard) authenticatiemethode. Dit verkleint het risico op mogelijke lock-outs.}}", 
                 "properties": {
-                    "name": "De naam van de authenticatiemethode",
+                    "name": "De naam van de authenticatiemethode", 
                     "plugin": "De extensie die de authenticatiemethode voorziet"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber authenticatiemethode"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je deze authenticatiemethode wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig authenticatiemethode: {item, property, name} ({item, property, plugin.name})"
-                },
+                }, 
                 "info": {
                     "title": "authenticatiemethode: {item, property, name} ({item, property, plugin.name})"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Authenticatiemethodes",
+                "plural": "Authenticatiemethodes", 
                 "singular": "Authenticatiemethode"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name} ({item, property, plugin.name})",
-                "isolated": "{item, property, name} ({item, property, plugin.name})",
+                "all": "{item, property, name} ({item, property, plugin.name})", 
+                "isolated": "{item, property, name} ({item, property, plugin.name})", 
                 "own": "{item, property, name} ({item, property, plugin.name})"
-            },
+            }, 
             "properties": {
-                "id": "identificatie",
-                "name": "naam",
+                "id": "identificatie", 
+                "name": "naam", 
                 "plugin": "extensie"
             }
-        },
+        }, 
         "File": {
             "help": {
-                "intro": "{right, select, own{Je eigen} isolated{Je groep's} other{alle}} bestanden worden hier weergegeven. Een bestand is een ge\u00fcpload stuk inhoud (bv. afbeelding, document).",
+                "intro": "{right, select, own{Je eigen} isolated{Je groep's} other{alle}} bestanden worden hier weergegeven. Een bestand is een ge\u00fcpload stuk inhoud (bv. afbeelding, document).", 
                 "properties": {
-                    "creation": "Het tijdstip waarop het bestand aangemaakt werd",
-                    "name": "Het te uploaden bestand",
-                    "reference": "De referentie naar het bestand",
-                    "size": "De grootte van het bestand (in kB)",
+                    "creation": "Het tijdstip waarop het bestand aangemaakt werd", 
+                    "name": "Het te uploaden bestand", 
+                    "reference": "De referentie naar het bestand", 
+                    "size": "De grootte van het bestand (in kB)", 
                     "uploader": "De gebruiker die het bestand heeft geupload"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "upload bestand"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je dit bestand wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig bestand: {item, property, name}"
-                },
+                }, 
                 "info": {
                     "title": "bestand: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Bestanden",
+                "plural": "Bestanden", 
                 "singular": "Bestand"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "creation": "aangemaakt",
-                "id": "identificatie",
-                "name": "bestand",
-                "reference": "referentie",
-                "size": "grootte",
+                "creation": "aangemaakt", 
+                "id": "identificatie", 
+                "name": "bestand", 
+                "reference": "referentie", 
+                "size": "grootte", 
                 "uploader": "uploader"
             }
-        },
+        }, 
         "Function": {
             "help": {
-                "intro": "{right, select, own{Je eigen} isolated{Je groep's} other{alle}} functies worden hier weergegeven. Een functie is een beroep dat wordt uitgeoefend door een bepaalde gebruiker.",
+                "intro": "{right, select, own{Je eigen} isolated{Je groep's} other{alle}} functies worden hier weergegeven. Een functie is een beroep dat wordt uitgeoefend door een bepaalde gebruiker.", 
                 "properties": {
                     "name": "De naam van de functie"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber functie"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je deze functie wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig functie: {item, property, name}"
-                },
+                }, 
                 "info": {
                     "title": "functie: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Functies",
+                "plural": "Functies", 
                 "singular": "Functie"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identificatie",
+                "id": "identificatie", 
                 "name": "naam"
             }
-        },
+        }, 
         "Plugin": {
             "help": {
-                "intro": "Alle extensies worden hier weergegeven. Een extensie is een plug-in die gebruikt kan worden om extra functionaliteit toe te voegen aan het systeem.",
+                "intro": "Alle extensies worden hier weergegeven. Een extensie is een plug-in die gebruikt kan worden om extra functionaliteit toe te voegen aan het systeem.", 
                 "properties": {
-                    "activated": "De activatie status van de extensie",
-                    "configPage": "De referentie naar de configuratiepagina van de extensie",
-                    "default": "Een waarde die bepaald of de extensie standaard aanwezig is op het systeem",
-                    "description": "De beschijving van de extensie",
-                    "installed": "De installatie status van de extensie",
-                    "logs": "De log bestanden van de extensie",
-                    "name": "De naam van de extensie",
-                    "progress": "De vooruitgang van de huidige extensie actie",
-                    "required": "De lijst met extensies die ge\u00efnstalleerd moeten zijn, alvorens deze extensie kan worden ge\u00efnstalleerd",
-                    "serviceStatus": "De service status van de extensie",
-                    "status": "De status van de extensie",
-                    "tags": "Relevante sleutelwoorden die geassocieerd worden met deze extensie",
+                    "activated": "De activatie status van de extensie", 
+                    "configPage": "De referentie naar de configuratiepagina van de extensie", 
+                    "default": "Een waarde die bepaald of de extensie standaard aanwezig is op het systeem", 
+                    "description": "De beschijving van de extensie", 
+                    "installed": "De installatie status van de extensie", 
+                    "logs": "De log bestanden van de extensie", 
+                    "name": "De naam van de extensie", 
+                    "progress": "De vooruitgang van de huidige extensie actie", 
+                    "required": "De lijst met extensies die ge\u00efnstalleerd moeten zijn, alvorens deze extensie kan worden ge\u00efnstalleerd", 
+                    "serviceStatus": "De service status van de extensie", 
+                    "status": "De status van de extensie", 
+                    "tags": "Relevante sleutelwoorden die geassocieerd worden met deze extensie", 
                     "version": "De versie van de extensie"
                 }
-            },
+            }, 
             "modal": {
                 "info": {
                     "title": "extensie: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Extensies",
+                "plural": "Extensies", 
                 "singular": "Extensie"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name} ({item, property, version})",
-                "isolated": "{item, property, name} ({item, property, version})",
+                "all": "{item, property, name} ({item, property, version})", 
+                "isolated": "{item, property, name} ({item, property, version})", 
                 "own": "{item, property, name} ({item, property, version})"
-            },
+            }, 
             "properties": {
-                "activated": "geactiveerd",
-                "configPage": "config",
-                "default": "standaard",
-                "description": "beschrijving",
-                "id": "identificatie",
-                "installed": "geinstalleerd",
-                "logs": "logs",
-                "name": "naam",
-                "progress": "vooruitgang",
-                "required": "vereisten",
-                "serviceStatus": "services",
-                "status": "status",
-                "tags": "tags",
+                "activated": "geactiveerd", 
+                "configPage": "config", 
+                "default": "standaard", 
+                "description": "beschrijving", 
+                "id": "identificatie", 
+                "installed": "geinstalleerd", 
+                "logs": "logs", 
+                "name": "naam", 
+                "progress": "vooruitgang", 
+                "required": "vereisten", 
+                "serviceStatus": "services", 
+                "status": "status", 
+                "tags": "tags", 
                 "version": "versie"
             }
-        },
+        }, 
         "PluginActionRight": {
             "help": {
-                "intro": "Alle extensie actierechten worden hier weergegeven. Een extensie actierecht wordt gebruikt om toegang te verlenen tot het uitvoeren van extensie-acties aan een bepaalde gebruikers.<br>Er zijn drie types die toegang verlenen:<ul><li><b>Zelf</b>: Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom is van de gebruiker (indien van toepassing). Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object in een directe manier.</li><li><b>Groep</b>: Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom zijn van de groep waartoe de gebruiker behoort (indien van toepassing). Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object door de groep waarin hij/zij behoort.</li><li><b>Volledig</b>: Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op alle objecten (indien van toepassing). Dit betekent dat de gebruiker niet gerelateerd moet zijn aan dit object. Er is geen beperking.</li></ul><br><br>Wanneer er geen groep en functie geselecteerd is, dan is het recht van toepassing op <b>alle</b> gebruikers.",
+                "intro": "Alle extensie actierechten worden hier weergegeven. Een extensie actierecht wordt gebruikt om toegang te verlenen tot het uitvoeren van extensie-acties aan een bepaalde gebruikers.<br>Er zijn drie types die toegang verlenen:<ul><li><b>Zelf</b>: Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom is van de gebruiker (indien van toepassing). Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object in een directe manier.</li><li><b>Groep</b>: Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom zijn van de groep waartoe de gebruiker behoort (indien van toepassing). Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object door de groep waarin hij/zij behoort.</li><li><b>Volledig</b>: Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op alle objecten (indien van toepassing). Dit betekent dat de gebruiker niet gerelateerd moet zijn aan dit object. Er is geen beperking.</li></ul><br><br>Wanneer er geen groep en functie geselecteerd is, dan is het recht van toepassing op <b>alle</b> gebruikers.", 
                 "properties": {
-                    "action": "De naam van de actie",
-                    "all": "Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op elk object (indien van toepassing)",
-                    "function": "De functie waarop het extensierecht invloed heeft",
-                    "isolated": "Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom zijn van de groep waartoe de gebruiker behoort (indien van toepassing)",
-                    "own": "Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom zijn van de gebruiker (indien van toepassing)",
-                    "plugin": "De extensie waar het recht toe behoort",
+                    "action": "De naam van de actie", 
+                    "all": "Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op elk object (indien van toepassing)", 
+                    "function": "De functie waarop het extensierecht invloed heeft", 
+                    "isolated": "Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom zijn van de groep waartoe de gebruiker behoort (indien van toepassing)", 
+                    "own": "Staat een groep van gebruikers toe om de geselecteerde extensie-actie uit te voeren op objecten die eigendom zijn van de gebruiker (indien van toepassing)", 
+                    "plugin": "De extensie waar het recht toe behoort", 
                     "team": "De groep waarop het extensierecht invloed heeft"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber extensie actierecht"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je dit extensie actierecht wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig extensie actierecht: [{item, property, plugin.name} - {item, property, action}]"
-                },
+                }, 
                 "info": {
                     "title": "extensie actierecht: [{item, property, plugin.name} - {item, property, action}]"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Extensie Actierechten",
+                "plural": "Extensie Actierechten", 
                 "singular": "Extensie Actierecht"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, plugin.name} - {item, property, action}",
-                "isolated": "{item, property, plugin.name} - {item, property, action}",
+                "all": "{item, property, plugin.name} - {item, property, action}", 
+                "isolated": "{item, property, plugin.name} - {item, property, action}", 
                 "own": "{item, property, plugin.name} - {item, property, action}"
-            },
+            }, 
             "properties": {
-                "action": "actie",
-                "all": "volledig",
-                "function": "functie",
-                "id": "identificatie",
-                "isolated": "groep",
-                "own": "zelf",
-                "plugin": "extensie",
+                "action": "actie", 
+                "all": "volledig", 
+                "function": "functie", 
+                "id": "identificatie", 
+                "isolated": "groep", 
+                "own": "zelf", 
+                "plugin": "extensie", 
                 "team": "groep"
             }
-        },
+        }, 
         "PluginOptionRight": {
             "help": {
-                "intro": "Alle extensie optierechten worden hier weergegeven. Een extensie optierecht wordt gebruikt om een groep van gebruikers toegang te geven tot het bewerken van specifieke extensieopties.<br>Wanneer er geen groep en functie geselecteerd is, dan is het recht van toepassing op <b>alle</b> gebruikers.",
+                "intro": "Alle extensie optierechten worden hier weergegeven. Een extensie optierecht wordt gebruikt om een groep van gebruikers toegang te geven tot het bewerken van specifieke extensieopties.<br>Wanneer er geen groep en functie geselecteerd is, dan is het recht van toepassing op <b>alle</b> gebruikers.", 
                 "properties": {
-                    "apiAction": "De actie die op de extensieoptie kan uitgevoerd worden door de gebruiker",
-                    "description": "De beschrijving van de optie",
-                    "function": "De functie waarop het extensie optierecht invloed heeft",
-                    "group": "De naam van de groep van de optie",
-                    "option": "De naam van de optie",
-                    "plugin": "De extensie waar het optierecht toe behoort",
+                    "apiAction": "De actie die op de extensieoptie kan uitgevoerd worden door de gebruiker", 
+                    "description": "De beschrijving van de optie", 
+                    "function": "De functie waarop het extensie optierecht invloed heeft", 
+                    "group": "De naam van de groep van de optie", 
+                    "option": "De naam van de optie", 
+                    "plugin": "De extensie waar het optierecht toe behoort", 
                     "team": "De groep waarop het extensie optierecht invloed heeft"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber extensie optierecht"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je dit extensie optierecht wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig extensie optierecht: [{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}]"
-                },
+                }, 
                 "info": {
                     "title": "extensie optierecht: [{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}]"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Extensie optierechten",
+                "plural": "Extensie optierechten", 
                 "singular": "Extensie optierecht"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}",
-                "isolated": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}",
+                "all": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}", 
+                "isolated": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}", 
                 "own": "{item, property, plugin.name} - {item, property, option} ({item, property, group}) - {item, property, apiAction.name}"
-            },
+            }, 
             "properties": {
-                "apiAction": "actie",
-                "description": "beschrijving",
-                "function": "functie",
-                "group": "optiegroep",
-                "id": "identificatie",
-                "option": "optie",
-                "plugin": "extensie",
+                "apiAction": "actie", 
+                "description": "beschrijving", 
+                "function": "functie", 
+                "group": "optiegroep", 
+                "id": "identificatie", 
+                "option": "optie", 
+                "plugin": "extensie", 
                 "team": "groep"
             }
-        },
+        }, 
         "Right": {
             "help": {
-                "intro": "Alle rechten worden hier weergegeven. Een recht wordt gebruikt om toegang te verlenen tot het uitvoeren van acties op objecten aan een bepaalde gebruikers.<br>Er zijn drie types die toegang verlenen:<ul><li><b>Zelf</b>: Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de gebruiker. Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object in een directe manier.<br><i>Voorbeeld: Een toestel waarvan de gebruiker de eigenaar is, de contactgegevens van deze gebruiker, etcetera...</i></li><li><b>Groep</b>: Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de groep waartoe de gebruiker behoort. Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object door de groep waarin hij/zij behoort.<br><i>Voorbeeld: Een toestel waarvan de gebruiker's groep de eigenaar is, de contactgegevens van een collega binnen dezelfde groep, etcetera...</i></li><li><b>Volledig</b>: Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object (zonder limitatie). Dit betekent dat de gebruiker niet gerelateerd moet zijn aan dit object. Er is geen beperking.<br><i>Voorbeeld: Een toestel waarvan een andere groep de eigenaar is, de contactgegevens van een collega in een andere groep, etcetera...</i></li></ul><br><br>Wanneer er geen groep en functie geselecteerd is, dan is het recht van toepassing op <b>alle</b> gebruikers.",
+                "intro": "Alle rechten worden hier weergegeven. Een recht wordt gebruikt om toegang te verlenen tot het uitvoeren van acties op objecten aan een bepaalde gebruikers.<br>Er zijn drie types die toegang verlenen:<ul><li><b>Zelf</b>: Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de gebruiker. Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object in een directe manier.<br><i>Voorbeeld: Een toestel waarvan de gebruiker de eigenaar is, de contactgegevens van deze gebruiker, etcetera...</i></li><li><b>Groep</b>: Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de groep waartoe de gebruiker behoort. Dit betekent dat de gebruiker gerelateerd moet zijn aan dit object door de groep waarin hij/zij behoort.<br><i>Voorbeeld: Een toestel waarvan de gebruiker's groep de eigenaar is, de contactgegevens van een collega binnen dezelfde groep, etcetera...</i></li><li><b>Volledig</b>: Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object (zonder limitatie). Dit betekent dat de gebruiker niet gerelateerd moet zijn aan dit object. Er is geen beperking.<br><i>Voorbeeld: Een toestel waarvan een andere groep de eigenaar is, de contactgegevens van een collega in een andere groep, etcetera...</i></li></ul><br><br>Wanneer er geen groep en functie geselecteerd is, dan is het recht van toepassing op <b>alle</b> gebruikers.", 
                 "properties": {
-                    "all": "Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object (zonder limitatie)",
-                    "apiAction": "De actie waar het recht toegang to verleent",
-                    "apiObject": "Het object waar het recht toegang to verleent",
-                    "function": "De functie waarop het recht invloed heeft",
-                    "isolated": "Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de groep waartoe de gebruiker behoort",
-                    "own": "Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de gebruiker",
+                    "all": "Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object (zonder limitatie)", 
+                    "apiAction": "De actie waar het recht toegang to verleent", 
+                    "apiObject": "Het object waar het recht toegang to verleent", 
+                    "function": "De functie waarop het recht invloed heeft", 
+                    "isolated": "Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de groep waartoe de gebruiker behoort", 
+                    "own": "Staat een groep van gebruikers toe om de geselecteerde actie uit te voeren op het geselecteerde object dat eigendom is van de gebruiker", 
                     "team": "De groep waarop het recht invloed heeft"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber recht"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je dit recht wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig recht: [{item, property, apiObject.name} - {item, property, apiAction.name}]"
-                },
+                }, 
                 "info": {
                     "title": "recht: [{item, property, apiObject.name} - {item, property, apiAction.name}]"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Rechten",
+                "plural": "Rechten", 
                 "singular": "Recht"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, apiAction} - {item, property, apiObject}",
-                "isolated": "{item, property, apiAction} - {item, property, apiObject}",
+                "all": "{item, property, apiAction} - {item, property, apiObject}", 
+                "isolated": "{item, property, apiAction} - {item, property, apiObject}", 
                 "own": "{item, property, apiAction} - {item, property, apiObject}"
-            },
+            }, 
             "properties": {
-                "all": "volledig recht",
-                "apiAction": "actie",
-                "apiObject": "object",
-                "function": "functie",
-                "id": "identificatie",
-                "isolated": "groepsrecht",
-                "own": "eigenrecht",
+                "all": "volledig recht", 
+                "apiAction": "actie", 
+                "apiObject": "object", 
+                "function": "functie", 
+                "id": "identificatie", 
+                "isolated": "groepsrecht", 
+                "own": "eigenrecht", 
                 "team": "groep"
             }
-        },
+        }, 
         "Team": {
             "help": {
-                "intro": "{right, select, own{Je eigen groep wordt} isolated{Je eigen groep wordt} other{Alle groepen worden}} hier weergegeven. Een groep is een team waar een bepaalde gebruiker in thuishoort.",
+                "intro": "{right, select, own{Je eigen groep wordt} isolated{Je eigen groep wordt} other{Alle groepen worden}} hier weergegeven. Een groep is een team waar een bepaalde gebruiker in thuishoort.", 
                 "properties": {
                     "name": "De naam van de groep"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber groep"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je deze groep wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig groep: {item, property, name}"
-                },
+                }, 
                 "info": {
                     "title": "groep: {item, property, name}"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Groepen",
+                "plural": "Groepen", 
                 "singular": "Groep"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, name}",
-                "isolated": "{item, property, name}",
+                "all": "{item, property, name}", 
+                "isolated": "{item, property, name}", 
                 "own": "{item, property, name}"
-            },
+            }, 
             "properties": {
-                "id": "identificatie",
+                "id": "identificatie", 
                 "name": "naam"
             }
-        },
+        }, 
         "Translation": {
             "help": {
-                "intro": "Alle vertalingen worden hier weergegeven. Een vertaling zorgt ervoor dat de GUI in meerdere talen beschikbaar is.",
+                "intro": "Alle vertalingen worden hier weergegeven. Een vertaling zorgt ervoor dat de GUI in meerdere talen beschikbaar is.", 
                 "properties": {
-                    "country": "Het land waarvoor de vertaling bedoeld is",
-                    "enabled": "Een waarde die aangeeft of de vertaling gebruikt mag/kan worden",
-                    "flag": "Het vlag-icoon die gebruikt wordt om de vertaling te visualiseren (voor een volledige lijst, zie: https://flagicons.lipis.dev/)",
-                    "language": "De taal van de vertaling",
-                    "locale": "De locale die gebruikt wordt bij het gebruiken van de vertaling",
+                    "country": "Het land waarvoor de vertaling bedoeld is", 
+                    "enabled": "Een waarde die aangeeft of de vertaling gebruikt mag/kan worden", 
+                    "flag": "Het vlag-icoon die gebruikt wordt om de vertaling te visualiseren (voor een volledige lijst, zie: https://flagicons.lipis.dev/)", 
+                    "language": "De taal van de vertaling", 
+                    "locale": "De locale die gebruikt wordt bij het gebruiken van de vertaling", 
                     "translationFile": "De naam van het vertalingsbestand die de inhoud van de vertaling bezit"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber vertaling"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je deze vertaling wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig vertaling: {item, property, country} - {item, property, language} ({item, property, translationFile})"
-                },
+                }, 
                 "info": {
                     "title": "vertaling: {item, property, country} - {item, property, language} ({item, property, translationFile})"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Vertalingen",
+                "plural": "Vertalingen", 
                 "singular": "Vertaling"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, country} - {item, property, language} ({item, property, translationFile})",
-                "isolated": "{item, property, country} - {item, property, language} ({item, property, translationFile})",
+                "all": "{item, property, country} - {item, property, language} ({item, property, translationFile})", 
+                "isolated": "{item, property, country} - {item, property, language} ({item, property, translationFile})", 
                 "own": "{item, property, country} - {item, property, language} ({item, property, translationFile})"
-            },
+            }, 
             "properties": {
-                "country": "lang",
-                "enabled": "actief",
-                "flag": "vlag",
-                "id": "identificatie",
-                "language": "taal",
-                "locale": "locale",
+                "country": "lang", 
+                "enabled": "actief", 
+                "flag": "vlag", 
+                "id": "identificatie", 
+                "language": "taal", 
+                "locale": "locale", 
                 "translationFile": "vertalingsbestand"
             }
-        },
+        }, 
         "User": {
             "help": {
-                "intro": "{right, select, own{Je eigen gebruiker wordt} isolated{Alle gebruikers van je groep worden} other{Alle gebruikers worden}} hier weergegeven.",
+                "intro": "{right, select, own{Je eigen gebruiker wordt} isolated{Alle gebruikers van je groep worden} other{Alle gebruikers worden}} hier weergegeven.", 
                 "properties": {
-                    "authenticationMethod": "De methode die gebruikt wordt om de gebruiker te authenticeren",
-                    "creation": "Het tijdstip waarop de gebruiker aangemaakt werd",
-                    "firstName": "De voornaam van de gebruiker",
-                    "function": "De functie van de gebruiker",
-                    "image": "De profielfoto van de gebruiker",
-                    "lastName": "De achternaam van de gebruiker",
-                    "mail": "Het e-mailadres van de gebruiker",
-                    "password": "Het wachtwoord van de gebruiker",
-                    "phone": "Het telefoonnummer van de gebruiker",
-                    "team": "De groep van de gebruiker",
+                    "authenticationMethod": "De methode die gebruikt wordt om de gebruiker te authenticeren", 
+                    "creation": "Het tijdstip waarop de gebruiker aangemaakt werd", 
+                    "firstName": "De voornaam van de gebruiker", 
+                    "function": "De functie van de gebruiker", 
+                    "image": "De profielfoto van de gebruiker", 
+                    "lastName": "De achternaam van de gebruiker", 
+                    "mail": "Het e-mailadres van de gebruiker", 
+                    "password": "Het wachtwoord van de gebruiker", 
+                    "phone": "Het telefoonnummer van de gebruiker", 
+                    "team": "De groep van de gebruiker", 
                     "userName": "De gebruikersnaam van de gebruiker"
                 }
-            },
+            }, 
             "modal": {
                 "create": {
                     "title": "cre\u00eber gebruiker"
-                },
+                }, 
                 "delete": {
                     "title": "ben je zeker dat je deze gebruiker wil verwijderen?"
-                },
+                }, 
                 "edit": {
                     "title": "wijzig gebruiker: {item, property, firstName} {item, property, lastName}"
-                },
+                }, 
                 "info": {
                     "title": "gebruiker: {item, property, firstName} {item, property, lastName}"
                 }
-            },
+            }, 
             "naming": {
-                "plural": "Gebruikers",
+                "plural": "Gebruikers", 
                 "singular": "Gebruiker"
-            },
+            }, 
             "presentation": {
-                "all": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})",
-                "isolated": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})",
+                "all": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})", 
+                "isolated": "{item, property, firstName} {item, property, lastName} ({item, property, team.name})", 
                 "own": "{item, property, firstName} {item, property, lastName}"
-            },
+            }, 
             "properties": {
-                "authenticationMethod": "authenticatiemethode",
-                "creation": "aangemaakt",
-                "firstName": "voornaam",
-                "function": "functie",
-                "id": "identificatie",
-                "image": "profielfoto",
-                "lastName": "achternaam",
-                "mail": "e-mail",
-                "password": "wachtwoord",
-                "phone": "telefoon",
-                "team": "groep",
+                "authenticationMethod": "authenticatiemethode", 
+                "creation": "aangemaakt", 
+                "firstName": "voornaam", 
+                "function": "functie", 
+                "id": "identificatie", 
+                "image": "profielfoto", 
+                "lastName": "achternaam", 
+                "mail": "e-mail", 
+                "password": "wachtwoord", 
+                "phone": "telefoon", 
+                "team": "groep", 
                 "userName": "gebruikersnaam"
             }
         }
-    },
-    "plugin": {},
-    "plugins": {},
+    }, 
+    "plugin": {}, 
+    "plugins": {}, 
     "producer": {
         "default": {
             "internal": "interne producent"
         }
-    },
+    }, 
     "service": {
         "default": {
-            "database": "databank service",
-            "kafka": "data streaming service",
-            "neatly": "NEATLY service",
-            "webserver": "web server service",
+            "database": "databank service", 
+            "kafka": "data streaming service", 
+            "neatly": "NEATLY service", 
+            "webserver": "web server service", 
             "zookeeper": "configuratie service"
-        },
+        }, 
         "status": {
-            "failed": "gestopt",
+            "failed": "gestopt", 
             "running": "actief"
         }
-    },
+    }, 
     "settings": {
         "function": {
             "pagetitle": "Functies"
-        },
+        }, 
         "language": {
             "pagetitle": "Vertalingen"
-        },
+        }, 
         "legal": {
-            "contact-us": "Contacteer ons",
+            "contact-us": "Contacteer ons", 
             "expired": {
-                "directions": "Bepaalde <b>pagina's</b> binnen de applicatie zijn <b>niet beschikbaar</b> zolang er geen geldige licentie voorzien is. Gelieve de <b>administrator</b> te <b>contacteren</b> om een <b>nieuwe geldige licentie</b> te verkrijgen.",
-                "pagetitle": "Vervallen",
+                "directions": "Bepaalde <b>pagina's</b> binnen de applicatie zijn <b>niet beschikbaar</b> zolang er geen geldige licentie voorzien is. Gelieve de <b>administrator</b> te <b>contacteren</b> om een <b>nieuwe geldige licentie</b> te verkrijgen.", 
+                "pagetitle": "Vervallen", 
                 "what": "Wat nu?"
-            },
-            "license": "licentiegegevens",
-            "pagetitle": "Licentie",
+            }, 
+            "license": "licentiegegevens", 
+            "pagetitle": "Licentie", 
             "questions": "Heb je nog vragen?"
-        },
-        "pagetitle": "Settings",
+        }, 
+        "pagetitle": "Settings", 
         "plugin": {
             "configure": {
                 "pagetitle": "Configuratie"
-            },
-            "import": "Importeer nieuwe extensie",
+            }, 
+            "import": "Importeer nieuwe extensie", 
             "overview": {
                 "pagetitle": "Overzicht"
-            },
+            }, 
             "pagetitle": "Extensies"
-        },
+        }, 
         "right": {
             "pagetitle": "Rechten"
-        },
+        }, 
         "ssl": {
-            "certificate": "certificaatgegevens",
-            "contact-us": "Contacteer ons",
-            "pagetitle": "SSL",
-            "questions": "Heb je nog vragen?",
-            "security": "beveiligingsgegevens",
-            "upload-cert": "Upload een nieuw certificaat",
+            "certificate": "certificaatgegevens", 
+            "contact-us": "Contacteer ons", 
+            "pagetitle": "SSL", 
+            "questions": "Heb je nog vragen?", 
+            "security": "beveiligingsgegevens", 
+            "upload-cert": "Upload een nieuw certificaat", 
             "upload-key": "Upload een nieuwe sleutel"
-        },
+        }, 
         "team": {
             "pagetitle": "Groepen"
-        },
+        }, 
         "user": {
             "pagetitle": "Gebruikers"
-        },
+        }, 
         "version": {
             "pagetitle": "Versie"
         }
-    },
+    }, 
     "user": {
         "info": {
             "help": {
-                "language": "Dit kader geeft jouw voorkeurstaal weer. De hele gebruikersinterface zal worden weergegeven in deze taal.<br><br>Jouw huidige voorkeurstaal is: \"{language}\".<br><br>De voorkeurstaal kan gewijzigd worden door op de 'bewerk' knop te klikken (knop met een potloodteken).",
-                "personal-details": "Al jouw persoonlijke gegevens worden weergegeven in dit kader. Indien er foute of gedateerde gegevens zijn kan je deze wijzigen door gebruik te maken van de 'bewerk' knop (knop met een potloodteken, rechts van het gegeven). Indien er geen 'bewerk' knop is contacteer je best je systeem administrator om de wijziging door te voeren.",
-                "session": "Dit kader geeft het totale aantal actieve sessies weer die geregistreerd staan op jouw account. Je kan elke actieve sessies van je in detail bekijken door op de 'ga-naar-link' knop te klikken (knop met een pijl richting de rechtsboven gelegen hoek).",
+                "language": "Dit kader geeft jouw voorkeurstaal weer. De hele gebruikersinterface zal worden weergegeven in deze taal.<br><br>Jouw huidige voorkeurstaal is: \"{language}\".<br><br>De voorkeurstaal kan gewijzigd worden door op de 'bewerk' knop te klikken (knop met een potloodteken).", 
+                "personal-details": "Al jouw persoonlijke gegevens worden weergegeven in dit kader. Indien er foute of gedateerde gegevens zijn kan je deze wijzigen door gebruik te maken van de 'bewerk' knop (knop met een potloodteken, rechts van het gegeven). Indien er geen 'bewerk' knop is contacteer je best je systeem administrator om de wijziging door te voeren.", 
+                "session": "Dit kader geeft het totale aantal actieve sessies weer die geregistreerd staan op jouw account. Je kan elke actieve sessies van je in detail bekijken door op de 'ga-naar-link' knop te klikken (knop met een pijl richting de rechtsboven gelegen hoek).", 
                 "timezone": "Op deze kaart staat je tijdszone weergegeven. Alle tijdsgebonden data in deze gebruikersinterface wordt automatisch omgezet naar jouw tijdszone. Jouw tijdszone wordt automatisch gedetecteerd. Indien deze gedetecteerde tijdszone verkeerd is kan je deze wijzigen door de tijdsinstellingen op je lokale computer te wijzigen (nadien refresh je de pagina).<br><br><b>LEGENDE:</b><br><li>Grijs gebied: Bedekt alle geografische zones die gebruik maken van jouw tijdszone.</li><li>Blauw gebied: Bedekt je eigen geografische zone.</li>"
-            },
-            "language": "je voorkeurstaal",
-            "logout": "Afmelden",
-            "pagetitle": "Gebruikersinfo",
-            "personal-details": "je persoonlijke gegevens",
-            "session": "je actieve sessies",
-            "session-message": "Momenteel {amount, plural, one{is} other{zijn}} er {amount} {amount, plural, one{sessie} other{sessies}} actief op jouw account.",
+            }, 
+            "language": "je voorkeurstaal", 
+            "logout": "Afmelden", 
+            "pagetitle": "Gebruikersinfo", 
+            "personal-details": "je persoonlijke gegevens", 
+            "session": "je actieve sessies", 
+            "session-message": "Momenteel {amount, plural, one{is} other{zijn}} er {amount} {amount, plural, one{sessie} other{sessies}} actief op jouw account.", 
             "timezone": "je tijdszone"
-        },
+        }, 
         "language": {
             "pagetitle": "Interfacetaal"
-        },
-        "pagetitle": "Gebruikersinstellingen",
+        }, 
+        "pagetitle": "Gebruikersinstellingen", 
         "session": {
             "pagetitle": "Actieve Sessies"
-        },
+        }, 
         "timezone": {
-            "locale": "locale",
-            "location": "locatie",
-            "pagetitle": "Tijdszone",
-            "time": "tijd",
+            "locale": "locale", 
+            "location": "locatie", 
+            "pagetitle": "Tijdszone", 
+            "time": "tijd", 
             "timezone": "tijdszone"
         }
     }

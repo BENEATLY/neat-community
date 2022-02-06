@@ -735,8 +735,8 @@
                     "all": [
                         {
                             "accepted": {
-                                "max": 30, 
-                                "min": 3, 
+                                "max": 80, 
+                                "min": 2, 
                                 "nullable": false, 
                                 "restriction": [
                                     "plain-chars", 
@@ -755,8 +755,8 @@
                     "isolated": [
                         {
                             "accepted": {
-                                "max": 30, 
-                                "min": 3, 
+                                "max": 80, 
+                                "min": 2, 
                                 "nullable": false, 
                                 "restriction": [
                                     "plain-chars", 
@@ -775,8 +775,8 @@
                     "own": [
                         {
                             "accepted": {
-                                "max": 30, 
-                                "min": 3, 
+                                "max": 80, 
+                                "min": 2, 
                                 "nullable": false, 
                                 "restriction": [
                                     "plain-chars", 
@@ -1821,8 +1821,8 @@
                     "all": [
                         {
                             "accepted": {
-                                "max": 30, 
-                                "min": 3, 
+                                "max": 80, 
+                                "min": 2, 
                                 "nullable": false, 
                                 "restriction": [
                                     "plain-chars", 
@@ -1841,8 +1841,8 @@
                     "isolated": [
                         {
                             "accepted": {
-                                "max": 30, 
-                                "min": 3, 
+                                "max": 80, 
+                                "min": 2, 
                                 "nullable": false, 
                                 "restriction": [
                                     "plain-chars", 
@@ -1861,8 +1861,8 @@
                     "own": [
                         {
                             "accepted": {
-                                "max": 30, 
-                                "min": 3, 
+                                "max": 80, 
+                                "min": 2, 
                                 "nullable": false, 
                                 "restriction": [
                                     "plain-chars", 
